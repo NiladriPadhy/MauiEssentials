@@ -1,0 +1,39 @@
+[submodule "GeoLocator"]
+	path = GeoLocator
+	url = https://github.com/NiladriPadhy/Plugin.Maui.GeoLocator.git
+[submodule "NetworkMonitor"]
+	path = NetworkMonitor
+	url = https://github.com/NiladriPadhy/Maui.NetworkMonitor.git
+[submodule "BackgroundTasks"]
+	path = BackgroundTasks
+	url = https://github.com/NiladriPadhy/Plugin.Maui.BackgroundTasks.git
+[submodule "SmartUpload"]
+	path = SmartUpload
+	url = https://github.com/NiladriPadhy/Plugin.Maui.SmartUpload.git
+[submodule "DeviceSession"]
+	path = DeviceSession
+	url = https://github.com/NiladriPadhy/Plugin.Maui.DeviceSession.git
+[submodule "OfflineSync"]
+	path = OfflineSync
+	url = https://github.com/NiladriPadhy/Plugin.Maui.OfflineSync.git
+[submodule "PushRouter"]
+	path = PushRouter
+	url = https://github.com/NiladriPadhy/Plugin.Maui.PushRouter.git
+[submodule "PermissionFlow"]
+	path = PermissionFlow
+	url = https://github.com/NiladriPadhy/Plugin.Maui.PermissionFlow.git
+[submodule "AppHealth"]
+	path = AppHealth
+	url = https://github.com/NiladriPadhy/Plugin.Maui.AppHealth.git
+[submodule "SecureStoragePlus"]
+	path = SecureStoragePlus
+	url = https://github.com/NiladriPadhy/SecureStoragePlus.git
+[submodule "ApiResilience"]
+	path = ApiResilience
+	url = https://github.com/NiladriPadhy/Plugin.Maui.ApiResilience.git
+[submodule "FileVault"]
+	path = FileVault
+	url = https://github.com/NiladriPadhy/Plugin.Maui.FileVault.git
+[submodule "VoipCore"]
+	path = VoipCore
+	url = https://github.com/NiladriPadhy/Plugin.Maui.VoipCore.git
