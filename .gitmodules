@@ -37,3 +37,6 @@
 [submodule "VoipCore"]
 	path = VoipCore
 	url = https://github.com/NiladriPadhy/Plugin.Maui.VoipCore.git
+[submodule "FeatureFlags"]
+	path = FeatureFlags
+	url = https://github.com/NiladriPadhy/Plugin.Maui.FeatureFlags.git

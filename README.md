@@ -16,9 +16,15 @@ Catalog of .NET MAUI plugins for **Android** and **iOS**. Each plugin lives in i
 | [PermissionFlow](https://github.com/NiladriPadhy/Plugin.Maui.PermissionFlow) | [Plugin.Maui.PermissionFlow](https://www.nuget.org/packages/Plugin.Maui.PermissionFlow) | Named permission flows with rationale, cooldown, and Settings fallback |
 | [AppHealth](https://github.com/NiladriPadhy/Plugin.Maui.AppHealth) | [Plugin.Maui.AppHealth](https://www.nuget.org/packages/Plugin.Maui.AppHealth) | App, device, and environment health reports |
 | [SecureStoragePlus](https://github.com/NiladriPadhy/SecureStoragePlus) | [Plugin.Maui.SecureStoragePlus](https://www.nuget.org/packages/Plugin.Maui.SecureStoragePlus) | AES-256-GCM secure storage with expiry and migration |
+| [SecureSession](https://github.com/NiladriPadhy/Plugin.Maui.SecureSession) | [Plugin.Maui.SecureSession](https://www.nuget.org/packages/Plugin.Maui.SecureSession) | Access/refresh tokens, 401 retry, logout, biometrics, multi-device sessions |
 | [ApiResilience](https://github.com/NiladriPadhy/Plugin.Maui.ApiResilience) | [Plugin.Maui.ApiResilience](https://www.nuget.org/packages/Plugin.Maui.ApiResilience) | HttpClient retry, circuit breaker, offline queue, and token refresh |
 | [FileVault](https://github.com/NiladriPadhy/Plugin.Maui.FileVault) | [Plugin.Maui.FileVault](https://www.nuget.org/packages/Plugin.Maui.FileVault) | Encrypted local files with key protection and lifecycle controls |
+| [MediaPipeline](https://github.com/NiladriPadhy/Plugin.Maui.MediaPipeline) | [Plugin.Maui.MediaPipeline](https://www.nuget.org/packages/Plugin.Maui.MediaPipeline) | Camera-to-upload image pipeline: resize, compress, EXIF, watermark, blur, encrypt |
 | [VoipCore](https://github.com/NiladriPadhy/Plugin.Maui.VoipCore) | [Plugin.Maui.VoipCore](https://www.nuget.org/packages/Plugin.Maui.VoipCore) | SIP/VoIP session model with a pluggable signaling stack |
+| [FeatureFlags](https://github.com/NiladriPadhy/Plugin.Maui.FeatureFlags) | [Plugin.Maui.FeatureFlags](https://www.nuget.org/packages/Plugin.Maui.FeatureFlags) | Mobile-first feature flags with MAUI targeting and remote config |
+| [DeepLinks](https://github.com/NiladriPadhy/Plugin.Maui.DeepLinks) | [Plugin.Maui.DeepLinks](https://www.nuget.org/packages/Plugin.Maui.DeepLinks) | App Links, Universal Links, custom schemes, and auth-restore |
+| [Performance](https://github.com/NiladriPadhy/Plugin.Maui.Performance) | [Plugin.Maui.Performance](https://www.nuget.org/packages/Plugin.Maui.Performance) | Lightweight profiler for startup, pages, APIs, images, and memory |
+| [Observability](https://github.com/NiladriPadhy/Plugin.Maui.Observability) | [Plugin.Maui.Observability](https://www.nuget.org/packages/Plugin.Maui.Observability) | Umbrella telemetry pipeline over AppHealth, Network, API, Upload, Sync, Background, Device, and Crash |
 
 ## Clone
 
