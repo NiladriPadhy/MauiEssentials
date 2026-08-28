@@ -41,3 +41,12 @@ dotnet add package Plugin.Maui.GeoLocator
 ```
 
 See the plugin README in its repository for registration and platform setup.
+
+## Support
+
+> If these plugins saved you a weekend of native plumbing, consider buying me a coffee.
+> Your support keeps this catalog maintained, documented, and free.
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/npadhy)
+
+These libraries stay open source. A coffee helps cover time for bug fixes, new features, and docs.
