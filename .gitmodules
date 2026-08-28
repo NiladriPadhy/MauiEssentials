@@ -58,3 +58,9 @@
 [submodule "Diagnostics"]
 	path = Diagnostics
 	url = https://github.com/NiladriPadhy/Plugin.Maui.Diagnostics.git
+[submodule "JobQueue"]
+	path = JobQueue
+	url = https://github.com/NiladriPadhy/Plugin.Maui.JobQueue.git
+[submodule "AppUpdate"]
+	path = AppUpdate
+	url = https://github.com/NiladriPadhy/Plugin.Maui.AppUpdate.git

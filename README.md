@@ -9,6 +9,7 @@ Catalog of .NET MAUI plugins for **Android** and **iOS**. Each plugin lives in i
 | [GeoLocator](https://github.com/NiladriPadhy/Plugin.Maui.GeoLocator) | [Plugin.Maui.GeoLocator](https://www.nuget.org/packages/Plugin.Maui.GeoLocator) | On-demand location, tracking, and reverse geocoding |
 | [NetworkMonitor](https://github.com/NiladriPadhy/Maui.NetworkMonitor) | [Plugin.Maui.NetworkMonitor](https://www.nuget.org/packages/Plugin.Maui.NetworkMonitor) | Real internet availability, captive portals, and Wi-Fi vs cellular |
 | [BackgroundTasks](https://github.com/NiladriPadhy/Plugin.Maui.BackgroundTasks) | [Plugin.Maui.BackgroundTasks](https://www.nuget.org/packages/Plugin.Maui.BackgroundTasks) | One-time and periodic background work on JobScheduler / BGTaskScheduler |
+| [JobQueue](https://github.com/NiladriPadhy/Plugin.Maui.JobQueue) | [Plugin.Maui.JobQueue](https://www.nuget.org/packages/Plugin.Maui.JobQueue) | Durable SQLite task queue with retry, backoff, and dead letter |
 | [SmartUpload](https://github.com/NiladriPadhy/Plugin.Maui.SmartUpload) | [Plugin.Maui.SmartUpload](https://www.nuget.org/packages/Plugin.Maui.SmartUpload) | Chunked, resumable uploads with retry and process-death recovery |
 | [DeviceSession](https://github.com/NiladriPadhy/Plugin.Maui.DeviceSession) | [Plugin.Maui.DeviceSession](https://www.nuget.org/packages/Plugin.Maui.DeviceSession) | Device, installation, and analytics session identity |
 | [OfflineSync](https://github.com/NiladriPadhy/Plugin.Maui.OfflineSync) | [Plugin.Maui.OfflineSync](https://www.nuget.org/packages/Plugin.Maui.OfflineSync) | Offline-first local writes with queued sync and conflict resolution |
@@ -26,6 +27,7 @@ Catalog of .NET MAUI plugins for **Android** and **iOS**. Each plugin lives in i
 | [Performance](https://github.com/NiladriPadhy/Plugin.Maui.Performance) | [Plugin.Maui.Performance](https://www.nuget.org/packages/Plugin.Maui.Performance) | Lightweight profiler for startup, pages, APIs, images, and memory |
 | [Diagnostics](https://github.com/NiladriPadhy/Plugin.Maui.Diagnostics) | [Plugin.Maui.Diagnostics](https://www.nuget.org/packages/Plugin.Maui.Diagnostics) | Crash, ANR, unhandled exceptions, and pre-crash breadcrumbs |
 | [Observability](https://github.com/NiladriPadhy/Plugin.Maui.Observability) | [Plugin.Maui.Observability](https://www.nuget.org/packages/Plugin.Maui.Observability) | Umbrella telemetry pipeline over AppHealth, Network, API, Upload, Sync, Background, Device, and Crash |
+| [AppUpdate](https://github.com/NiladriPadhy/Plugin.Maui.AppUpdate) | [Plugin.Maui.AppUpdate](https://www.nuget.org/packages/Plugin.Maui.AppUpdate) | Google Play In-App Updates, App Store version checks, mandatory/recommended prompts, and maintenance |
 
 ## Clone
 
