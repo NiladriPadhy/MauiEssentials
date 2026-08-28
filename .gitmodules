@@ -40,3 +40,21 @@
 [submodule "FeatureFlags"]
 	path = FeatureFlags
 	url = https://github.com/NiladriPadhy/Plugin.Maui.FeatureFlags.git
+[submodule "SecureSession"]
+	path = SecureSession
+	url = https://github.com/NiladriPadhy/Plugin.Maui.SecureSession.git
+[submodule "MediaPipeline"]
+	path = MediaPipeline
+	url = https://github.com/NiladriPadhy/Plugin.Maui.MediaPipeline.git
+[submodule "DeepLinks"]
+	path = DeepLinks
+	url = https://github.com/NiladriPadhy/Plugin.Maui.DeepLinks.git
+[submodule "Performance"]
+	path = Performance
+	url = https://github.com/NiladriPadhy/Plugin.Maui.Performance.git
+[submodule "Observability"]
+	path = Observability
+	url = https://github.com/NiladriPadhy/Plugin.Maui.Observability.git
+[submodule "Diagnostics"]
+	path = Diagnostics
+	url = https://github.com/NiladriPadhy/Plugin.Maui.Diagnostics.git

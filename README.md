@@ -24,6 +24,7 @@ Catalog of .NET MAUI plugins for **Android** and **iOS**. Each plugin lives in i
 | [FeatureFlags](https://github.com/NiladriPadhy/Plugin.Maui.FeatureFlags) | [Plugin.Maui.FeatureFlags](https://www.nuget.org/packages/Plugin.Maui.FeatureFlags) | Mobile-first feature flags with MAUI targeting and remote config |
 | [DeepLinks](https://github.com/NiladriPadhy/Plugin.Maui.DeepLinks) | [Plugin.Maui.DeepLinks](https://www.nuget.org/packages/Plugin.Maui.DeepLinks) | App Links, Universal Links, custom schemes, and auth-restore |
 | [Performance](https://github.com/NiladriPadhy/Plugin.Maui.Performance) | [Plugin.Maui.Performance](https://www.nuget.org/packages/Plugin.Maui.Performance) | Lightweight profiler for startup, pages, APIs, images, and memory |
+| [Diagnostics](https://github.com/NiladriPadhy/Plugin.Maui.Diagnostics) | [Plugin.Maui.Diagnostics](https://www.nuget.org/packages/Plugin.Maui.Diagnostics) | Crash, ANR, unhandled exceptions, and pre-crash breadcrumbs |
 | [Observability](https://github.com/NiladriPadhy/Plugin.Maui.Observability) | [Plugin.Maui.Observability](https://www.nuget.org/packages/Plugin.Maui.Observability) | Umbrella telemetry pipeline over AppHealth, Network, API, Upload, Sync, Background, Device, and Crash |
 
 ## Clone
