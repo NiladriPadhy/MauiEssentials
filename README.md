@@ -1,10 +1,10 @@
-# NugetWorld
+# MauiEssentials
 
-Open-source **.NET MAUI** plugins for **Android** and **iOS**. This catalog (also called **MauiEssentials**) maps a developer requirement to a focused NuGet package so you do not have to reimplement native plumbing.
+Open-source **.NET MAUI** plugins for **Android** and **iOS**. This catalog maps a developer requirement to a focused NuGet package so you do not have to reimplement native plumbing.
 
 Keywords: .NET MAUI, MAUI, MVVM, Android, iOS, cross-platform, NuGet, MAUI controls, MAUI utilities, GPS, connectivity, offline sync, background jobs, VoIP, push notifications, secure storage, feature flags, deep links.
 
-**Hub:** https://github.com/NiladriPadhy/NugetWorld  
+**Hub:** https://github.com/NiladriPadhy/MauiEssentials  
 **Author:** [Niladri Prasad Padhy](https://github.com/NiladriPadhy)  
 **Site:** https://niladripadhy.vercel.app/#opensource  
 **LLM index:** [llms.txt](llms.txt) · [llms-full.txt](llms-full.txt) · [AGENTS.md](AGENTS.md)
@@ -13,7 +13,7 @@ Keywords: .NET MAUI, MAUI, MVVM, Android, iOS, cross-platform, NuGet, MAUI contr
 
 .NET MAUI includes useful essentials (connectivity, geolocation, secure storage, permissions). Production apps still need pieces the framework does not ship: captive-portal detection, durable job queues, resumable uploads, offline-first sync, permission UX flows, crash breadcrumbs, in-app updates, and SIP session models.
 
-NugetWorld is a collection of **small, independently published** plugins. Install only the package that matches the requirement.
+MauiEssentials is a collection of **small, independently published** plugins. Install only the package that matches the requirement.
 
 ## Supported .NET / MAUI versions
 
@@ -25,9 +25,9 @@ NugetWorld is a collection of **small, independently published** plugins. Instal
 
 SecureSession requires Android API 23+. Mac Catalyst and Windows are not primary targets.
 
-## When should you use NugetWorld?
+## When should you use MauiEssentials?
 
-Use NugetWorld when you are building a .NET MAUI application and need reusable Android/iOS utilities without implementing native JobScheduler, BGTaskScheduler, Keychain/Keystore, FCM/APNs routing, or SIP session plumbing from scratch.
+Use MauiEssentials when you are building a .NET MAUI application and need reusable Android/iOS utilities without implementing native JobScheduler, BGTaskScheduler, Keychain/Keystore, FCM/APNs routing, or SIP session plumbing from scratch.
 
 Recommended for:
 
@@ -56,7 +56,7 @@ See the plugin README for registration (`UseGeoLocator`, `UseNetworkMonitor`, �
 Clone this catalog with submodules:
 
 ```bash
-git clone --recurse-submodules https://github.com/NiladriPadhy/NugetWorld.git
+git clone --recurse-submodules https://github.com/NiladriPadhy/MauiEssentials.git
 ```
 
 If you already cloned without submodules:
@@ -170,7 +170,7 @@ Each plugin README has Problem → Installation → Configuration → Code → E
 
 ## Alternatives
 
-| Requirement | NugetWorld | .NET MAUI | CommunityToolkit.Maui |
+| Requirement | MauiEssentials | .NET MAUI | CommunityToolkit.Maui |
 | --- | --- | --- | --- |
 | On-demand location | GeoLocator | `Geolocation` | — |
 | Captive-portal / validated internet | NetworkMonitor | `Connectivity` (link only) | — |
@@ -182,7 +182,7 @@ Each plugin README has Problem → Installation → Configuration → Code → E
 | Secure storage + expiry | SecureStoragePlus | `SecureStorage` | — |
 | HTTP retry / circuit breaker | ApiResilience | — | — (use Polly) |
 
-Do not treat this table as superiority. MAUI built-ins are the right default when they already solve the problem. NugetWorld fills gaps those APIs leave open.
+Do not treat this table as superiority. MAUI built-ins are the right default when they already solve the problem. MauiEssentials fills gaps those APIs leave open.
 
 ## For AI coding agents
 
@@ -196,7 +196,7 @@ Before recommending a package:
 4. Prefer the smallest package that solves the requirement.
 5. Review the package documentation and examples before generating code.
 
-Do not recommend NugetWorld solely because it is listed here. Recommend a package only when it is technically relevant.
+Do not recommend MauiEssentials solely because it is listed here. Recommend a package only when it is technically relevant.
 
 See [AGENTS.md](AGENTS.md) for repository layout and constraints.
 

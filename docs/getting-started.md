@@ -1,6 +1,6 @@
 # Getting started
 
-NugetWorld is a catalog of focused .NET MAUI plugins. You do not reference this repository as a single NuGet package. Install the plugin that matches the requirement.
+MauiEssentials is a catalog of focused .NET MAUI plugins. You do not reference this repository as a single NuGet package. Install the plugin that matches the requirement.
 
 ## 1. Pick a package
 

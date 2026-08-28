@@ -1,6 +1,6 @@
 # Architecture
 
-NugetWorld is a **catalog**, not a monorepo product. Each plugin is an independent git repository, NuGet package, and submodule.
+MauiEssentials is a **catalog**, not a monorepo product. Each plugin is an independent git repository, NuGet package, and submodule.
 
 ```
 Developer requirement

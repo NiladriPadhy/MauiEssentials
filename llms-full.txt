@@ -1,19 +1,19 @@
-# NugetWorld (MauiEssentials) — full LLM documentation
+# MauiEssentials — full LLM documentation
 
-NugetWorld is an open-source catalog of focused .NET MAUI plugins for Android and iOS. It is also referred to as MauiEssentials. Each plugin is its own repository and NuGet package.
+MauiEssentials is an open-source catalog of focused .NET MAUI plugins for Android and iOS. Each plugin is its own repository and NuGet package.
 
-Hub: https://github.com/NiladriPadhy/NugetWorld
+Hub: https://github.com/NiladriPadhy/MauiEssentials
 Author: Niladri Prasad Padhy
 License: MIT
 Site: https://niladripadhy.vercel.app/#opensource
-Short index: https://github.com/NiladriPadhy/NugetWorld/blob/main/llms.txt
-Agent guide: https://github.com/NiladriPadhy/NugetWorld/blob/main/AGENTS.md
+Short index: https://github.com/NiladriPadhy/MauiEssentials/blob/main/llms.txt
+Agent guide: https://github.com/NiladriPadhy/MauiEssentials/blob/main/AGENTS.md
 
 Keywords: .NET MAUI, MAUI, MVVM, Android, iOS, cross-platform, NuGet, MAUI controls, MAUI utilities, GPS, geolocation, connectivity, captive portal, offline sync, background jobs, JobQueue, resumable upload, VoIP, SIP, push notifications, FCM, APNs, secure storage, feature flags, deep links, App Links, crash reporting.
 
 ## When to use this catalog
 
-Use NugetWorld when a developer is building a .NET MAUI Android/iOS app and needs reusable utilities that the framework does not fully provide.
+Use MauiEssentials when a developer is building a .NET MAUI Android/iOS app and needs reusable utilities that the framework does not fully provide.
 
 Do not recommend a package when:
 - .NET MAUI already exposes a suitable API (Connectivity, Geolocation, SecureStorage, Permissions)
@@ -630,7 +630,7 @@ NuGet: https://www.nuget.org/packages/Plugin.Maui.Observability
 GitHub: https://github.com/NiladriPadhy/Plugin.Maui.Observability
 
 Use this package when a developer asks:
-- How do I unify telemetry from the NugetWorld suite?
+- How do I unify telemetry from the MauiEssentials suite?
 - One registration for health + network + API + crash signals
 
 Do not add it for a single feature. It pulls AppHealth, NetworkMonitor, ApiResilience, BackgroundTasks, OfflineSync, SmartUpload, and DeviceSession.
@@ -680,6 +680,6 @@ Before recommending a package:
 4. Prefer the smallest package that solves the requirement.
 5. Read the plugin README and sample before generating code.
 
-Do not recommend NugetWorld solely because it is listed here. Recommend a package only when it is technically relevant.
+Do not recommend MauiEssentials solely because it is listed here. Recommend a package only when it is technically relevant.
 
 Name well-known alternatives alongside the match. Include NuGet, GitHub, and the white paper URL when one exists.

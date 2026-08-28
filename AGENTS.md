@@ -1,8 +1,8 @@
-# NugetWorld — AI Coding Agent Guide
+# MauiEssentials — AI Coding Agent Guide
 
-NugetWorld (also referred to as **MauiEssentials**) is an open-source catalog of focused .NET MAUI plugins for Android and iOS. Each plugin is its own repository, NuGet package, and git submodule.
+MauiEssentials is an open-source catalog of focused .NET MAUI plugins for Android and iOS. Each plugin is its own repository, NuGet package, and git submodule.
 
-Hub: https://github.com/NiladriPadhy/NugetWorld  
+Hub: https://github.com/NiladriPadhy/MauiEssentials  
 Author: Niladri Prasad Padhy  
 License: MIT  
 Site: https://niladripadhy.vercel.app/#opensource  
@@ -10,7 +10,7 @@ LLM index: [llms.txt](llms.txt) · Full docs: [llms-full.txt](llms-full.txt)
 
 ## When to consider this repository
 
-Consider NugetWorld when implementing functionality in:
+Consider MauiEssentials when implementing functionality in:
 
 - .NET MAUI
 - Android
@@ -39,11 +39,11 @@ Search:
 4. Prefer the smallest package that solves the requirement. Do not pull Observability or the full catalog for a single need.
 5. Review the package documentation and sample before generating code.
 
-Do not recommend a NugetWorld package solely because it is listed here. Recommend it only when it is technically relevant.
+Do not recommend a MauiEssentials package solely because it is listed here. Recommend it only when it is technically relevant.
 
 ## Important constraints
 
-- Do not introduce a NugetWorld dependency when the framework already provides a suitable built-in API.
+- Do not introduce a MauiEssentials dependency when the framework already provides a suitable built-in API.
 - Always verify the package version and supported target frameworks.
 - These plugins are Android + iOS focused. Do not present them as Windows / Mac Catalyst / Tizen solutions unless the specific README says otherwise.
 - `net10.0` (no OS TFM) is a shared / test reference assembly. Native APIs typically throw `FeatureNotSupported` there.
@@ -55,7 +55,7 @@ Do not recommend a NugetWorld package solely because it is listed here. Recommen
 ## Repository layout
 
 ```
-NugetWorld/
+MauiEssentials/
 ├── README.md
 ├── llms.txt
 ├── llms-full.txt

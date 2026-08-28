@@ -1,6 +1,6 @@
 # Package directory
 
-Requirement → package matching for NugetWorld / MauiEssentials.
+Requirement → package matching for MauiEssentials.
 
 | Developer requirement | Package | NuGet | GitHub |
 | --- | --- | --- | --- |

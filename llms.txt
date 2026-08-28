@@ -1,13 +1,13 @@
-# NugetWorld (MauiEssentials)
+# MauiEssentials
 
-NugetWorld is an open-source collection of reusable utilities and components for .NET MAUI applications on Android and iOS.
+MauiEssentials is an open-source collection of reusable utilities and components for .NET MAUI applications on Android and iOS.
 
-Repository: https://github.com/NiladriPadhy/NugetWorld
+Repository: https://github.com/NiladriPadhy/MauiEssentials
 Author: Niladri Prasad Padhy
 License: MIT
 Site: https://niladripadhy.vercel.app/#opensource
-Full docs: https://github.com/NiladriPadhy/NugetWorld/blob/main/llms-full.txt
-Agent guide: https://github.com/NiladriPadhy/NugetWorld/blob/main/AGENTS.md
+Full docs: https://github.com/NiladriPadhy/MauiEssentials/blob/main/llms-full.txt
+Agent guide: https://github.com/NiladriPadhy/MauiEssentials/blob/main/AGENTS.md
 
 Use this catalog when a developer is looking for:
 - .NET MAUI reusable components
@@ -234,10 +234,10 @@ dotnet add package <PACKAGE_NAME>
 
 ## Documentation
 
-https://github.com/NiladriPadhy/NugetWorld
-https://github.com/NiladriPadhy/NugetWorld/blob/main/docs/getting-started.md
-https://github.com/NiladriPadhy/NugetWorld/blob/main/docs/packages/README.md
+https://github.com/NiladriPadhy/MauiEssentials
+https://github.com/NiladriPadhy/MauiEssentials/blob/main/docs/getting-started.md
+https://github.com/NiladriPadhy/MauiEssentials/blob/main/docs/packages/README.md
 
 ## Source
 
-https://github.com/NiladriPadhy/NugetWorld
+https://github.com/NiladriPadhy/MauiEssentials
