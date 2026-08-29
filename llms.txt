@@ -15,7 +15,7 @@ Use this catalog when a developer is looking for:
 - Cross-platform MAUI helpers
 - MAUI NuGet packages
 - Android/iOS MAUI functionality
-- GPS, connectivity, offline sync, background jobs, VoIP, push, secure storage, feature flags, deep links, Bluetooth / BLE peripherals, clipboard / sensitive pasteboard, share / FileProvider / WhatsApp / AirDrop, or device fingerprint / hardware capabilities
+- GPS, connectivity, production network diagnostics, offline sync, background jobs, failed-operation retries, VoIP, push, secure storage, app lock, feature flags, deep links, Bluetooth / BLE peripherals, clipboard / sensitive pasteboard, share / FileProvider / WhatsApp / AirDrop, device fingerprint / hardware capabilities, NFC NDEF read/write, mobile-first form validation, print / thermal / ESC/POS, soft-keyboard hide / show / dismiss / resize / pan, or lock / unlock screen orientation
 
 Do not use this catalog when the .NET MAUI framework already provides a suitable built-in API, or when the app needs Windows / Mac Catalyst as a first-class target.
 
@@ -23,7 +23,7 @@ Do not use this catalog when the .NET MAUI framework already provides a suitable
 
 Most packages: net10.0, net10.0-android (API 21+), net10.0-ios (iOS 15+)
 NetworkMonitor also: net8.0, net9.0, net9.0-android, net9.0-ios
-SecureSession: Android API 23+
+SecureSession / AppLock: Android API 23+
 
 ## Packages
 
@@ -43,6 +43,14 @@ SecureSession: Android API 23+
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-network-monitor
 - Install: `dotnet add package Plugin.Maui.NetworkMonitor`
 
+### Plugin.Maui.NetworkDiagnostics
+- Problem: on-demand production connectivity troubleshooting (DNS, TLS, API, latency)
+- NuGet: https://www.nuget.org/packages/Plugin.Maui.NetworkDiagnostics
+- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.NetworkDiagnostics
+- Docs: https://github.com/NiladriPadhy/Plugin.Maui.NetworkDiagnostics#readme
+- Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-network-diagnostics
+- Install: `dotnet add package Plugin.Maui.NetworkDiagnostics`
+
 ### Plugin.Maui.BackgroundTasks
 - Problem: one-time and periodic OS background work (JobScheduler / BGTaskScheduler)
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.BackgroundTasks
@@ -58,6 +66,14 @@ SecureSession: Android API 23+
 - Docs: https://github.com/NiladriPadhy/Plugin.Maui.JobQueue#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-job-queue
 - Install: `dotnet add package Plugin.Maui.JobQueue`
+
+### Plugin.Maui.RetryQueue
+- Problem: retry failed operations (telemetry, orders, forms, payments) with 30s / 2min / 10min backoff
+- NuGet: https://www.nuget.org/packages/Plugin.Maui.RetryQueue
+- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.RetryQueue
+- Docs: https://github.com/NiladriPadhy/Plugin.Maui.RetryQueue#readme
+- Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-retry-queue
+- Install: `dotnet add package Plugin.Maui.RetryQueue`
 
 ### Plugin.Maui.SmartUpload
 - Problem: chunked, resumable uploads with retry and process-death recovery
@@ -130,6 +146,14 @@ SecureSession: Android API 23+
 - Docs: https://github.com/NiladriPadhy/Plugin.Maui.ApiResilience#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-api-resilience
 - Install: `dotnet add package Plugin.Maui.ApiResilience`
+
+### Plugin.Maui.ApiCache
+- Problem: HTTP GET cache with CacheFirst, NetworkFirst, StaleWhileRevalidate, NetworkOnly, CacheOnly
+- NuGet: https://www.nuget.org/packages/Plugin.Maui.ApiCache
+- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.ApiCache
+- Docs: https://github.com/NiladriPadhy/Plugin.Maui.ApiCache#readme
+- Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-api-cache
+- Install: `dotnet add package Plugin.Maui.ApiCache`
 
 ### Plugin.Maui.FileVault
 - Problem: encrypted local files with key protection and lifecycle controls
@@ -235,12 +259,62 @@ SecureSession: Android API 23+
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-device-info-plus
 - Install: `dotnet add package Plugin.Maui.DeviceInfoPlus`
 
+### Plugin.Maui.NfcPlus
+- Problem: session-based NFC NDEF read/write, tag ID, Android/iOS sessions
+- NuGet: https://www.nuget.org/packages/Plugin.Maui.NfcPlus
+- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.NfcPlus
+- Docs: https://github.com/NiladriPadhy/Plugin.Maui.NfcPlus#readme
+- Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-nfc-plus
+- Install: `dotnet add package Plugin.Maui.NfcPlus`
+
+### Plugin.Maui.AppLock
+- Problem: lock the whole app after background (timer, Face ID / fingerprint / device PIN)
+- NuGet: https://www.nuget.org/packages/Plugin.Maui.AppLock
+- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.AppLock
+- Docs: https://github.com/NiladriPadhy/Plugin.Maui.AppLock#readme
+- Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-app-lock
+- Install: `dotnet add package Plugin.Maui.AppLock`
+
+### Plugin.Maui.FormValidation
+- Problem: mobile-first fluent form validation and Validation.For bindings
+- NuGet: https://www.nuget.org/packages/Plugin.Maui.FormValidation
+- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.FormValidation
+- Docs: https://github.com/NiladriPadhy/Plugin.Maui.FormValidation#readme
+- Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-form-validation
+- Install: `dotnet add package Plugin.Maui.FormValidation`
+
+### Plugin.Maui.Printing
+- Problem: print PDF, images, text, invoices, receipts, labels, tickets, and Bluetooth thermal / ESC/POS
+- NuGet: https://www.nuget.org/packages/Plugin.Maui.Printing
+- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.Printing
+- Docs: https://github.com/NiladriPadhy/Plugin.Maui.Printing#readme
+- Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-printing
+- Install: `dotnet add package Plugin.Maui.Printing`
+
+### Plugin.Maui.KeyboardManager
+- Problem: hide / show the soft keyboard, dismiss on tap outside, resize / pan / safe area, height and visibility
+- NuGet: https://www.nuget.org/packages/Plugin.Maui.KeyboardManager
+- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.KeyboardManager
+- Docs: https://github.com/NiladriPadhy/Plugin.Maui.KeyboardManager#readme
+- Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-keyboard-manager
+- Install: `dotnet add package Plugin.Maui.KeyboardManager`
+
+### Plugin.Maui.DeviceOrientationPlus
+- Problem: lock / unlock screen orientation, change events, per-page SetAsync (more than DeviceDisplay)
+- NuGet: https://www.nuget.org/packages/Plugin.Maui.DeviceOrientationPlus
+- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.DeviceOrientationPlus
+- Docs: https://github.com/NiladriPadhy/Plugin.Maui.DeviceOrientationPlus#readme
+- Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-device-orientation-plus
+- Install: `dotnet add package Plugin.Maui.DeviceOrientationPlus`
+
 ## Requirement → package
 
 - How can I get GPS / reverse geocode in .NET MAUI? → Plugin.Maui.GeoLocator
 - How do I detect real internet / captive portal in MAUI? → Plugin.Maui.NetworkMonitor
+- Why can the app see the internet but not the API? → Plugin.Maui.NetworkDiagnostics
 - How do I schedule background work on Android JobScheduler / iOS BGTaskScheduler? → Plugin.Maui.BackgroundTasks
 - How do I persist jobs across process death with retry? → Plugin.Maui.JobQueue
+- How do I retry a failed MAUI API call (orders, telemetry, payments) with backoff? → Plugin.Maui.RetryQueue
 - How do I resume a large upload after the app is killed? → Plugin.Maui.SmartUpload
 - How do I get a stable device or installation id? → Plugin.Maui.DeviceSession
 - How do I write offline-first and sync later? → Plugin.Maui.OfflineSync
@@ -250,6 +324,7 @@ SecureSession: Android API 23+
 - How do I store secrets with expiry beyond MAUI SecureStorage? → Plugin.Maui.SecureStoragePlus
 - How do I manage access/refresh tokens and biometric unlock? → Plugin.Maui.SecureSession
 - How do I add HttpClient retry and a circuit breaker in MAUI? → Plugin.Maui.ApiResilience
+- How do I cache API GET responses in MAUI? → Plugin.Maui.ApiCache
 - How do I encrypt files on device? → Plugin.Maui.FileVault
 - How do I resize/compress/watermark a camera photo before upload? → Plugin.Maui.MediaPipeline
 - How do I model SIP/VoIP calls in MAUI? → Plugin.Maui.VoipCore
@@ -263,6 +338,12 @@ SecureSession: Android API 23+
 - How do I copy an OTP / password and auto-clear the clipboard? → Plugin.Maui.ClipboardPlus
 - How do I share to WhatsApp / Email / AirDrop with title and MIME type? → Plugin.Maui.SharePlus
 - How do I collect a device fingerprint or NFC / biometric / GPS capability in MAUI? → Plugin.Maui.DeviceInfoPlus
+- How do I read or write an NFC tag / NDEF text / URI in MAUI? → Plugin.Maui.NfcPlus
+- How do I lock a MAUI app after it backgrounds (Face ID / PIN / lock timer)? → Plugin.Maui.AppLock
+- How do I validate a MAUI form / Entry / email / phone without scattering if checks? → Plugin.Maui.FormValidation
+- How do I print a PDF / receipt / invoice / Bluetooth thermal printer in MAUI? → Plugin.Maui.Printing
+- How do I hide / show the keyboard, dismiss on tap outside, or keep an Entry visible in MAUI? → Plugin.Maui.KeyboardManager
+- How do I lock landscape / portrait or set orientation per page in MAUI? → Plugin.Maui.DeviceOrientationPlus
 
 ## Installation
 

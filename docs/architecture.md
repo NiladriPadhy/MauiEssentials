@@ -22,7 +22,7 @@ AGENTS.md     coding-agent guide
 1. **One problem per package.** Descriptions name the problem (captive portal, durable queue, resumable upload), not “part of MauiEssentials”.
 2. **Android and iOS first.** Shared `net10.0` exists so tests and class libraries can reference the API. Native calls typically throw `FeatureNotSupported` on that TFM.
 3. **MAUI builder registration.** Plugins expose `UseX(...)` and a `Current` / `Default` accessor.
-4. **Compose, do not replace the OS.** BackgroundTasks wraps JobScheduler / BGTaskScheduler. JobQueue is an in-process SQLite worker. PushRouter does not register FCM tokens. VoipCore does not ship PJSIP.
+4. **Compose, do not replace the OS.** BackgroundTasks wraps JobScheduler / BGTaskScheduler. JobQueue is an in-process SQLite worker. RetryQueue retries failed named operations. PushRouter does not register FCM tokens. VoipCore does not ship PJSIP.
 5. **Prefer the framework when it is enough.** `Connectivity`, `Geolocation`, `SecureStorage`, and `Permissions` remain the default if they already solve the request.
 
 ## How plugins relate
@@ -30,9 +30,12 @@ AGENTS.md     coding-agent guide
 | Need | Start with | Often compose with |
 | --- | --- | --- |
 | Location | GeoLocator | PermissionFlow |
-| Connectivity | NetworkMonitor | AppHealth, OfflineSync, ApiResilience |
+| Connectivity | NetworkMonitor | AppHealth, OfflineSync, ApiResilience, ApiCache |
+| Production connectivity troubleshooting | NetworkDiagnostics | NetworkMonitor (watch vs diagnose) |
+| HTTP GET cache | ApiCache | ApiResilience, NetworkMonitor, OfflineSync |
 | Background work | BackgroundTasks | JobQueue |
 | Durable jobs | JobQueue | BackgroundTasks, SmartUpload |
+| Failed API / telemetry / payment retries | RetryQueue | JobQueue, ApiResilience, BackgroundTasks |
 | Uploads | SmartUpload | MediaPipeline, FileVault, JobQueue |
 | Offline data | OfflineSync | NetworkMonitor, BackgroundTasks |
 | Auth tokens | SecureSession | SecureStoragePlus, ApiResilience |
@@ -42,6 +45,11 @@ AGENTS.md     coding-agent guide
 | BLE peripherals | BluetoothManager | PermissionFlow |
 | Clipboard | ClipboardPlus | — |
 | Device fingerprint / capabilities | DeviceInfoPlus | FeatureFlags, Diagnostics |
+| NFC NDEF read/write | NfcPlus | DeviceInfoPlus (`HasNfc`) |
+| App lock after background | AppLock | SecureSession (tokens), DeviceInfoPlus (`HasBiometric`) |
+| Form validation / `Validation.For` | FormValidation | — |
+| Soft keyboard hide / show / dismiss / avoidance | KeyboardManager | FormValidation |
+| Screen orientation lock / per-page landscape | DeviceOrientationPlus | — |
 
 ## Observability
 

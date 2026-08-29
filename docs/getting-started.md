@@ -9,12 +9,20 @@ Use the [requirement → package map](packages/README.md) or the tables in the [
 Examples:
 
 - Real internet vs captive portal → `Plugin.Maui.NetworkMonitor`
+- Internet works but the API does not → `Plugin.Maui.NetworkDiagnostics`
 - GPS + reverse geocoding → `Plugin.Maui.GeoLocator`
 - Durable work that must survive process death → `Plugin.Maui.JobQueue`
+- Retry a failed API call (orders, telemetry, payments) → `Plugin.Maui.RetryQueue`
 - OS-scheduled refresh → `Plugin.Maui.BackgroundTasks`
 - BLE printer / POS / sensor connection manager → `Plugin.Maui.BluetoothManager`
 - Sensitive clipboard / OTP expiry / image clips → `Plugin.Maui.ClipboardPlus`
 - Device fingerprint / NFC / biometric / GPS capability → `Plugin.Maui.DeviceInfoPlus`
+- NFC NDEF read/write, tag ID, attendance / inventory → `Plugin.Maui.NfcPlus`
+- Lock the app after background (Face ID / PIN / lock timer) → `Plugin.Maui.AppLock`
+- HTTP GET cache / CacheFirst / StaleWhileRevalidate → `Plugin.Maui.ApiCache`
+- Form validation / email / phone / `Validation.For` → `Plugin.Maui.FormValidation`
+- Hide / show keyboard, dismiss on tap, resize vs pan → `Plugin.Maui.KeyboardManager`
+- Lock / unlock landscape or portrait, per-page orientation → `Plugin.Maui.DeviceOrientationPlus`
 
 ## 2. Install
 
@@ -57,9 +65,10 @@ Each repository includes `samples/` and usually `tests/`. Prefer the sample over
 
 These plugins are designed to compose:
 
-- BackgroundTasks can call `JobQueue.Current.DrainAsync()`
+- BackgroundTasks can call `JobQueue.Current.DrainAsync()` or `RetryQueue.Current.DrainAsync()`
 - MediaPipeline can hand off to FileVault or SmartUpload
 - SecureSession persists tokens with SecureStoragePlus
+- ApiCache caches GET responses; ApiResilience retries them; OfflineSync owns local writes
 - Observability registers several sibling plugins — only use it when you want that umbrella
 
 Do not add Observability or the full catalog for a single feature.

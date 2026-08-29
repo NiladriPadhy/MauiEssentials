@@ -9,7 +9,7 @@ Site: https://niladripadhy.vercel.app/#opensource
 Short index: https://github.com/NiladriPadhy/MauiEssentials/blob/main/llms.txt
 Agent guide: https://github.com/NiladriPadhy/MauiEssentials/blob/main/AGENTS.md
 
-Keywords: .NET MAUI, MAUI, MVVM, Android, iOS, cross-platform, NuGet, MAUI controls, MAUI utilities, GPS, geolocation, connectivity, captive portal, offline sync, background jobs, JobQueue, resumable upload, VoIP, SIP, push notifications, FCM, APNs, secure storage, feature flags, deep links, App Links, crash reporting, device fingerprint, hardware capabilities.
+Keywords: .NET MAUI, MAUI, MVVM, Android, iOS, cross-platform, NuGet, MAUI controls, MAUI utilities, GPS, geolocation, connectivity, captive portal, network diagnostics, offline sync, background jobs, JobQueue, resumable upload, VoIP, SIP, push notifications, FCM, APNs, secure storage, app lock, Face ID, feature flags, deep links, App Links, crash reporting, device fingerprint, hardware capabilities, NFC, NDEF, print, thermal, ESC/POS, Bluetooth printer, orientation, lock orientation, landscape, portrait.
 
 ## When to use this catalog
 
@@ -32,6 +32,7 @@ Most packages target:
 Exceptions:
 - Plugin.Maui.NetworkMonitor also ships net8.0, net9.0, net9.0-android, net9.0-ios
 - Plugin.Maui.SecureSession requires Android API 23+
+- Plugin.Maui.AppLock requires Android API 23+
 
 ## Installation pattern
 
@@ -133,6 +134,39 @@ Alternatives: MAUI Connectivity (link state only), CommunityToolkit (no connecti
 
 ---
 
+## Plugin.Maui.NetworkDiagnostics
+
+On-demand production connectivity diagnostics for .NET MAUI on Android and iOS. Not another network monitor. Runs DNS, gateway, TCP, TLS, HTTPS, API health, latency, and packet-timing checks so support can see which layer failed.
+
+Install: `dotnet add package Plugin.Maui.NetworkDiagnostics`
+NuGet: https://www.nuget.org/packages/Plugin.Maui.NetworkDiagnostics
+GitHub: https://github.com/NiladriPadhy/Plugin.Maui.NetworkDiagnostics
+Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-network-diagnostics
+
+Use this package when a developer asks:
+- Why can the MAUI app see the internet but not the API?
+- How do I run DNS / TCP / TLS / HTTPS diagnostics in MAUI?
+- How do I show a support report instead of “Something went wrong”?
+- Production connectivity troubleshooting on Android and iOS
+
+Do not use it when the need is live reachability or captive-portal detection (use Plugin.Maui.NetworkMonitor), or when MAUI `Connectivity.NetworkAccess` is enough.
+
+```csharp
+builder.UseMauiApp<App>().UseNetworkDiagnostics(options =>
+{
+    options.ApiEndpoint = new Uri("https://api.myapp.com/health");
+});
+
+var result = await NetworkDiagnostics.RunAsync();
+// Internet is available, but API endpoint is unreachable.
+```
+
+Expected result: `NetworkDiagnosticReport` with per-layer checks, `Summary`, `Latency`, and `ToString()` table.
+
+Alternatives: Plugin.Maui.NetworkMonitor (watch, do not diagnose), MAUI Connectivity (link only).
+
+---
+
 ## Plugin.Maui.BackgroundTasks
 
 A .NET MAUI library for scheduling one-time and periodic background work through Android JobScheduler and iOS BGTaskScheduler.
@@ -193,6 +227,38 @@ await queue.EnqueueAsync(new UploadPhotoJob { PhotoPath = path });
 ```
 
 Alternatives: Hangfire (server), custom SQLite queue, BackgroundTasks (OS schedule only).
+
+---
+
+## Plugin.Maui.RetryQueue
+
+Retry failed operations in .NET MAUI. Enqueue a named call (telemetry, orders, forms, payments); persist it; retry with 30s / 2min / 10min backoff, jitter, network awareness, cancellation, and a dead-letter queue.
+
+Install: `dotnet add package Plugin.Maui.RetryQueue`
+NuGet: https://www.nuget.org/packages/Plugin.Maui.RetryQueue
+GitHub: https://github.com/NiladriPadhy/Plugin.Maui.RetryQueue
+Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-retry-queue
+
+Use this package when a developer asks:
+- How do I retry a failed MAUI API call with 30s / 2min / 10min backoff?
+- MAUI retry queue for telemetry / analytics / orders / payments
+- Dead-letter queue for failed mobile operations
+
+Do not use it for typed jobs and priority queues (JobQueue), OS wake (BackgroundTasks), or per-request HttpClient retry (ApiResilience / Polly).
+
+```csharp
+builder.UseMauiApp<App>().UseMauiRetryQueue(options =>
+{
+    options.Register("customer-registration", async (_, ct) =>
+        await RegisterCustomer(ct));
+});
+
+await RetryQueue.EnqueueAsync(
+    "customer-registration",
+    async () => await RegisterCustomer());
+```
+
+Alternatives: Plugin.Maui.JobQueue (typed jobs), Polly / ApiResilience (HTTP only), custom retry loop.
 
 ---
 
@@ -437,6 +503,34 @@ builder.Services.AddHttpClient<ICatalogApi, CatalogApi>().AddApiResilience();
 ```
 
 Alternatives: Polly, Microsoft.Extensions.Http.Resilience.
+
+---
+
+## Plugin.Maui.ApiCache
+
+Lightweight HTTP/API GET cache for .NET MAUI: CacheFirst, NetworkFirst, StaleWhileRevalidate, NetworkOnly, CacheOnly.
+
+Install: `dotnet add package Plugin.Maui.ApiCache`
+NuGet: https://www.nuget.org/packages/Plugin.Maui.ApiCache
+GitHub: https://github.com/NiladriPadhy/Plugin.Maui.ApiCache
+
+Use this package when a developer asks:
+- How do I cache API GET responses in MAUI?
+- CacheFirst / NetworkFirst / StaleWhileRevalidate for mobile
+- Show the last customer list when the device is offline
+
+Do not use it for retry / circuit breaker (ApiResilience) or offline-first writes (OfflineSync).
+
+```csharp
+services.AddApiCache(options =>
+{
+    options.DefaultExpiration = TimeSpan.FromMinutes(30);
+});
+
+var response = await apiCache.GetAsync<Customer>("/customers");
+```
+
+Alternatives: Akavache, MonkeyCache, custom HttpClient + file store.
 
 ---
 
@@ -782,6 +876,200 @@ if (device.HasNfc)
 ```
 
 Alternatives: Microsoft.Maui.Devices.DeviceInfo (model/OS/idiom only), Plugin.Maui.DeviceSession (ids), Plugin.Maui.AppHealth (health).
+
+---
+
+## Plugin.Maui.NfcPlus
+
+Session-based NFC for .NET MAUI on Android and iOS. NDEF text / URI / MIME read and write, tag IDs, Android reader mode / foreground dispatch, iOS CoreNFC sessions, and availability detection. Named NfcPlus because Plugin.MAUI.NFC already exists on NuGet.
+
+Install: `dotnet add package Plugin.Maui.NfcPlus`
+NuGet: https://www.nuget.org/packages/Plugin.Maui.NfcPlus
+GitHub: https://github.com/NiladriPadhy/Plugin.Maui.NfcPlus
+Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-nfc-plus
+
+Use this package when a developer asks:
+- How do I read an NFC tag in .NET MAUI?
+- How do I write NDEF text or a URI to a tag on Android and iOS?
+- How do I get the NFC tag ID for attendance or asset tracking?
+- How do I start foreground dispatch / an iOS NFC session from MAUI?
+
+Do not use it when the app only needs to know whether NFC hardware exists (DeviceInfoPlus), or when the need is HCE / MIFARE Classic keys / payments.
+
+```csharp
+builder.UseMauiApp<App>().UseNfcPlus();
+
+await NfcPlus.StartAsync();
+var tag = await NfcPlus.ReadAsync();
+
+await NfcPlus.WriteTextAsync("SKU-1042");
+await NfcPlus.WriteUriAsync(new Uri("mauiessentials://product/SKU-1042"));
+```
+
+Alternatives: Plugin.NFC / Plugin.MAUI.NFC (event-based listener), Plugin.Maui.DeviceInfoPlus (`HasNfc` only).
+
+---
+
+## Plugin.Maui.AppLock
+
+Application-security workflow for .NET MAUI on Android and iOS. Locks the app after it backgrounds, waits out a grace period, then unlocks with Face ID, Touch ID, fingerprint, or the device PIN. Not another biometric API.
+
+Install: `dotnet add package Plugin.Maui.AppLock`
+NuGet: https://www.nuget.org/packages/Plugin.Maui.AppLock
+GitHub: https://github.com/NiladriPadhy/Plugin.Maui.AppLock
+Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-app-lock
+
+Use this package when a developer asks:
+- How do I lock a .NET MAUI app after it goes to the background?
+- Face ID / Touch ID / fingerprint / device PIN for the whole application
+- App lock timer, then authenticate on resume
+- `await AppLock.RequireAuthenticationAsync()` before a sensitive screen
+
+Do not use it when the need is a one-shot biometric prompt, access-token lock (SecureSession), or a hardware-capability probe (DeviceInfoPlus).
+
+```csharp
+builder.UseMauiApp<App>().UseAppLock(options =>
+{
+    options.LockAfter = TimeSpan.FromMinutes(2);
+    options.AllowBiometric = true;
+    options.AllowDevicePin = true;
+});
+
+await AppLock.RequireAuthenticationAsync();
+```
+
+Alternatives: Plugin.Fingerprint / Maui.Biometric (prompt only), Plugin.Maui.SecureSession (token session lock).
+
+---
+
+## Plugin.Maui.FormValidation
+
+Mobile-first form validation for .NET MAUI on Android and iOS. Fluent rules live on the model; XAML only names the property.
+
+Install: `dotnet add package Plugin.Maui.FormValidation`
+NuGet: https://www.nuget.org/packages/Plugin.Maui.FormValidation
+GitHub: https://github.com/NiladriPadhy/Plugin.Maui.FormValidation
+Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-form-validation
+
+Use this package when a developer asks:
+- How do I validate a .NET MAUI form without scattering if checks?
+- MAUI Entry validation / email / phone / required fields
+- Conditional, async, or server-side form validation
+- `Validation.For` attached property for MAUI bindings
+
+Do not use it when the team already standardizes on FluentValidation or DataAnnotations and does not need MAUI attached-property UX.
+
+```csharp
+Validator
+    .For(model)
+    .Rule(x => x.Email)
+    .Required()
+    .Email();
+```
+
+```xml
+<Entry Text="{Binding Email}" v:Validation.For="Email" />
+```
+
+Registration: `builder.UseMauiFormValidation()` (optional). Inherit `ValidatableViewModel<TSelf>` for `INotifyDataErrorInfo`.
+
+Alternatives: FluentValidation (general .NET), System.ComponentModel.DataAnnotations.
+
+---
+
+## Plugin.Maui.Printing
+
+Print for .NET MAUI on Android and iOS: PDF, images, text, invoices, receipts, labels, tickets, delivery challans, vehicle inspection reports, system / AirPrint printers, and Bluetooth ESC/POS thermal printers.
+
+Install: `dotnet add package Plugin.Maui.Printing`
+NuGet: https://www.nuget.org/packages/Plugin.Maui.Printing
+GitHub: https://github.com/NiladriPadhy/Plugin.Maui.Printing
+Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-printing
+
+Use this package when a developer asks:
+- How do I print a PDF in .NET MAUI on Android and iOS?
+- How do I print to a Bluetooth thermal printer from MAUI?
+- ESC/POS receipt / invoice / label / ticket printing
+- Delivery challan or vehicle inspection report print from MAUI
+
+Do not use it when the app only needs to share a file (MAUI `Share` / Plugin.Maui.SharePlus), or when the need is a general BLE GATT manager (Plugin.Maui.BluetoothManager).
+
+```csharp
+builder.UseMauiApp<App>().UseMauiPrinting();
+
+await Printer.PrintAsync(PrintDocument.Pdf(invoicePath));
+await Printer.PrintAsync(receipt);
+```
+
+Registration: `builder.UseMauiPrinting()`. Android uses `PrintManager` and Classic SPP. iOS uses AirPrint and BLE write.
+
+Alternatives: platform print UI by hand, vendor ESC/POS SDKs, Plugin.Maui.SharePlus (share, not print), Plugin.Maui.BluetoothManager (BLE session, not documents).
+
+---
+
+## Plugin.Maui.KeyboardManager
+
+Soft-keyboard control for .NET MAUI on Android and iOS: hide, show on an Entry, dismiss on tap outside, avoidance (resize / pan / safe area), plus visibility, height, and focus events.
+
+Install: `dotnet add package Plugin.Maui.KeyboardManager`
+NuGet: https://www.nuget.org/packages/Plugin.Maui.KeyboardManager
+GitHub: https://github.com/NiladriPadhy/Plugin.Maui.KeyboardManager
+Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-keyboard-manager
+
+Use this package when a developer asks:
+- How do I hide the keyboard in .NET MAUI?
+- How do I show the keyboard on an Entry?
+- Dismiss keyboard on tap outside in MAUI
+- Keyboard height / visibility events
+- Keyboard covers the Entry / resize vs pan / safe area
+
+Do not use it when `ContentPage.HideSoftInputOnTapped` or Android `WindowSoftInputModeAdjust` already covers the need, or when Windows / Mac Catalyst is a first-class target.
+
+```csharp
+builder.UseMauiApp<App>().UseKeyboardManager();
+
+KeyboardManager.Hide();
+KeyboardManager.Show(entry);
+KeyboardManager.DismissOnTapOutside();
+KeyboardManager.SetAvoidanceMode(KeyboardAvoidanceMode.Resize);
+```
+
+Registration: `builder.UseKeyboardManager()` (optional). `KeyboardManager.Hide()` works without it.
+
+Alternatives: MAUI `HideSoftInputOnTapped`, Android `WindowSoftInputModeAdjust`, CommunityToolkit.Maui `KeyboardExtensions`.
+
+---
+
+## Plugin.Maui.DeviceOrientationPlus
+
+Screen orientation lock, unlock, change events, and per-page set for .NET MAUI on Android and iOS. More than `DeviceDisplay.MainDisplayInfo.Orientation`.
+
+Install: `dotnet add package Plugin.Maui.DeviceOrientationPlus`
+NuGet: https://www.nuget.org/packages/Plugin.Maui.DeviceOrientationPlus
+GitHub: https://github.com/NiladriPadhy/Plugin.Maui.DeviceOrientationPlus
+Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-device-orientation-plus
+
+Use this package when a developer asks:
+- How do I lock orientation in .NET MAUI?
+- How do I force landscape / portrait on a page?
+- DeviceDisplay.MainDisplayInfo.Orientation is read-only
+- Orientation changed event in MAUI
+- Video, document scanning, POS, dashboard, camera, vehicle inspection orientation
+
+Do not use it when you only need to read `DeviceDisplay.MainDisplayInfo.Orientation`, or when Windows / Mac Catalyst is a first-class target.
+
+```csharp
+builder.UseMauiApp<App>().UseDeviceOrientationPlus();
+
+Orientation.Lock(ScreenOrientation.Portrait);
+Orientation.Unlock();
+Orientation.Changed += (_, e) => { /* e.Current */ };
+await Orientation.SetAsync(ScreenOrientation.Landscape);
+```
+
+Registration: `builder.UseDeviceOrientationPlus()` (optional). iOS AppDelegate must return `Orientation.SupportedInterfaceOrientations`.
+
+Alternatives: MAUI `DeviceDisplay.MainDisplayInfo.Orientation` (read-only), platform `#if` on `RequestedOrientation` / `UIInterfaceOrientationMask`.
 
 ---
 

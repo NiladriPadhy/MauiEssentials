@@ -2,7 +2,7 @@
 
 Open-source **.NET MAUI** plugins for **Android** and **iOS**. This catalog maps a developer requirement to a focused NuGet package so you do not have to reimplement native plumbing.
 
-Keywords: .NET MAUI, MAUI, MVVM, Android, iOS, cross-platform, NuGet, MAUI controls, MAUI utilities, GPS, connectivity, offline sync, background jobs, VoIP, push notifications, secure storage, feature flags, deep links, device fingerprint.
+Keywords: .NET MAUI, MAUI, MVVM, Android, iOS, cross-platform, NuGet, MAUI controls, MAUI utilities, GPS, connectivity, network diagnostics, offline sync, background jobs, VoIP, push notifications, secure storage, app lock, Face ID, feature flags, deep links, device fingerprint, NFC, NDEF, form validation, print, thermal, ESC/POS, Bluetooth printer, keyboard, hide keyboard, soft keyboard, orientation, lock orientation, landscape, portrait.
 
 **Hub:** https://github.com/NiladriPadhy/MauiEssentials  
 **Author:** [Niladri Prasad Padhy](https://github.com/NiladriPadhy)  
@@ -11,7 +11,7 @@ Keywords: .NET MAUI, MAUI, MVVM, Android, iOS, cross-platform, NuGet, MAUI contr
 
 ## What problem this catalog solves
 
-.NET MAUI includes useful essentials (connectivity, geolocation, secure storage, permissions). Production apps still need pieces the framework does not ship: captive-portal detection, durable job queues, resumable uploads, offline-first sync, permission UX flows, crash breadcrumbs, in-app updates, and SIP session models.
+.NET MAUI includes useful essentials (connectivity, geolocation, secure storage, permissions). Production apps still need pieces the framework does not ship: captive-portal detection, layered connectivity diagnostics, durable job queues, failed-operation retries, resumable uploads, offline-first sync, permission UX flows, crash breadcrumbs, in-app updates, and SIP session models.
 
 MauiEssentials is a collection of **small, independently published** plugins. Install only the package that matches the requirement.
 
@@ -23,7 +23,7 @@ MauiEssentials is a collection of **small, independently published** plugins. In
 | Android | `net10.0-android` (API 21+) | `net9.0-android`, `net10.0-android` |
 | iOS | `net10.0-ios` (iOS 15+) | `net9.0-ios`, `net10.0-ios` |
 
-SecureSession requires Android API 23+. Mac Catalyst and Windows are not primary targets.
+SecureSession and AppLock require Android API 23+. Mac Catalyst and Windows are not primary targets.
 
 ## When should you use MauiEssentials?
 
@@ -71,8 +71,10 @@ git submodule update --init --recursive
 | --- | --- | --- |
 | [Plugin.Maui.GeoLocator](https://github.com/NiladriPadhy/Plugin.Maui.GeoLocator) | On-demand location, tracking, reverse geocoding | [NuGet](https://www.nuget.org/packages/Plugin.Maui.GeoLocator) |
 | [Plugin.Maui.NetworkMonitor](https://github.com/NiladriPadhy/Maui.NetworkMonitor) | Real internet availability, captive portals, Wi-Fi vs cellular | [NuGet](https://www.nuget.org/packages/Plugin.Maui.NetworkMonitor) |
+| [Plugin.Maui.NetworkDiagnostics](https://github.com/NiladriPadhy/Plugin.Maui.NetworkDiagnostics) | On-demand DNS / TLS / API troubleshooting for support | [NuGet](https://www.nuget.org/packages/Plugin.Maui.NetworkDiagnostics) |
 | [Plugin.Maui.BackgroundTasks](https://github.com/NiladriPadhy/Plugin.Maui.BackgroundTasks) | One-time and periodic work on JobScheduler / BGTaskScheduler | [NuGet](https://www.nuget.org/packages/Plugin.Maui.BackgroundTasks) |
 | [Plugin.Maui.JobQueue](https://github.com/NiladriPadhy/Plugin.Maui.JobQueue) | Durable SQLite task queue with retry, backoff, and dead letter | [NuGet](https://www.nuget.org/packages/Plugin.Maui.JobQueue) |
+| [Plugin.Maui.RetryQueue](https://github.com/NiladriPadhy/Plugin.Maui.RetryQueue) | Retry failed operations (telemetry, orders, payments) with 30s / 2min / 10min backoff | [NuGet](https://www.nuget.org/packages/Plugin.Maui.RetryQueue) |
 | [Plugin.Maui.SmartUpload](https://github.com/NiladriPadhy/Plugin.Maui.SmartUpload) | Chunked, resumable uploads with retry and process-death recovery | [NuGet](https://www.nuget.org/packages/Plugin.Maui.SmartUpload) |
 | [Plugin.Maui.DeviceSession](https://github.com/NiladriPadhy/Plugin.Maui.DeviceSession) | Device, installation, and analytics session identity | [NuGet](https://www.nuget.org/packages/Plugin.Maui.DeviceSession) |
 | [Plugin.Maui.OfflineSync](https://github.com/NiladriPadhy/Plugin.Maui.OfflineSync) | Offline-first local writes with queued sync and conflict resolution | [NuGet](https://www.nuget.org/packages/Plugin.Maui.OfflineSync) |
@@ -82,6 +84,7 @@ git submodule update --init --recursive
 | [Plugin.Maui.SecureStoragePlus](https://github.com/NiladriPadhy/SecureStoragePlus) | AES-256-GCM secure storage with expiry and migration | [NuGet](https://www.nuget.org/packages/Plugin.Maui.SecureStoragePlus) |
 | [Plugin.Maui.SecureSession](https://github.com/NiladriPadhy/Plugin.Maui.SecureSession) | Access/refresh tokens, 401 retry, logout, biometrics, multi-device sessions | [NuGet](https://www.nuget.org/packages/Plugin.Maui.SecureSession) |
 | [Plugin.Maui.ApiResilience](https://github.com/NiladriPadhy/Plugin.Maui.ApiResilience) | HttpClient retry, circuit breaker, offline queue, and token refresh | [NuGet](https://www.nuget.org/packages/Plugin.Maui.ApiResilience) |
+| [Plugin.Maui.ApiCache](https://github.com/NiladriPadhy/Plugin.Maui.ApiCache) | HTTP GET cache: CacheFirst, NetworkFirst, StaleWhileRevalidate | [NuGet](https://www.nuget.org/packages/Plugin.Maui.ApiCache) |
 | [Plugin.Maui.FileVault](https://github.com/NiladriPadhy/Plugin.Maui.FileVault) | Encrypted local files with key protection and lifecycle controls | [NuGet](https://www.nuget.org/packages/Plugin.Maui.FileVault) |
 | [Plugin.Maui.MediaPipeline](https://github.com/NiladriPadhy/Plugin.Maui.MediaPipeline) | Camera-to-upload image pipeline: resize, compress, EXIF, watermark, blur, encrypt | [NuGet](https://www.nuget.org/packages/Plugin.Maui.MediaPipeline) |
 | [Plugin.Maui.VoipCore](https://github.com/NiladriPadhy/Plugin.Maui.VoipCore) | SIP/VoIP session model with a pluggable signaling stack | [NuGet](https://www.nuget.org/packages/Plugin.Maui.VoipCore) |
@@ -95,6 +98,12 @@ git submodule update --init --recursive
 | [Plugin.Maui.ClipboardPlus](https://github.com/NiladriPadhy/Plugin.Maui.ClipboardPlus) | Clipboard with sensitive content, expiration, image/files, and monitoring | [NuGet](https://www.nuget.org/packages/Plugin.Maui.ClipboardPlus) |
 | [Plugin.Maui.SharePlus](https://github.com/NiladriPadhy/Plugin.Maui.SharePlus) | Share with title, subject, MIME, preview, target app, and FileProvider-safe files | [NuGet](https://www.nuget.org/packages/Plugin.Maui.SharePlus) |
 | [Plugin.Maui.DeviceInfoPlus](https://github.com/NiladriPadhy/Plugin.Maui.DeviceInfoPlus) | Device fingerprint and hardware capabilities (NFC, Bluetooth, camera, biometric, GPS, flash) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.DeviceInfoPlus) |
+| [Plugin.Maui.NfcPlus](https://github.com/NiladriPadhy/Plugin.Maui.NfcPlus) | Session-based NFC: NDEF text / URI / MIME, tag ID, read/write, Android/iOS sessions | [NuGet](https://www.nuget.org/packages/Plugin.Maui.NfcPlus) |
+| [Plugin.Maui.AppLock](https://github.com/NiladriPadhy/Plugin.Maui.AppLock) | App lock after background: timer, Face ID / fingerprint / device PIN, `RequireAuthenticationAsync` | [NuGet](https://www.nuget.org/packages/Plugin.Maui.AppLock) |
+| [Plugin.Maui.FormValidation](https://github.com/NiladriPadhy/Plugin.Maui.FormValidation) | Mobile-first fluent form validation and `Validation.For` bindings | [NuGet](https://www.nuget.org/packages/Plugin.Maui.FormValidation) |
+| [Plugin.Maui.Printing](https://github.com/NiladriPadhy/Plugin.Maui.Printing) | Print PDF, images, text, invoices, receipts, labels, and Bluetooth thermal / ESC/POS | [NuGet](https://www.nuget.org/packages/Plugin.Maui.Printing) |
+| [Plugin.Maui.KeyboardManager](https://github.com/NiladriPadhy/Plugin.Maui.KeyboardManager) | Hide, show, dismiss on tap, resize/pan, keyboard height, and safe areas | [NuGet](https://www.nuget.org/packages/Plugin.Maui.KeyboardManager) |
+| [Plugin.Maui.DeviceOrientationPlus](https://github.com/NiladriPadhy/Plugin.Maui.DeviceOrientationPlus) | Lock, unlock, and per-page screen orientation (video, POS, camera, scanning) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.DeviceOrientationPlus) |
 
 White papers: `https://niladripadhy.vercel.app/opensource/<slug>` (see [llms.txt](llms.txt) for slugs).
 
@@ -104,8 +113,10 @@ White papers: `https://niladripadhy.vercel.app/opensource/<slug>` (see [llms.txt
 | --- | --- |
 | GPS, location tracking, reverse geocoding | Plugin.Maui.GeoLocator |
 | Real internet vs Wi-Fi, captive portal | Plugin.Maui.NetworkMonitor |
+| Why internet works but the API does not (DNS / TLS / health) | Plugin.Maui.NetworkDiagnostics |
 | OS-scheduled one-time / periodic background work | Plugin.Maui.BackgroundTasks |
 | Durable SQLite queue, retry, dead letter | Plugin.Maui.JobQueue |
+| Retry a failed API call (orders, telemetry, payments) | Plugin.Maui.RetryQueue |
 | Chunked / resumable file uploads | Plugin.Maui.SmartUpload |
 | Device / install / analytics session id | Plugin.Maui.DeviceSession |
 | Offline-first sync and conflicts | Plugin.Maui.OfflineSync |
@@ -115,6 +126,7 @@ White papers: `https://niladripadhy.vercel.app/opensource/<slug>` (see [llms.txt
 | AES-256 secure storage, expiry | Plugin.Maui.SecureStoragePlus |
 | Tokens, 401 retry, biometrics | Plugin.Maui.SecureSession |
 | HttpClient retry, circuit breaker | Plugin.Maui.ApiResilience |
+| HTTP GET cache, CacheFirst / SWR | Plugin.Maui.ApiCache |
 | Encrypted local files | Plugin.Maui.FileVault |
 | Camera-to-upload image pipeline | Plugin.Maui.MediaPipeline |
 | SIP / VoIP session model | Plugin.Maui.VoipCore |
@@ -128,6 +140,12 @@ White papers: `https://niladripadhy.vercel.app/opensource/<slug>` (see [llms.txt
 | Sensitive clipboard, expiry, image / URI / files | Plugin.Maui.ClipboardPlus |
 | Share to WhatsApp / Email / AirDrop with FileProvider-safe files | Plugin.Maui.SharePlus |
 | Device fingerprint, screen/RAM, NFC / BT / camera / biometric / GPS / flash | Plugin.Maui.DeviceInfoPlus |
+| NFC NDEF read/write, tag ID, attendance / inventory / assets | Plugin.Maui.NfcPlus |
+| Lock the app after background (Face ID / PIN / lock timer) | Plugin.Maui.AppLock |
+| Form validation, email / phone / required, `Validation.For` | Plugin.Maui.FormValidation |
+| Print PDF / image / receipt / invoice / Bluetooth thermal | Plugin.Maui.Printing |
+| Hide / show keyboard, dismiss on tap, resize vs pan, keyboard height | Plugin.Maui.KeyboardManager |
+| Lock / unlock landscape or portrait, per-page orientation | Plugin.Maui.DeviceOrientationPlus |
 
 ## Features
 
@@ -141,7 +159,7 @@ White papers: `https://niladripadhy.vercel.app/opensource/<slug>` (see [llms.txt
 
 | Platform | Support |
 | --- | --- |
-| Android | Yes (API 21+, SecureSession 23+) |
+| Android | Yes (API 21+, SecureSession / AppLock 23+) |
 | iOS | Yes (15+) |
 | Mac Catalyst | Not a primary target |
 | Windows | Not a primary target |
@@ -182,8 +200,10 @@ Each plugin README has Problem → Installation → Configuration → Code → E
 | --- | --- | --- | --- |
 | On-demand location | GeoLocator | `Geolocation` | — |
 | Captive-portal / validated internet | NetworkMonitor | `Connectivity` (link only) | — |
+| Layered DNS / TLS / API support report | NetworkDiagnostics | `Connectivity` (link only) | — |
 | OS background scheduling | BackgroundTasks | — | — |
 | Durable in-process job queue | JobQueue | — | — |
+| Failed-operation retry (30s / 2min / 10min) | RetryQueue | — | — (use Polly for HTTP only) |
 | Resumable chunked upload | SmartUpload | `HttpClient` | — |
 | Offline-first sync | OfflineSync | — | — |
 | Permission UX flows | PermissionFlow | `Permissions` | — |
@@ -191,7 +211,11 @@ Each plugin README has Problem → Installation → Configuration → Code → E
 | Sensitive clipboard + expiry | ClipboardPlus | `Clipboard` (text only) | — |
 | Targeted share + FileProvider files | SharePlus | `Share` (sheet only) | — |
 | Device fingerprint + hardware capabilities | DeviceInfoPlus | `DeviceInfo` (model/OS/idiom only) | — |
+| NFC NDEF read/write + tag ID | NfcPlus | — | — |
+| App lock after background | AppLock | — | — |
 | HTTP retry / circuit breaker | ApiResilience | — | — (use Polly) |
+| HTTP GET response cache | ApiCache | — | — (use Akavache / MonkeyCache) |
+| Lock / unlock screen orientation | DeviceOrientationPlus | `DeviceDisplay` (read-only) | — |
 
 Do not treat this table as superiority. MAUI built-ins are the right default when they already solve the problem. MauiEssentials fills gaps those APIs leave open.
 

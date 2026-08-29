@@ -76,3 +76,30 @@
 [submodule "DeviceInfoPlus"]
 	path = DeviceInfoPlus
 	url = https://github.com/NiladriPadhy/Plugin.Maui.DeviceInfoPlus.git
+[submodule "Printing"]
+	path = Printing
+	url = https://github.com/NiladriPadhy/Plugin.Maui.Printing.git
+[submodule "ApiCache"]
+	path = ApiCache
+	url = https://github.com/NiladriPadhy/Plugin.Maui.ApiCache.git
+[submodule "AppLock"]
+	path = AppLock
+	url = https://github.com/NiladriPadhy/Plugin.Maui.AppLock.git
+[submodule "FormValidation"]
+	path = FormValidation
+	url = https://github.com/NiladriPadhy/Plugin.Maui.FormValidation.git
+[submodule "KeyboardManager"]
+	path = KeyboardManager
+	url = https://github.com/NiladriPadhy/Plugin.Maui.KeyboardManager.git
+[submodule "NetworkDiagnostics"]
+	path = NetworkDiagnostics
+	url = https://github.com/NiladriPadhy/Plugin.Maui.NetworkDiagnostics.git
+[submodule "Nfc"]
+	path = Nfc
+	url = https://github.com/NiladriPadhy/Plugin.Maui.NfcPlus.git
+[submodule "RetryQueue"]
+	path = RetryQueue
+	url = https://github.com/NiladriPadhy/Plugin.Maui.RetryQueue.git
+[submodule "DeviceOrientation"]
+	path = DeviceOrientation
+	url = https://github.com/NiladriPadhy/Plugin.Maui.DeviceOrientationPlus.git
