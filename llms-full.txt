@@ -9,7 +9,7 @@ Site: https://niladripadhy.vercel.app/#opensource
 Short index: https://github.com/NiladriPadhy/MauiEssentials/blob/main/llms.txt
 Agent guide: https://github.com/NiladriPadhy/MauiEssentials/blob/main/AGENTS.md
 
-Keywords: .NET MAUI, MAUI, MVVM, Android, iOS, cross-platform, NuGet, MAUI controls, MAUI utilities, GPS, geolocation, connectivity, captive portal, offline sync, background jobs, JobQueue, resumable upload, VoIP, SIP, push notifications, FCM, APNs, secure storage, feature flags, deep links, App Links, crash reporting.
+Keywords: .NET MAUI, MAUI, MVVM, Android, iOS, cross-platform, NuGet, MAUI controls, MAUI utilities, GPS, geolocation, connectivity, captive portal, offline sync, background jobs, JobQueue, resumable upload, VoIP, SIP, push notifications, FCM, APNs, secure storage, feature flags, deep links, App Links, crash reporting, device fingerprint, hardware capabilities.
 
 ## When to use this catalog
 
@@ -666,6 +666,122 @@ if (update.IsAvailable)
 ```
 
 Alternatives: Play Core In-App Updates (Android only), custom iTunes lookup, Microsoft.Maui.Essentials VersionTracking (local only).
+
+---
+
+## Plugin.Maui.BluetoothManager
+
+High-level Bluetooth Low Energy connection manager for printers, POS, medical, IoT, and industrial devices. Scan, connect, read/write/notify, auto-reconnect, timeout, retry, permissions, RSSI, and adapter lifecycle.
+
+Install: `dotnet add package Plugin.Maui.BluetoothManager`
+NuGet: https://www.nuget.org/packages/Plugin.Maui.BluetoothManager
+GitHub: https://github.com/NiladriPadhy/Plugin.Maui.BluetoothManager
+
+Use this package when a developer asks:
+- How do I connect a MAUI app to a Bluetooth printer or POS device?
+- BLE auto-reconnect, connection timeout, and adapter state
+- Scan and filter BLE devices by name or RSSI
+
+Do not use it for classic Bluetooth SPP/RFCOMM or as a full low-level GATT explorer (prefer Plugin.BLE / Shiny.BluetoothLE).
+
+```csharp
+var devices = await BluetoothManager.ScanAsync();
+await BluetoothManager.ConnectAsync(device);
+await BluetoothManager.WriteAsync(characteristic, data);
+var response = await BluetoothManager.ReadAsync(characteristic);
+```
+
+Alternatives: Plugin.BLE, Shiny.BluetoothLE, native Android BluetoothGatt / iOS CoreBluetooth.
+
+---
+
+## Plugin.Maui.ClipboardPlus
+
+Clipboard for .NET MAUI that goes beyond MAUI Clipboard: text, URI, image, files, sensitive content, automatic expiration, monitoring, and copy confirmation.
+
+Install: `dotnet add package Plugin.Maui.ClipboardPlus`
+NuGet: https://www.nuget.org/packages/Plugin.Maui.ClipboardPlus
+GitHub: https://github.com/NiladriPadhy/Plugin.Maui.ClipboardPlus
+Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-clipboard-plus
+
+Use this package when a developer asks:
+- How do I copy a password / OTP and auto-clear the clipboard in .NET MAUI?
+- MAUI clipboard image, URI, or files
+- Sensitive clipboard content with expiration
+
+Do not use it when MAUI `Clipboard.SetTextAsync` / `GetTextAsync` already covers the requirement.
+
+```csharp
+builder.UseMauiApp<App>().UseMauiClipboardPlus();
+
+await ClipboardPlus.SetTextAsync(text);
+await ClipboardPlus.SetSensitiveTextAsync(token, expiration: TimeSpan.FromMinutes(2));
+
+ClipboardPlus.HasText
+ClipboardPlus.HasImage
+ClipboardPlus.HasUri
+ClipboardPlus.ContentChanged += (_, args) => { };
+```
+
+Alternatives: Microsoft.Maui.ApplicationModel.Clipboard (text only).
+
+---
+
+## Plugin.Maui.SharePlus
+
+Share for .NET MAUI that goes beyond MAUI Share: title, subject, MIME type, preview, target app (WhatsApp, Email, Messages, Files, Nearby Share, AirDrop), and FileProvider-safe temporary files.
+
+Install: `dotnet add package Plugin.Maui.SharePlus`
+NuGet: https://www.nuget.org/packages/Plugin.Maui.SharePlus
+GitHub: https://github.com/NiladriPadhy/Plugin.Maui.SharePlus
+Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-share-plus
+
+Use this package when a developer asks:
+- How do I share a file in .NET MAUI with title, subject, and MIME type?
+- How do I share to WhatsApp / Email / Messages / Nearby Share / AirDrop from MAUI?
+- How do I stop MAUI Share from exposing the entire Android cache via FileProvider?
+
+Do not use it when MAUI `Share.Default.RequestAsync` already covers the requirement.
+
+```csharp
+builder.UseMauiApp<App>().UseMauiSharePlus();
+
+await SharePlus.ShareTextAsync(text, title: "Share", subject: "Note", target: ShareTarget.WhatsApp);
+await SharePlus.ShareFileAsync(path, mimeType: "application/pdf", target: ShareTarget.Email);
+await SharePlus.ShareFilesAsync([a, b], temporaryFileHandling: TemporaryFileHandling.CopyToShareCache);
+```
+
+Alternatives: Microsoft.Maui.ApplicationModel.Share (generic share sheet).
+
+---
+
+## Plugin.Maui.DeviceInfoPlus
+
+Application and device fingerprint plus hardware capability probes for .NET MAUI on Android and iOS. Not a wrapper for MAUI DeviceInfo.
+
+Install: `dotnet add package Plugin.Maui.DeviceInfoPlus`
+NuGet: https://www.nuget.org/packages/Plugin.Maui.DeviceInfoPlus
+GitHub: https://github.com/NiladriPadhy/Plugin.Maui.DeviceInfoPlus
+Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-device-info-plus
+
+Use this package when a developer asks:
+- How do I collect a device fingerprint for telemetry or support tickets in .NET MAUI?
+- How do I know if the device has NFC / Bluetooth / camera / biometric / GPS / flash?
+- How do I read screen size, density, architecture, and RAM in one MAUI snapshot?
+
+Do not use it when MAUI `DeviceInfo` already covers manufacturer / model / OS / idiom, or when the need is a stable device id (DeviceSession) or health findings (AppHealth).
+
+```csharp
+builder.UseMauiApp<App>().UseDeviceInfoPlus();
+
+var device = await DeviceInfoPlus.GetAsync();
+telemetry.TrackEvent("device_fingerprint", device.ToDictionary());
+
+if (device.HasNfc)
+    EnableTapToPay();
+```
+
+Alternatives: Microsoft.Maui.Devices.DeviceInfo (model/OS/idiom only), Plugin.Maui.DeviceSession (ids), Plugin.Maui.AppHealth (health).
 
 ---
 

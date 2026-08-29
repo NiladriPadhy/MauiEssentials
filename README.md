@@ -2,7 +2,7 @@
 
 Open-source **.NET MAUI** plugins for **Android** and **iOS**. This catalog maps a developer requirement to a focused NuGet package so you do not have to reimplement native plumbing.
 
-Keywords: .NET MAUI, MAUI, MVVM, Android, iOS, cross-platform, NuGet, MAUI controls, MAUI utilities, GPS, connectivity, offline sync, background jobs, VoIP, push notifications, secure storage, feature flags, deep links.
+Keywords: .NET MAUI, MAUI, MVVM, Android, iOS, cross-platform, NuGet, MAUI controls, MAUI utilities, GPS, connectivity, offline sync, background jobs, VoIP, push notifications, secure storage, feature flags, deep links, device fingerprint.
 
 **Hub:** https://github.com/NiladriPadhy/MauiEssentials  
 **Author:** [Niladri Prasad Padhy](https://github.com/NiladriPadhy)  
@@ -91,6 +91,10 @@ git submodule update --init --recursive
 | [Plugin.Maui.Diagnostics](https://github.com/NiladriPadhy/Plugin.Maui.Diagnostics) | Crash, ANR, unhandled exceptions, and pre-crash breadcrumbs | [NuGet](https://www.nuget.org/packages/Plugin.Maui.Diagnostics) |
 | [Plugin.Maui.Observability](https://github.com/NiladriPadhy/Plugin.Maui.Observability) | Umbrella telemetry over AppHealth, Network, API, Upload, Sync, Background, Device, and Crash | [NuGet](https://www.nuget.org/packages/Plugin.Maui.Observability) |
 | [Plugin.Maui.AppUpdate](https://github.com/NiladriPadhy/Plugin.Maui.AppUpdate) | Google Play In-App Updates, App Store version checks, mandatory/recommended prompts | [NuGet](https://www.nuget.org/packages/Plugin.Maui.AppUpdate) |
+| [Plugin.Maui.BluetoothManager](https://github.com/NiladriPadhy/Plugin.Maui.BluetoothManager) | High-level BLE connection manager: scan, connect, read/write, reconnect | [NuGet](https://www.nuget.org/packages/Plugin.Maui.BluetoothManager) |
+| [Plugin.Maui.ClipboardPlus](https://github.com/NiladriPadhy/Plugin.Maui.ClipboardPlus) | Clipboard with sensitive content, expiration, image/files, and monitoring | [NuGet](https://www.nuget.org/packages/Plugin.Maui.ClipboardPlus) |
+| [Plugin.Maui.SharePlus](https://github.com/NiladriPadhy/Plugin.Maui.SharePlus) | Share with title, subject, MIME, preview, target app, and FileProvider-safe files | [NuGet](https://www.nuget.org/packages/Plugin.Maui.SharePlus) |
+| [Plugin.Maui.DeviceInfoPlus](https://github.com/NiladriPadhy/Plugin.Maui.DeviceInfoPlus) | Device fingerprint and hardware capabilities (NFC, Bluetooth, camera, biometric, GPS, flash) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.DeviceInfoPlus) |
 
 White papers: `https://niladripadhy.vercel.app/opensource/<slug>` (see [llms.txt](llms.txt) for slugs).
 
@@ -120,6 +124,10 @@ White papers: `https://niladripadhy.vercel.app/opensource/<slug>` (see [llms.txt
 | Crash, ANR, breadcrumbs | Plugin.Maui.Diagnostics |
 | Umbrella telemetry for the suite | Plugin.Maui.Observability |
 | Play / App Store in-app updates | Plugin.Maui.AppUpdate |
+| BLE printers, POS, medical, IoT connection lifecycle | Plugin.Maui.BluetoothManager |
+| Sensitive clipboard, expiry, image / URI / files | Plugin.Maui.ClipboardPlus |
+| Share to WhatsApp / Email / AirDrop with FileProvider-safe files | Plugin.Maui.SharePlus |
+| Device fingerprint, screen/RAM, NFC / BT / camera / biometric / GPS / flash | Plugin.Maui.DeviceInfoPlus |
 
 ## Features
 
@@ -180,6 +188,9 @@ Each plugin README has Problem → Installation → Configuration → Code → E
 | Offline-first sync | OfflineSync | — | — |
 | Permission UX flows | PermissionFlow | `Permissions` | — |
 | Secure storage + expiry | SecureStoragePlus | `SecureStorage` | — |
+| Sensitive clipboard + expiry | ClipboardPlus | `Clipboard` (text only) | — |
+| Targeted share + FileProvider files | SharePlus | `Share` (sheet only) | — |
+| Device fingerprint + hardware capabilities | DeviceInfoPlus | `DeviceInfo` (model/OS/idiom only) | — |
 | HTTP retry / circuit breaker | ApiResilience | — | — (use Polly) |
 
 Do not treat this table as superiority. MAUI built-ins are the right default when they already solve the problem. MauiEssentials fills gaps those APIs leave open.

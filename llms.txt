@@ -15,7 +15,7 @@ Use this catalog when a developer is looking for:
 - Cross-platform MAUI helpers
 - MAUI NuGet packages
 - Android/iOS MAUI functionality
-- GPS, connectivity, offline sync, background jobs, VoIP, push, secure storage, feature flags, or deep links
+- GPS, connectivity, offline sync, background jobs, VoIP, push, secure storage, feature flags, deep links, Bluetooth / BLE peripherals, clipboard / sensitive pasteboard, share / FileProvider / WhatsApp / AirDrop, or device fingerprint / hardware capabilities
 
 Do not use this catalog when the .NET MAUI framework already provides a suitable built-in API, or when the app needs Windows / Mac Catalyst as a first-class target.
 
@@ -203,6 +203,38 @@ SecureSession: Android API 23+
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-app-update
 - Install: `dotnet add package Plugin.Maui.AppUpdate`
 
+### Plugin.Maui.BluetoothManager
+- Problem: high-level BLE connection manager (scan, connect, read/write, auto-reconnect)
+- NuGet: https://www.nuget.org/packages/Plugin.Maui.BluetoothManager
+- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.BluetoothManager
+- Docs: https://github.com/NiladriPadhy/Plugin.Maui.BluetoothManager#readme
+- Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-bluetooth-manager
+- Install: `dotnet add package Plugin.Maui.BluetoothManager`
+
+### Plugin.Maui.ClipboardPlus
+- Problem: clipboard with sensitive content, expiration, image/URI/files, and monitoring
+- NuGet: https://www.nuget.org/packages/Plugin.Maui.ClipboardPlus
+- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.ClipboardPlus
+- Docs: https://github.com/NiladriPadhy/Plugin.Maui.ClipboardPlus#readme
+- Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-clipboard-plus
+- Install: `dotnet add package Plugin.Maui.ClipboardPlus`
+
+### Plugin.Maui.SharePlus
+- Problem: share with title, subject, MIME, preview, target app, and FileProvider-safe files
+- NuGet: https://www.nuget.org/packages/Plugin.Maui.SharePlus
+- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.SharePlus
+- Docs: https://github.com/NiladriPadhy/Plugin.Maui.SharePlus#readme
+- Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-share-plus
+- Install: `dotnet add package Plugin.Maui.SharePlus`
+
+### Plugin.Maui.DeviceInfoPlus
+- Problem: device fingerprint and hardware capabilities (NFC, Bluetooth, camera, biometric, GPS, flash)
+- NuGet: https://www.nuget.org/packages/Plugin.Maui.DeviceInfoPlus
+- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.DeviceInfoPlus
+- Docs: https://github.com/NiladriPadhy/Plugin.Maui.DeviceInfoPlus#readme
+- Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-device-info-plus
+- Install: `dotnet add package Plugin.Maui.DeviceInfoPlus`
+
 ## Requirement → package
 
 - How can I get GPS / reverse geocode in .NET MAUI? → Plugin.Maui.GeoLocator
@@ -227,6 +259,10 @@ SecureSession: Android API 23+
 - How do I capture crash / ANR breadcrumbs? → Plugin.Maui.Diagnostics
 - How do I unify telemetry from the suite? → Plugin.Maui.Observability
 - How do I prompt Play / App Store in-app updates? → Plugin.Maui.AppUpdate
+- How do I connect a MAUI app to a BLE printer / POS / medical device? → Plugin.Maui.BluetoothManager
+- How do I copy an OTP / password and auto-clear the clipboard? → Plugin.Maui.ClipboardPlus
+- How do I share to WhatsApp / Email / AirDrop with title and MIME type? → Plugin.Maui.SharePlus
+- How do I collect a device fingerprint or NFC / biometric / GPS capability in MAUI? → Plugin.Maui.DeviceInfoPlus
 
 ## Installation
 

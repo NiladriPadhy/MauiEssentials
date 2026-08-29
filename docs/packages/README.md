@@ -26,6 +26,10 @@ Requirement → package matching for MauiEssentials.
 | Crash, ANR, breadcrumbs | Plugin.Maui.Diagnostics | https://www.nuget.org/packages/Plugin.Maui.Diagnostics | https://github.com/NiladriPadhy/Plugin.Maui.Diagnostics |
 | Umbrella telemetry for the suite | Plugin.Maui.Observability | https://www.nuget.org/packages/Plugin.Maui.Observability | https://github.com/NiladriPadhy/Plugin.Maui.Observability |
 | Play / App Store in-app updates | Plugin.Maui.AppUpdate | https://www.nuget.org/packages/Plugin.Maui.AppUpdate | https://github.com/NiladriPadhy/Plugin.Maui.AppUpdate |
+| BLE printers, POS, medical, IoT connection lifecycle | Plugin.Maui.BluetoothManager | https://www.nuget.org/packages/Plugin.Maui.BluetoothManager | https://github.com/NiladriPadhy/Plugin.Maui.BluetoothManager |
+| Sensitive clipboard, expiry, image / URI / files | Plugin.Maui.ClipboardPlus | https://www.nuget.org/packages/Plugin.Maui.ClipboardPlus | https://github.com/NiladriPadhy/Plugin.Maui.ClipboardPlus |
+| Share to WhatsApp / Email / AirDrop, FileProvider-safe files | Plugin.Maui.SharePlus | https://www.nuget.org/packages/Plugin.Maui.SharePlus | https://github.com/NiladriPadhy/Plugin.Maui.SharePlus |
+| Device fingerprint, screen/RAM, NFC / BT / camera / biometric / GPS / flash | Plugin.Maui.DeviceInfoPlus | https://www.nuget.org/packages/Plugin.Maui.DeviceInfoPlus | https://github.com/NiladriPadhy/Plugin.Maui.DeviceInfoPlus |
 
 Papers: `https://niladripadhy.vercel.app/opensource/<slug>` — slugs are listed in [llms.txt](../../llms.txt).
 

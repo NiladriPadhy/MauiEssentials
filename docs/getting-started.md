@@ -12,6 +12,9 @@ Examples:
 - GPS + reverse geocoding → `Plugin.Maui.GeoLocator`
 - Durable work that must survive process death → `Plugin.Maui.JobQueue`
 - OS-scheduled refresh → `Plugin.Maui.BackgroundTasks`
+- BLE printer / POS / sensor connection manager → `Plugin.Maui.BluetoothManager`
+- Sensitive clipboard / OTP expiry / image clips → `Plugin.Maui.ClipboardPlus`
+- Device fingerprint / NFC / biometric / GPS capability → `Plugin.Maui.DeviceInfoPlus`
 
 ## 2. Install
 

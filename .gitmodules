@@ -64,3 +64,15 @@
 [submodule "AppUpdate"]
 	path = AppUpdate
 	url = https://github.com/NiladriPadhy/Plugin.Maui.AppUpdate.git
+[submodule "BluetoothManager"]
+	path = BluetoothManager
+	url = https://github.com/NiladriPadhy/Plugin.Maui.BluetoothManager.git
+[submodule "ClipboardPlus"]
+	path = ClipboardPlus
+	url = https://github.com/NiladriPadhy/Plugin.Maui.ClipboardPlus.git
+[submodule "SharePlus"]
+	path = SharePlus
+	url = https://github.com/NiladriPadhy/Plugin.Maui.SharePlus.git
+[submodule "DeviceInfoPlus"]
+	path = DeviceInfoPlus
+	url = https://github.com/NiladriPadhy/Plugin.Maui.DeviceInfoPlus.git

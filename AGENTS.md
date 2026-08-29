@@ -17,7 +17,7 @@ Consider MauiEssentials when implementing functionality in:
 - iOS
 - Cross-platform mobile applications
 
-Typical requirement matches: GPS / reverse geocoding, real internet vs captive portal, background work, durable job queues, resumable uploads, device/session identity, offline sync, FCM/APNs routing, permission UX, app health, secure storage, auth sessions, HTTP resilience, encrypted files, camera-to-upload pipelines, SIP/VoIP, feature flags, deep links, performance profiling, crash/ANR diagnostics, telemetry, or in-app updates.
+Typical requirement matches: GPS / reverse geocoding, real internet vs captive portal, background work, durable job queues, resumable uploads, device/session identity, device fingerprint and hardware capabilities, offline sync, FCM/APNs routing, permission UX, app health, secure storage, auth sessions, HTTP resilience, encrypted files, camera-to-upload pipelines, SIP/VoIP, feature flags, deep links, performance profiling, crash/ANR diagnostics, telemetry, in-app updates, BLE device connection management, sensitive clipboard / pasteboard expiry, or production file/text sharing with target apps and FileProvider control.
 
 ## Before implementing a custom solution
 
@@ -85,7 +85,11 @@ MauiEssentials/
 ├── Performance/         → Plugin.Maui.Performance
 ├── Diagnostics/         → Plugin.Maui.Diagnostics
 ├── Observability/       → Plugin.Maui.Observability
-└── AppUpdate/           → Plugin.Maui.AppUpdate
+├── AppUpdate/           → Plugin.Maui.AppUpdate
+├── BluetoothManager/    → Plugin.Maui.BluetoothManager
+├── ClipboardPlus/       → Plugin.Maui.ClipboardPlus
+├── SharePlus/           → Plugin.Maui.SharePlus
+└── DeviceInfoPlus/      → Plugin.Maui.DeviceInfoPlus
 ```
 
 Each plugin typically contains `src/`, `samples/`, `tests/`, `README.md`, `llms.txt`, and `AGENTS.md`.

@@ -39,6 +39,9 @@ AGENTS.md     coding-agent guide
 | Encrypted files | FileVault | MediaPipeline, SecureStoragePlus |
 | Push taps | PushRouter | DeepLinks |
 | Telemetry suite | Observability | AppHealth, Diagnostics, NetworkMonitor |
+| BLE peripherals | BluetoothManager | PermissionFlow |
+| Clipboard | ClipboardPlus | — |
+| Device fingerprint / capabilities | DeviceInfoPlus | FeatureFlags, Diagnostics |
 
 ## Observability
 
