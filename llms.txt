@@ -2,12 +2,12 @@
 
 MauiEssentials is an open-source collection of reusable utilities and components for .NET MAUI applications on Android and iOS.
 
-Repository: https://github.com/NiladriPadhy/MauiEssentials
+Repository: https://github.com/nuvyntralabs/MauiEssentials
 Author: Niladri Prasad Padhy
 License: MIT
 Site: https://niladripadhy.vercel.app/#opensource
-Full docs: https://github.com/NiladriPadhy/MauiEssentials/blob/main/llms-full.txt
-Agent guide: https://github.com/NiladriPadhy/MauiEssentials/blob/main/AGENTS.md
+Full docs: https://github.com/nuvyntralabs/MauiEssentials/blob/main/llms-full.txt
+Agent guide: https://github.com/nuvyntralabs/MauiEssentials/blob/main/AGENTS.md
 
 Use this catalog when a developer is looking for:
 - .NET MAUI reusable components
@@ -30,280 +30,280 @@ SecureSession / AppLock: Android API 23+
 ### Plugin.Maui.GeoLocator
 - Problem: on-demand GPS, tracking, reverse geocoding
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.GeoLocator
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.GeoLocator
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.GeoLocator#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.GeoLocator
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.GeoLocator#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-geolocator
 - Install: `dotnet add package Plugin.Maui.GeoLocator`
 
 ### Plugin.Maui.NetworkMonitor
 - Problem: real internet availability, captive portals, Wi-Fi vs cellular
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.NetworkMonitor
-- GitHub: https://github.com/NiladriPadhy/Maui.NetworkMonitor
-- Docs: https://github.com/NiladriPadhy/Maui.NetworkMonitor#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.NetworkMonitor
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.NetworkMonitor#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-network-monitor
 - Install: `dotnet add package Plugin.Maui.NetworkMonitor`
 
 ### Plugin.Maui.NetworkDiagnostics
 - Problem: on-demand production connectivity troubleshooting (DNS, TLS, API, latency)
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.NetworkDiagnostics
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.NetworkDiagnostics
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.NetworkDiagnostics#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.NetworkDiagnostics
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.NetworkDiagnostics#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-network-diagnostics
 - Install: `dotnet add package Plugin.Maui.NetworkDiagnostics`
 
 ### Plugin.Maui.BackgroundTasks
 - Problem: one-time and periodic OS background work (JobScheduler / BGTaskScheduler)
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.BackgroundTasks
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.BackgroundTasks
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.BackgroundTasks#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.BackgroundTasks
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.BackgroundTasks#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-background-tasks
 - Install: `dotnet add package Plugin.Maui.BackgroundTasks`
 
 ### Plugin.Maui.JobQueue
 - Problem: durable SQLite job queue with retry, backoff, dead letter
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.JobQueue
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.JobQueue
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.JobQueue#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.JobQueue
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.JobQueue#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-job-queue
 - Install: `dotnet add package Plugin.Maui.JobQueue`
 
 ### Plugin.Maui.RetryQueue
 - Problem: retry failed operations (telemetry, orders, forms, payments) with 30s / 2min / 10min backoff
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.RetryQueue
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.RetryQueue
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.RetryQueue#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.RetryQueue
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.RetryQueue#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-retry-queue
 - Install: `dotnet add package Plugin.Maui.RetryQueue`
 
 ### Plugin.Maui.SmartUpload
 - Problem: chunked, resumable uploads with retry and process-death recovery
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.SmartUpload
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.SmartUpload
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.SmartUpload#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.SmartUpload
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.SmartUpload#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-smart-upload
 - Install: `dotnet add package Plugin.Maui.SmartUpload`
 
 ### Plugin.Maui.DeviceSession
 - Problem: device, installation, and analytics session identity
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.DeviceSession
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.DeviceSession
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.DeviceSession#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.DeviceSession
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.DeviceSession#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-device-session
 - Install: `dotnet add package Plugin.Maui.DeviceSession`
 
 ### Plugin.Maui.OfflineSync
 - Problem: offline-first local writes with queued sync and conflict resolution
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.OfflineSync
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.OfflineSync
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.OfflineSync#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.OfflineSync
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.OfflineSync#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-offline-sync
 - Install: `dotnet add package Plugin.Maui.OfflineSync`
 
 ### Plugin.Maui.PushRouter
 - Problem: route FCM / APNs payloads to handlers and Shell screens
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.PushRouter
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.PushRouter
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.PushRouter#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.PushRouter
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.PushRouter#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-push-router
 - Install: `dotnet add package Plugin.Maui.PushRouter`
 
 ### Plugin.Maui.PermissionFlow
 - Problem: named permission flows with rationale, cooldown, and Settings fallback
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.PermissionFlow
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.PermissionFlow
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.PermissionFlow#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.PermissionFlow
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.PermissionFlow#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-permission-flow
 - Install: `dotnet add package Plugin.Maui.PermissionFlow`
 
 ### Plugin.Maui.AppHealth
 - Problem: app, device, and environment health reports
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.AppHealth
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.AppHealth
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.AppHealth#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.AppHealth
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.AppHealth#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-app-health
 - Install: `dotnet add package Plugin.Maui.AppHealth`
 
 ### Plugin.Maui.SecureStoragePlus
 - Problem: AES-256-GCM secure storage with expiry and migration from MAUI SecureStorage
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.SecureStoragePlus
-- GitHub: https://github.com/NiladriPadhy/SecureStoragePlus
-- Docs: https://github.com/NiladriPadhy/SecureStoragePlus#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.SecureStoragePlus
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.SecureStoragePlus#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-secure-storage-plus
 - Install: `dotnet add package Plugin.Maui.SecureStoragePlus`
 
 ### Plugin.Maui.SecureSession
 - Problem: access/refresh tokens, 401 retry, logout, biometrics, multi-device sessions
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.SecureSession
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.SecureSession
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.SecureSession#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.SecureSession
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.SecureSession#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-secure-session
 - Install: `dotnet add package Plugin.Maui.SecureSession`
 
 ### Plugin.Maui.ApiResilience
 - Problem: HttpClient retry, circuit breaker, offline queue, and token refresh
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.ApiResilience
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.ApiResilience
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.ApiResilience#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.ApiResilience
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.ApiResilience#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-api-resilience
 - Install: `dotnet add package Plugin.Maui.ApiResilience`
 
 ### Plugin.Maui.ApiCache
 - Problem: HTTP GET cache with CacheFirst, NetworkFirst, StaleWhileRevalidate, NetworkOnly, CacheOnly
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.ApiCache
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.ApiCache
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.ApiCache#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.ApiCache
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.ApiCache#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-api-cache
 - Install: `dotnet add package Plugin.Maui.ApiCache`
 
 ### Plugin.Maui.FileVault
 - Problem: encrypted local files with key protection and lifecycle controls
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.FileVault
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.FileVault
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.FileVault#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.FileVault
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.FileVault#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-file-vault
 - Install: `dotnet add package Plugin.Maui.FileVault`
 
 ### Plugin.Maui.MediaPipeline
 - Problem: camera-to-upload image pipeline (resize, compress, EXIF, watermark, blur, encrypt)
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.MediaPipeline
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.MediaPipeline
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.MediaPipeline#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.MediaPipeline
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.MediaPipeline#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-media-pipeline
 - Install: `dotnet add package Plugin.Maui.MediaPipeline`
 
 ### Plugin.Maui.VoipCore
 - Problem: SIP/VoIP session model with a pluggable signaling stack
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.VoipCore
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.VoipCore
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.VoipCore#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.VoipCore
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.VoipCore#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-voip-core
 - Install: `dotnet add package Plugin.Maui.VoipCore`
 
 ### Plugin.Maui.FeatureFlags
 - Problem: mobile-first feature flags with MAUI targeting and remote config
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.FeatureFlags
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.FeatureFlags
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.FeatureFlags#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.FeatureFlags
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.FeatureFlags#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-feature-flags
 - Install: `dotnet add package Plugin.Maui.FeatureFlags`
 
 ### Plugin.Maui.DeepLinks
 - Problem: App Links, Universal Links, custom schemes, and auth-restore
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.DeepLinks
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.DeepLinks
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.DeepLinks#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.DeepLinks
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.DeepLinks#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-deep-links
 - Install: `dotnet add package Plugin.Maui.DeepLinks`
 
 ### Plugin.Maui.Performance
 - Problem: lightweight profiler for startup, pages, APIs, images, and memory
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.Performance
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.Performance
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.Performance#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.Performance
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.Performance#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-performance
 - Install: `dotnet add package Plugin.Maui.Performance`
 
 ### Plugin.Maui.Diagnostics
 - Problem: crash, ANR, unhandled exceptions, and pre-crash breadcrumbs
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.Diagnostics
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.Diagnostics
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.Diagnostics#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.Diagnostics
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.Diagnostics#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-diagnostics
 - Install: `dotnet add package Plugin.Maui.Diagnostics`
 
 ### Plugin.Maui.Observability
 - Problem: umbrella telemetry over AppHealth, Network, API, Upload, Sync, Background, Device, Crash
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.Observability
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.Observability
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.Observability#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.Observability
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.Observability#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-observability
 - Install: `dotnet add package Plugin.Maui.Observability`
 
 ### Plugin.Maui.AppUpdate
 - Problem: Google Play In-App Updates, App Store version checks, mandatory/recommended prompts
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.AppUpdate
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.AppUpdate
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.AppUpdate#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.AppUpdate
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.AppUpdate#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-app-update
 - Install: `dotnet add package Plugin.Maui.AppUpdate`
 
 ### Plugin.Maui.BluetoothManager
 - Problem: high-level BLE connection manager (scan, connect, read/write, auto-reconnect)
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.BluetoothManager
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.BluetoothManager
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.BluetoothManager#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.BluetoothManager
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.BluetoothManager#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-bluetooth-manager
 - Install: `dotnet add package Plugin.Maui.BluetoothManager`
 
 ### Plugin.Maui.ClipboardPlus
 - Problem: clipboard with sensitive content, expiration, image/URI/files, and monitoring
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.ClipboardPlus
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.ClipboardPlus
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.ClipboardPlus#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.ClipboardPlus
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.ClipboardPlus#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-clipboard-plus
 - Install: `dotnet add package Plugin.Maui.ClipboardPlus`
 
 ### Plugin.Maui.SharePlus
 - Problem: share with title, subject, MIME, preview, target app, and FileProvider-safe files
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.SharePlus
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.SharePlus
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.SharePlus#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.SharePlus
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.SharePlus#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-share-plus
 - Install: `dotnet add package Plugin.Maui.SharePlus`
 
 ### Plugin.Maui.DeviceInfoPlus
 - Problem: device fingerprint and hardware capabilities (NFC, Bluetooth, camera, biometric, GPS, flash)
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.DeviceInfoPlus
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.DeviceInfoPlus
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.DeviceInfoPlus#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.DeviceInfoPlus
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.DeviceInfoPlus#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-device-info-plus
 - Install: `dotnet add package Plugin.Maui.DeviceInfoPlus`
 
 ### Plugin.Maui.NfcPlus
 - Problem: session-based NFC NDEF read/write, tag ID, Android/iOS sessions
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.NfcPlus
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.NfcPlus
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.NfcPlus#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.NfcPlus
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.NfcPlus#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-nfc-plus
 - Install: `dotnet add package Plugin.Maui.NfcPlus`
 
 ### Plugin.Maui.AppLock
 - Problem: lock the whole app after background (timer, Face ID / fingerprint / device PIN)
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.AppLock
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.AppLock
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.AppLock#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.AppLock
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.AppLock#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-app-lock
 - Install: `dotnet add package Plugin.Maui.AppLock`
 
 ### Plugin.Maui.FormValidation
 - Problem: mobile-first fluent form validation and Validation.For bindings
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.FormValidation
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.FormValidation
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.FormValidation#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.FormValidation
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.FormValidation#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-form-validation
 - Install: `dotnet add package Plugin.Maui.FormValidation`
 
 ### Plugin.Maui.Printing
 - Problem: print PDF, images, text, invoices, receipts, labels, tickets, and Bluetooth thermal / ESC/POS
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.Printing
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.Printing
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.Printing#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.Printing
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.Printing#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-printing
 - Install: `dotnet add package Plugin.Maui.Printing`
 
 ### Plugin.Maui.KeyboardManager
 - Problem: hide / show the soft keyboard, dismiss on tap outside, resize / pan / safe area, height and visibility
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.KeyboardManager
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.KeyboardManager
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.KeyboardManager#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.KeyboardManager
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.KeyboardManager#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-keyboard-manager
 - Install: `dotnet add package Plugin.Maui.KeyboardManager`
 
 ### Plugin.Maui.DeviceOrientationPlus
 - Problem: lock / unlock screen orientation, change events, per-page SetAsync (more than DeviceDisplay)
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.DeviceOrientationPlus
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.DeviceOrientationPlus
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.DeviceOrientationPlus#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.DeviceOrientationPlus
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.DeviceOrientationPlus#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-device-orientation-plus
 - Install: `dotnet add package Plugin.Maui.DeviceOrientationPlus`
 
@@ -351,10 +351,10 @@ dotnet add package <PACKAGE_NAME>
 
 ## Documentation
 
-https://github.com/NiladriPadhy/MauiEssentials
-https://github.com/NiladriPadhy/MauiEssentials/blob/main/docs/getting-started.md
-https://github.com/NiladriPadhy/MauiEssentials/blob/main/docs/packages/README.md
+https://github.com/nuvyntralabs/MauiEssentials
+https://github.com/nuvyntralabs/MauiEssentials/blob/main/docs/getting-started.md
+https://github.com/nuvyntralabs/MauiEssentials/blob/main/docs/packages/README.md
 
 ## Source
 
-https://github.com/NiladriPadhy/MauiEssentials
+https://github.com/nuvyntralabs/MauiEssentials

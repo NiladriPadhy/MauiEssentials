@@ -2,7 +2,7 @@
 
 MauiEssentials is an open-source catalog of focused .NET MAUI plugins for Android and iOS. Each plugin is its own repository, NuGet package, and git submodule.
 
-Hub: https://github.com/NiladriPadhy/MauiEssentials  
+Hub: https://github.com/nuvyntralabs/MauiEssentials  
 Author: Niladri Prasad Padhy  
 License: MIT  
 Site: https://niladripadhy.vercel.app/#opensource  

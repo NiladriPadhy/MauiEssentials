@@ -1,105 +1,105 @@
 [submodule "GeoLocator"]
 	path = GeoLocator
-	url = https://github.com/NiladriPadhy/Plugin.Maui.GeoLocator.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.GeoLocator.git
 [submodule "NetworkMonitor"]
 	path = NetworkMonitor
-	url = https://github.com/NiladriPadhy/Maui.NetworkMonitor.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.NetworkMonitor.git
 [submodule "BackgroundTasks"]
 	path = BackgroundTasks
-	url = https://github.com/NiladriPadhy/Plugin.Maui.BackgroundTasks.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.BackgroundTasks.git
 [submodule "SmartUpload"]
 	path = SmartUpload
-	url = https://github.com/NiladriPadhy/Plugin.Maui.SmartUpload.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.SmartUpload.git
 [submodule "DeviceSession"]
 	path = DeviceSession
-	url = https://github.com/NiladriPadhy/Plugin.Maui.DeviceSession.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.DeviceSession.git
 [submodule "OfflineSync"]
 	path = OfflineSync
-	url = https://github.com/NiladriPadhy/Plugin.Maui.OfflineSync.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.OfflineSync.git
 [submodule "PushRouter"]
 	path = PushRouter
-	url = https://github.com/NiladriPadhy/Plugin.Maui.PushRouter.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.PushRouter.git
 [submodule "PermissionFlow"]
 	path = PermissionFlow
-	url = https://github.com/NiladriPadhy/Plugin.Maui.PermissionFlow.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.PermissionFlow.git
 [submodule "AppHealth"]
 	path = AppHealth
-	url = https://github.com/NiladriPadhy/Plugin.Maui.AppHealth.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.AppHealth.git
 [submodule "SecureStoragePlus"]
 	path = SecureStoragePlus
-	url = https://github.com/NiladriPadhy/SecureStoragePlus.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.SecureStoragePlus.git
 [submodule "ApiResilience"]
 	path = ApiResilience
-	url = https://github.com/NiladriPadhy/Plugin.Maui.ApiResilience.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.ApiResilience.git
 [submodule "FileVault"]
 	path = FileVault
-	url = https://github.com/NiladriPadhy/Plugin.Maui.FileVault.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.FileVault.git
 [submodule "VoipCore"]
 	path = VoipCore
-	url = https://github.com/NiladriPadhy/Plugin.Maui.VoipCore.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.VoipCore.git
 [submodule "FeatureFlags"]
 	path = FeatureFlags
-	url = https://github.com/NiladriPadhy/Plugin.Maui.FeatureFlags.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.FeatureFlags.git
 [submodule "SecureSession"]
 	path = SecureSession
-	url = https://github.com/NiladriPadhy/Plugin.Maui.SecureSession.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.SecureSession.git
 [submodule "MediaPipeline"]
 	path = MediaPipeline
-	url = https://github.com/NiladriPadhy/Plugin.Maui.MediaPipeline.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.MediaPipeline.git
 [submodule "DeepLinks"]
 	path = DeepLinks
-	url = https://github.com/NiladriPadhy/Plugin.Maui.DeepLinks.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.DeepLinks.git
 [submodule "Performance"]
 	path = Performance
-	url = https://github.com/NiladriPadhy/Plugin.Maui.Performance.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.Performance.git
 [submodule "Observability"]
 	path = Observability
-	url = https://github.com/NiladriPadhy/Plugin.Maui.Observability.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.Observability.git
 [submodule "Diagnostics"]
 	path = Diagnostics
-	url = https://github.com/NiladriPadhy/Plugin.Maui.Diagnostics.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.Diagnostics.git
 [submodule "JobQueue"]
 	path = JobQueue
-	url = https://github.com/NiladriPadhy/Plugin.Maui.JobQueue.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.JobQueue.git
 [submodule "AppUpdate"]
 	path = AppUpdate
-	url = https://github.com/NiladriPadhy/Plugin.Maui.AppUpdate.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.AppUpdate.git
 [submodule "BluetoothManager"]
 	path = BluetoothManager
-	url = https://github.com/NiladriPadhy/Plugin.Maui.BluetoothManager.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.BluetoothManager.git
 [submodule "ClipboardPlus"]
 	path = ClipboardPlus
-	url = https://github.com/NiladriPadhy/Plugin.Maui.ClipboardPlus.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.ClipboardPlus.git
 [submodule "SharePlus"]
 	path = SharePlus
-	url = https://github.com/NiladriPadhy/Plugin.Maui.SharePlus.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.SharePlus.git
 [submodule "DeviceInfoPlus"]
 	path = DeviceInfoPlus
-	url = https://github.com/NiladriPadhy/Plugin.Maui.DeviceInfoPlus.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.DeviceInfoPlus.git
 [submodule "Printing"]
 	path = Printing
-	url = https://github.com/NiladriPadhy/Plugin.Maui.Printing.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.Printing.git
 [submodule "ApiCache"]
 	path = ApiCache
-	url = https://github.com/NiladriPadhy/Plugin.Maui.ApiCache.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.ApiCache.git
 [submodule "AppLock"]
 	path = AppLock
-	url = https://github.com/NiladriPadhy/Plugin.Maui.AppLock.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.AppLock.git
 [submodule "FormValidation"]
 	path = FormValidation
-	url = https://github.com/NiladriPadhy/Plugin.Maui.FormValidation.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.FormValidation.git
 [submodule "KeyboardManager"]
 	path = KeyboardManager
-	url = https://github.com/NiladriPadhy/Plugin.Maui.KeyboardManager.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.KeyboardManager.git
 [submodule "NetworkDiagnostics"]
 	path = NetworkDiagnostics
-	url = https://github.com/NiladriPadhy/Plugin.Maui.NetworkDiagnostics.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.NetworkDiagnostics.git
 [submodule "Nfc"]
 	path = Nfc
-	url = https://github.com/NiladriPadhy/Plugin.Maui.NfcPlus.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.NfcPlus.git
 [submodule "RetryQueue"]
 	path = RetryQueue
-	url = https://github.com/NiladriPadhy/Plugin.Maui.RetryQueue.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.RetryQueue.git
 [submodule "DeviceOrientation"]
 	path = DeviceOrientation
-	url = https://github.com/NiladriPadhy/Plugin.Maui.DeviceOrientationPlus.git
+	url = https://github.com/nuvyntralabs/Plugin.Maui.DeviceOrientationPlus.git
