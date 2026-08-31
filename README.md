@@ -2,7 +2,7 @@
 
 Open-source **.NET MAUI** plugins for **Android** and **iOS**. This catalog maps a developer requirement to a focused NuGet package so you do not have to reimplement native plumbing.
 
-Keywords: .NET MAUI, MAUI, MVVM, Android, iOS, cross-platform, NuGet, MAUI controls, MAUI utilities, GPS, connectivity, network diagnostics, offline sync, background jobs, VoIP, push notifications, secure storage, app lock, Face ID, feature flags, deep links, device fingerprint, NFC, NDEF, form validation, print, thermal, ESC/POS, Bluetooth printer, keyboard, hide keyboard, soft keyboard, orientation, lock orientation, landscape, portrait.
+Keywords: .NET MAUI, MAUI, MVVM, ViewModel, Android, iOS, cross-platform, NuGet, MAUI controls, MAUI utilities, CommunityToolkit.Maui, GPS, connectivity, network diagnostics, offline sync, background jobs, VoIP, push notifications, secure storage, app lock, Face ID, feature flags, deep links, device fingerprint, NFC, NDEF, form validation, print, thermal, ESC/POS, Bluetooth printer, keyboard, hide keyboard, soft keyboard, orientation, lock orientation, landscape, portrait.
 
 **Hub:** https://github.com/nuvyntralabs/MauiEssentials  
 **Author:** [Niladri Prasad Padhy](https://github.com/NiladriPadhy)  
@@ -11,7 +11,7 @@ Keywords: .NET MAUI, MAUI, MVVM, Android, iOS, cross-platform, NuGet, MAUI contr
 
 ## What problem this catalog solves
 
-.NET MAUI includes useful essentials (connectivity, geolocation, secure storage, permissions). Production apps still need pieces the framework does not ship: captive-portal detection, layered connectivity diagnostics, durable job queues, failed-operation retries, resumable uploads, offline-first sync, permission UX flows, crash breadcrumbs, in-app updates, and SIP session models.
+.NET MAUI includes useful essentials (connectivity, geolocation, secure storage, permissions). Production apps still need pieces the framework does not ship: an MVVM application shell, CommunityToolkit.Maui production extras, captive-portal detection, layered connectivity diagnostics, durable job queues, failed-operation retries, resumable uploads, offline-first sync, permission UX flows, crash breadcrumbs, in-app updates, and SIP session models.
 
 MauiEssentials is a collection of **small, independently published** plugins. Install only the package that matches the requirement.
 
@@ -104,6 +104,10 @@ git submodule update --init --recursive
 | [Plugin.Maui.Printing](https://github.com/nuvyntralabs/Plugin.Maui.Printing) | Print PDF, images, text, invoices, receipts, labels, and Bluetooth thermal / ESC/POS | [NuGet](https://www.nuget.org/packages/Plugin.Maui.Printing) |
 | [Plugin.Maui.KeyboardManager](https://github.com/nuvyntralabs/Plugin.Maui.KeyboardManager) | Hide, show, dismiss on tap, resize/pan, keyboard height, and safe areas | [NuGet](https://www.nuget.org/packages/Plugin.Maui.KeyboardManager) |
 | [Plugin.Maui.DeviceOrientationPlus](https://github.com/nuvyntralabs/Plugin.Maui.DeviceOrientationPlus) | Lock, unlock, and per-page screen orientation (video, POS, camera, scanning) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.DeviceOrientationPlus) |
+| [Plugin.Maui.CommunityToolkitPlus](https://github.com/nuvyntralabs/Plugin.Maui.CommunityToolkitPlus) | Opt-in CommunityToolkit.Maui extras: accessibility audit, state restore, upgrade guard, trusted time, integrity, wallet, consent | [NuGet](https://www.nuget.org/packages/Plugin.Maui.CommunityToolkitPlus) |
+| [Plugin.Maui.MVVMExpress](https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress) | Modular MVVM: ViewModels, async state, Shell navigation, dialogs, validation, pagination | [NuGet](https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Core) |
+
+`Plugin.Maui.MVVMExpress` is a public preview (`0.1.1-preview`); install with `--prerelease`. Docs: [MVVMExpress](https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/).
 
 White papers: `https://niladripadhy.vercel.app/opensource/<slug>` (see [llms.txt](llms.txt) for slugs).
 
@@ -146,6 +150,8 @@ White papers: `https://niladripadhy.vercel.app/opensource/<slug>` (see [llms.txt
 | Print PDF / image / receipt / invoice / Bluetooth thermal | Plugin.Maui.Printing |
 | Hide / show keyboard, dismiss on tap, resize vs pan, keyboard height | Plugin.Maui.KeyboardManager |
 | Lock / unlock landscape or portrait, per-page orientation | Plugin.Maui.DeviceOrientationPlus |
+| CommunityToolkit.Maui extras (a11y audit, restore, integrity, wallet, consent) | Plugin.Maui.CommunityToolkitPlus |
+| MVVM ViewModels, async state, Shell navigation, dialogs | Plugin.Maui.MVVMExpress |
 
 ## Features
 
@@ -216,6 +222,8 @@ Each plugin README has Problem → Installation → Configuration → Code → E
 | HTTP retry / circuit breaker | ApiResilience | — | — (use Polly) |
 | HTTP GET response cache | ApiCache | — | — (use Akavache / MonkeyCache) |
 | Lock / unlock screen orientation | DeviceOrientationPlus | `DeviceDisplay` (read-only) | — |
+| MVVM application shell | MVVMExpress | — | CommunityToolkit.Mvvm (properties/commands) |
+| Toolkit extras (a11y, restore, integrity, wallet, consent) | CommunityToolkitPlus | — | Official toolkit UI / popup / behaviors |
 
 Do not treat this table as superiority. MAUI built-ins are the right default when they already solve the problem. MauiEssentials fills gaps those APIs leave open.
 
