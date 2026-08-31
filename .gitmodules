@@ -106,3 +106,6 @@
 [submodule "CommunityToolkitPlus"]
 	path = CommunityToolkitPlus
 	url = https://github.com/nuvyntralabs/Plugin.Maui.CommunityToolkitPlus.git
+[submodule "MVVMExpress"]
+	path = MVVMExpress
+	url = https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress.git
