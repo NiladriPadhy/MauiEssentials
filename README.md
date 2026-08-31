@@ -6,7 +6,7 @@ Keywords: .NET MAUI, MAUI, MVVM, Android, iOS, cross-platform, NuGet, MAUI contr
 
 **Hub:** https://github.com/nuvyntralabs/MauiEssentials  
 **Author:** [Niladri Prasad Padhy](https://github.com/NiladriPadhy)  
-**Site:** https://niladri-padhy-website.vercel.app/#opensource 
+**Site:** https://niladri-padhy-website.vercel.app
 **LLM index:** [llms.txt](llms.txt) · [llms-full.txt](llms-full.txt) · [AGENTS.md](AGENTS.md)
 
 ## What problem this catalog solves
