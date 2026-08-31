@@ -103,3 +103,6 @@
 [submodule "DeviceOrientation"]
 	path = DeviceOrientation
 	url = https://github.com/nuvyntralabs/Plugin.Maui.DeviceOrientationPlus.git
+[submodule "CommunityToolkitPlus"]
+	path = CommunityToolkitPlus
+	url = https://github.com/nuvyntralabs/Plugin.Maui.CommunityToolkitPlus.git
