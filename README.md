@@ -105,7 +105,7 @@ git submodule update --init --recursive
 | [Plugin.Maui.KeyboardManager](https://github.com/nuvyntralabs/Plugin.Maui.KeyboardManager) | Hide, show, dismiss on tap, resize/pan, keyboard height, and safe areas | [NuGet](https://www.nuget.org/packages/Plugin.Maui.KeyboardManager) |
 | [Plugin.Maui.DeviceOrientationPlus](https://github.com/nuvyntralabs/Plugin.Maui.DeviceOrientationPlus) | Lock, unlock, and per-page screen orientation (video, POS, camera, scanning) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.DeviceOrientationPlus) |
 | [Plugin.Maui.CommunityToolkitPlus](https://github.com/nuvyntralabs/Plugin.Maui.CommunityToolkitPlus) | Opt-in CommunityToolkit.Maui extras: accessibility audit, state restore, upgrade guard, trusted time, integrity, wallet, consent | [NuGet](https://www.nuget.org/packages/Plugin.Maui.CommunityToolkitPlus) |
-| [Plugin.Maui.MVVMExpress](https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress) | Modular MVVM: ViewModels, async state, Shell navigation, dialogs, validation, pagination | [NuGet](https://www.nuget.org/packages/Plugin.Maui.MVVMExpress.Core) |
+| [Plugin.Maui.MVVMExpress](https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress) | Modular MVVM: ViewModels, async state, Shell navigation, dialogs, validation, pagination | [NuGet](https://www.nuget.org/packages/Plugin.Maui.MVVMExpress) |
 
 `Plugin.Maui.MVVMExpress` is a public preview (`0.1.1-preview`); install with `--prerelease`. Docs: [MVVMExpress](https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/).
 
