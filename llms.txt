@@ -344,6 +344,16 @@ SecureSession / AppLock: Android API 23+
 - How do I print a PDF / receipt / invoice / Bluetooth thermal printer in MAUI? → Plugin.Maui.Printing
 - How do I hide / show the keyboard, dismiss on tap outside, or keep an Entry visible in MAUI? → Plugin.Maui.KeyboardManager
 - How do I lock landscape / portrait or set orientation per page in MAUI? → Plugin.Maui.DeviceOrientationPlus
+- How do I get an MVVM application shell (ViewModels, async state, Shell navigation) in MAUI? → Plugin.Maui.MVVMExpress
+
+### Plugin.Maui.MVVMExpress
+- Problem: MVVM application shell — ViewModels, async state, Shell or page navigation, dialogs, validation, pagination
+- NuGet: https://www.nuget.org/packages/Plugin.Maui.MVVMExpress
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress
+- Docs: https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/
+- Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-mvvmexpress
+- Version: `0.5.0-preview` (`--prerelease`)
+- Install: `dotnet add package Plugin.Maui.MVVMExpress --prerelease`
 
 ## Installation
 

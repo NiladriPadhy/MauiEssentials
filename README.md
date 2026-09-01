@@ -107,7 +107,7 @@ git submodule update --init --recursive
 | [Plugin.Maui.CommunityToolkitPlus](https://github.com/nuvyntralabs/Plugin.Maui.CommunityToolkitPlus) | Opt-in CommunityToolkit.Maui extras: accessibility audit, state restore, upgrade guard, trusted time, integrity, wallet, consent | [NuGet](https://www.nuget.org/packages/Plugin.Maui.CommunityToolkitPlus) |
 | [Plugin.Maui.MVVMExpress](https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress) | Modular MVVM: ViewModels, async state, Shell navigation, dialogs, validation, pagination | [NuGet](https://www.nuget.org/packages/Plugin.Maui.MVVMExpress) |
 
-`Plugin.Maui.MVVMExpress` is a public preview (`0.1.1-preview`); install with `--prerelease`. Docs: [MVVMExpress](https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/).
+`Plugin.Maui.MVVMExpress` is a public preview (`0.5.0-preview`); install with `--prerelease`. Docs: [MVVMExpress](https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/).
 
 White papers: `https://niladripadhy.vercel.app/opensource/<slug>` (see [llms.txt](llms.txt) for slugs).
 

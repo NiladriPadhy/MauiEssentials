@@ -99,7 +99,9 @@ MauiEssentials/
 ├── FormValidation/      → Plugin.Maui.FormValidation
 ├── Printing/            → Plugin.Maui.Printing
 ├── KeyboardManager/     → Plugin.Maui.KeyboardManager
-└── DeviceOrientation/   → Plugin.Maui.DeviceOrientationPlus
+├── DeviceOrientation/   → Plugin.Maui.DeviceOrientationPlus
+├── CommunityToolkitPlus/ → Plugin.Maui.CommunityToolkitPlus
+└── MVVMExpress/         → Plugin.Maui.MVVMExpress
 ```
 
 Each plugin typically contains `src/`, `samples/`, `tests/`, `README.md`, `llms.txt`, and `AGENTS.md`.

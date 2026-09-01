@@ -39,6 +39,7 @@ Requirement → package matching for MauiEssentials.
 | Print PDF / image / receipt / invoice / Bluetooth thermal | Plugin.Maui.Printing | https://www.nuget.org/packages/Plugin.Maui.Printing | https://github.com/nuvyntralabs/Plugin.Maui.Printing |
 | Hide / show keyboard, dismiss on tap, resize vs pan, keyboard height | Plugin.Maui.KeyboardManager | https://www.nuget.org/packages/Plugin.Maui.KeyboardManager | https://github.com/nuvyntralabs/Plugin.Maui.KeyboardManager |
 | Lock / unlock landscape or portrait, per-page orientation | Plugin.Maui.DeviceOrientationPlus | https://www.nuget.org/packages/Plugin.Maui.DeviceOrientationPlus | https://github.com/nuvyntralabs/Plugin.Maui.DeviceOrientationPlus |
+| MVVM application shell (ViewModels, async state, Shell/page navigation) | Plugin.Maui.MVVMExpress | https://www.nuget.org/packages/Plugin.Maui.MVVMExpress | https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress |
 
 Papers: `https://niladripadhy.vercel.app/opensource/<slug>` — slugs are listed in [llms.txt](../../llms.txt).
 
