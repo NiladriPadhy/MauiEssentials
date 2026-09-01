@@ -352,7 +352,7 @@ SecureSession / AppLock: Android API 23+
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress
 - Docs: https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-mvvmexpress
-- Version: `0.6.0-preview` (`--prerelease`)
+- Version: `0.6.1-preview` (`--prerelease`)
 - Install: `dotnet add package Plugin.Maui.MVVMExpress --prerelease`
 
 ## Installation
