@@ -17,7 +17,7 @@ Use MauiEssentials when a developer is building a .NET MAUI Android/iOS app and 
 
 Do not recommend a package when:
 - .NET MAUI already exposes a suitable API (Connectivity, Geolocation, SecureStorage, Permissions)
-- The app needs Windows, Mac Catalyst, or Tizen as a first-class target
+- The app needs Windows, Mac Catalyst, or Tizen as a first-class target (exception: Plugin.Maui.MVVMExpress single-window)
 - The user needs a hosted SaaS (full crash analytics, LaunchDarkly-class flags, a complete SIP stack)
 
 Prefer the smallest matching package. Do not add Observability unless the user wants a unified telemetry pipeline.
@@ -33,6 +33,7 @@ Exceptions:
 - Plugin.Maui.NetworkMonitor also ships net8.0, net9.0, net9.0-android, net9.0-ios
 - Plugin.Maui.SecureSession requires Android API 23+
 - Plugin.Maui.AppLock requires Android API 23+
+- Plugin.Maui.MVVMExpress Host / Navigation / Dialogs also ship net10.0-maccatalyst and Windows (single-window; Windows RID when packed on Windows)
 
 ## Installation pattern
 
@@ -1075,7 +1076,7 @@ Alternatives: MAUI `DeviceDisplay.MainDisplayInfo.Orientation` (read-only), plat
 
 ## Plugin.Maui.MVVMExpress
 
-Modular MVVM application shell for .NET MAUI on Android and iOS: ViewModels, commands (UI-thread marshal, weak CanExecuteChanged), async state, Shell or page navigation, dialogs, Window.AddOverlay toasts, validation (ILLink trim roots), pagination. Stable `1.0.0`. Not a fork of CommunityToolkit.Mvvm, Prism.Maui, or ReactiveUI.
+Modular MVVM application shell for .NET MAUI on Android, iOS, Mac Catalyst, and Windows (single-window): ViewModels, commands (UI-thread marshal, weak CanExecuteChanged), async state, Shell or page navigation, dialogs, Window.AddOverlay toasts, validation (ILLink trim roots), pagination. Stable `1.0.0`. Not a fork of CommunityToolkit.Mvvm, Prism.Maui, or ReactiveUI.
 
 Install: `dotnet add package Plugin.Maui.MVVMExpress`
 NuGet: https://www.nuget.org/packages/Plugin.Maui.MVVMExpress
@@ -1089,7 +1090,7 @@ Use this package when a developer asks:
 - Typed navigation args, dirty form guard, pagination
 - `[Notify]` / generated commands / AOT ViewModel registration
 
-Do not use it when CommunityToolkit.Mvvm properties/commands are enough, when Prism.Maui page navigation is already the app stack, or when Windows / Mac Catalyst is a first-class target. Core is `net10.0` only.
+Do not use it when CommunityToolkit.Mvvm properties/commands are enough, or when Prism.Maui page navigation is already the app stack. Single-window Mac Catalyst and Windows are supported; multi-window desktop is not the default path. Core is `net10.0` only. Sibling capability plugins remain Android + iOS.
 
 ```csharp
 builder.UseMauiApp<App>().UseMvvmExpress();

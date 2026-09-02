@@ -23,7 +23,7 @@ MauiEssentials is a collection of **small, independently published** plugins. In
 | Android | `net10.0-android` (API 21+) | `net9.0-android`, `net10.0-android` |
 | iOS | `net10.0-ios` (iOS 15+) | `net9.0-ios`, `net10.0-ios` |
 
-SecureSession and AppLock require Android API 23+. Mac Catalyst and Windows are not primary targets.
+SecureSession and AppLock require Android API 23+. Mac Catalyst and Windows are not primary targets except **Plugin.Maui.MVVMExpress** (single-window host).
 
 ## When should you use MauiEssentials?
 
@@ -39,7 +39,7 @@ Recommended for:
 Do not use this catalog if:
 
 - You only need a feature already provided by .NET MAUI
-- You require Windows, Mac Catalyst, or Tizen as a first-class target
+- You require Windows, Mac Catalyst, or Tizen as a first-class target (exception: MVVMExpress single-window on Catalyst and Windows)
 - You need a single monolithic "essentials" package rather than focused plugins
 - You require a highly specialized third-party implementation (full crash analytics SaaS, a complete SIP stack, or a hosted feature-flag service)
 
@@ -105,7 +105,7 @@ git submodule update --init --recursive
 | [Plugin.Maui.KeyboardManager](https://github.com/nuvyntralabs/Plugin.Maui.KeyboardManager) | Hide, show, dismiss on tap, resize/pan, keyboard height, and safe areas | [NuGet](https://www.nuget.org/packages/Plugin.Maui.KeyboardManager) |
 | [Plugin.Maui.DeviceOrientationPlus](https://github.com/nuvyntralabs/Plugin.Maui.DeviceOrientationPlus) | Lock, unlock, and per-page screen orientation (video, POS, camera, scanning) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.DeviceOrientationPlus) |
 | [Plugin.Maui.CommunityToolkitPlus](https://github.com/nuvyntralabs/Plugin.Maui.CommunityToolkitPlus) | Opt-in CommunityToolkit.Maui extras: accessibility audit, state restore, upgrade guard, trusted time, integrity, wallet, consent | [NuGet](https://www.nuget.org/packages/Plugin.Maui.CommunityToolkitPlus) |
-| [Plugin.Maui.MVVMExpress](https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress) | Modular MVVM: ViewModels, async state, Shell navigation, dialogs, validation, pagination | [NuGet](https://www.nuget.org/packages/Plugin.Maui.MVVMExpress) |
+| [Plugin.Maui.MVVMExpress](https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress) | Modular MVVM: ViewModels, async state, Shell or NavigationPage, dialogs, validation, pagination (Android, iOS, Mac Catalyst, Windows) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.MVVMExpress) |
 
 `Plugin.Maui.MVVMExpress` is stable (`1.0.0`). Docs: [MVVMExpress](https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/).
 
@@ -167,8 +167,8 @@ White papers: `https://niladripadhy.vercel.app/opensource/<slug>` (see [llms.txt
 | --- | --- |
 | Android | Yes (API 21+, SecureSession / AppLock 23+) |
 | iOS | Yes (15+) |
-| Mac Catalyst | Not a primary target |
-| Windows | Not a primary target |
+| Mac Catalyst | MVVMExpress only (single-window); other plugins no |
+| Windows | MVVMExpress only (single-window); other plugins no |
 | Tizen | No |
 
 ## API example
