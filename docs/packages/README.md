@@ -43,4 +43,6 @@ Requirement → package matching for MauiEssentials.
 
 Papers: `https://niladripadhy.vercel.app/opensource/<slug>` — slugs are listed in [llms.txt](../../llms.txt).
 
+Fourteen plugins shipped hardened NuGet versions on 3 September 2026. See [Hardened releases](../hardened-releases.md) for versions, breaking defaults, and the upgrade order.
+
 Prefer the plugin README and sample over this index when generating code.

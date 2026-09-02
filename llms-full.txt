@@ -35,6 +35,31 @@ Exceptions:
 - Plugin.Maui.AppLock requires Android API 23+
 - Plugin.Maui.MVVMExpress Host / Navigation / Dialogs also ship net10.0-maccatalyst and Windows (single-window; Windows RID when packed on Windows)
 
+## Hardened releases (3 September 2026)
+
+Fourteen plugins shipped new NuGet versions after a catalog security review (351 passing tests). Public type names did not change. Defaults did.
+
+Upgrade map: https://github.com/nuvyntralabs/MauiEssentials/blob/main/docs/hardened-releases.md
+
+| Package | Version | Host impact |
+| --- | --- | --- |
+| Plugin.Maui.DeepLinks | 1.0.6 | Empty Hosts / CustomSchemes reject links; http:// needs AllowInsecureHttp; PermissiveMode restores old open behavior |
+| Plugin.Maui.PushRouter | 1.0.6 | Navigate only through Map / DefaultRoute unless AllowUnmappedPayloadRoutes |
+| Plugin.Maui.SmartUpload | 1.0.6 | Endpoints must be https unless RequireHttps = false |
+| Plugin.Maui.FeatureFlags | 1.0.7 | RemoteUri must be https; optional SignatureKey (HMAC-SHA256, X-FeatureFlags-Signature) |
+| Plugin.Maui.ApiResilience | 1.0.8 | Offline queue is AES-256-GCM; PersistRequestBodies = false redacts bodies |
+| Plugin.Maui.FileVault | 1.0.8 | Background lock always ClearKey; GetStatisticsAsync; confined RootDirectory; OnProtectionFailed |
+| Plugin.Maui.SecureSession | 1.0.6 | LoginAsync(TokenBundle) still host-trusted; AcceptUnvalidatedTokens = false requires IAuthGateway |
+| Plugin.Maui.DeviceSession | 1.0.6 | Preferences by default; UseSecureStorage = true for a higher-assurance store |
+| Plugin.Maui.AppLock | 1.0.5 | Auto-prompt failures raise AuthenticationCompleted; cover stays locked |
+| Plugin.Maui.BackgroundTasks | 1.0.6 | Android logs handler exceptions; OperationCanceledException is not retried |
+| Plugin.Maui.OfflineSync | 1.0.9 | Auto-sync isolates failures; Android JobFinished is null-safe |
+| Plugin.Maui.Observability | 1.0.7 | Hub uses sibling ProjectReferences (UseMonorepoRefs); standalone uses PackageReferences |
+| Plugin.Maui.NetworkMonitor | 1.0.7 | Authors + MIT metadata only |
+| Plugin.Maui.AppUpdate | 1.0.6 | Root .sln added; no API change |
+
+When generating registration code for these packages, emit the fail-closed options. Do not set PermissiveMode, AllowUnmappedPayloadRoutes, or RequireHttps = false unless the developer asks for the old behavior.
+
 ## Installation pattern
 
 ```bash
@@ -93,6 +118,7 @@ Alternatives: Microsoft.Maui.ApplicationModel.Geolocation, Xamarin.Essentials Ge
 
 A .NET MAUI library for checking real internet availability, not just “connected to a network”. Detects captive portals and Wi-Fi vs cellular transitions.
 
+Current release: 1.0.7 (Authors + MIT license metadata; no API change).
 Install: `dotnet add package Plugin.Maui.NetworkMonitor`
 NuGet: https://www.nuget.org/packages/Plugin.Maui.NetworkMonitor
 GitHub: https://github.com/nuvyntralabs/Plugin.Maui.NetworkMonitor
@@ -172,6 +198,7 @@ Alternatives: Plugin.Maui.NetworkMonitor (watch, do not diagnose), MAUI Connecti
 
 A .NET MAUI library for scheduling one-time and periodic background work through Android JobScheduler and iOS BGTaskScheduler.
 
+Current release: 1.0.6. Android JobService logs handler exceptions. OperationCanceledException is a cancelled run and is not retried.
 Install: `dotnet add package Plugin.Maui.BackgroundTasks`
 NuGet: https://www.nuget.org/packages/Plugin.Maui.BackgroundTasks
 GitHub: https://github.com/nuvyntralabs/Plugin.Maui.BackgroundTasks
@@ -267,6 +294,7 @@ Alternatives: Plugin.Maui.JobQueue (typed jobs), Polly / ApiResilience (HTTP onl
 
 A .NET MAUI library for chunked, resumable HTTP uploads with pause/resume, retry, and session persistence across process restarts. Includes Content-Range and tus.io.
 
+Current release: 1.0.6. Upload endpoints must be https (RequireHttps = true). Set RequireHttps = false only for local development.
 Install: `dotnet add package Plugin.Maui.SmartUpload`
 NuGet: https://www.nuget.org/packages/Plugin.Maui.SmartUpload
 GitHub: https://github.com/nuvyntralabs/Plugin.Maui.SmartUpload
@@ -295,6 +323,7 @@ Alternatives: tus-dotnet clients, raw HttpClient, Azure Blob mobile SDKs.
 
 A .NET MAUI library for device identity, installation identity, and analytics-style session timeouts on Android and iOS.
 
+Current release: 1.0.6. IDs stay in Preferences. Set UseSecureStorage = true for a higher-assurance store. Identifiers are not secrets.
 Install: `dotnet add package Plugin.Maui.DeviceSession`
 NuGet: https://www.nuget.org/packages/Plugin.Maui.DeviceSession
 GitHub: https://github.com/nuvyntralabs/Plugin.Maui.DeviceSession
@@ -321,6 +350,7 @@ Alternatives: MAUI DeviceInfo (no stable install/session ids), App Center / anal
 
 An offline-first data synchronization engine for .NET MAUI. Local SQLite writes, change tracking, conflict resolution, and pluggable remote sync.
 
+Current release: 1.0.9. Auto-sync isolates failures so a failed push does not crash the process. Subscribe to SyncCompleted / StatusChanged when the UI must surface errors. Android JobFinished is null-safe.
 Install: `dotnet add package Plugin.Maui.OfflineSync`
 NuGet: https://www.nuget.org/packages/Plugin.Maui.OfflineSync
 GitHub: https://github.com/nuvyntralabs/Plugin.Maui.OfflineSync
@@ -353,6 +383,7 @@ Alternatives: CommunityToolkit.Maui.Data, Azure Mobile Apps, Realm, custom outbo
 
 Routes FCM and APNs payloads to handlers and MAUI Shell screens. Does not register tokens or show system notifications.
 
+Current release: 1.0.6. Navigation uses registered Map keys or DefaultRoute only. Raw payload Shell paths are ignored unless AllowUnmappedPayloadRoutes = true.
 Install: `dotnet add package Plugin.Maui.PushRouter`
 NuGet: https://www.nuget.org/packages/Plugin.Maui.PushRouter
 GitHub: https://github.com/nuvyntralabs/Plugin.Maui.PushRouter
@@ -458,6 +489,7 @@ Alternatives: MAUI SecureStorage, Xamarin.Essentials SecureStorage.
 
 Mobile authentication and session management: access/refresh tokens, 401 retry, logout, biometrics, multi-device sessions. Persists via SecureStoragePlus.
 
+Current release: 1.0.6. LoginAsync(TokenBundle) is host-trusted while AcceptUnvalidatedTokens is true (the default). Set it to false so only IAuthGateway can create a session.
 Install: `dotnet add package Plugin.Maui.SecureSession`
 NuGet: https://www.nuget.org/packages/Plugin.Maui.SecureSession
 GitHub: https://github.com/nuvyntralabs/Plugin.Maui.SecureSession
@@ -482,6 +514,7 @@ Alternatives: MSAL, Auth0 MAUI SDK, custom token store.
 
 HTTP resilience for .NET MAUI: retry with jitter, circuit breaker, offline request queue, and bearer token refresh.
 
+Current release: 1.0.8. Offline queue file is AES-256-GCM (EncryptQueue = true). Existing plaintext queues still load. PersistRequestBodies = false stores a redacted placeholder. The queue key lives next to the queue file in the app sandbox.
 Install: `dotnet add package Plugin.Maui.ApiResilience`
 NuGet: https://www.nuget.org/packages/Plugin.Maui.ApiResilience
 GitHub: https://github.com/nuvyntralabs/Plugin.Maui.ApiResilience
@@ -539,6 +572,7 @@ Alternatives: Akavache, MonkeyCache, custom HttpClient + file store.
 
 Encrypted local files for .NET MAUI: AES-256-GCM, platform-protected keys, expiration, purge, lock/unlock.
 
+Current release: 1.0.8. Background lock always clears the in-memory master key. Prefer GetStatisticsAsync (sync GetStatistics times out after 5s). RootDirectory must stay inside the host-chosen folder. Events.OnProtectionFailed reports platform protection failures; files stay encrypted.
 Install: `dotnet add package Plugin.Maui.FileVault`
 NuGet: https://www.nuget.org/packages/Plugin.Maui.FileVault
 GitHub: https://github.com/nuvyntralabs/Plugin.Maui.FileVault
@@ -618,6 +652,7 @@ Alternatives: Twilio Voice, Linphone, PJSIP bindings, native SIP SDKs.
 
 Mobile-first feature flags for .NET MAUI with remote configuration, device/OS/country/user targeting, percentage rollout, and offline cache.
 
+Current release: 1.0.7. RemoteUri must be https (RequireHttps = true). Optional SignatureKey verifies X-FeatureFlags-Signature as HMAC-SHA256 hex over the response body.
 Install: `dotnet add package Plugin.Maui.FeatureFlags`
 NuGet: https://www.nuget.org/packages/Plugin.Maui.FeatureFlags
 GitHub: https://github.com/nuvyntralabs/Plugin.Maui.FeatureFlags
@@ -642,6 +677,7 @@ Alternatives: Firebase Remote Config, LaunchDarkly, Azure App Configuration.
 
 Maps incoming App Links, Universal Links, and custom schemes to handlers or Shell routes, with optional auth-restore.
 
+Current release: 1.0.6. Fail-closed allowlists: empty Hosts rejects HTTPS; empty CustomSchemes rejects custom schemes. http:// needs AllowInsecureHttp. PermissiveMode = true restores the old open behavior.
 Install: `dotnet add package Plugin.Maui.DeepLinks`
 NuGet: https://www.nuget.org/packages/Plugin.Maui.DeepLinks
 GitHub: https://github.com/nuvyntralabs/Plugin.Maui.DeepLinks
@@ -720,6 +756,7 @@ Alternatives: Sentry, Firebase Crashlytics, App Center Crashes.
 
 Umbrella telemetry pipeline. Registers sibling plugins and fans health, network, API, upload, sync, background, device, and crash events into one export path.
 
+Current release: 1.0.7. Hub clones use sibling ProjectReferences (UseMonorepoRefs=true). A standalone clone uses pinned PackageReferences (NetworkMonitor 1.0.7, ApiResilience 1.0.8, BackgroundTasks 1.0.6, …). Set UseMonorepoRefs=false to force NuGet packages in the hub.
 Install: `dotnet add package Plugin.Maui.Observability`
 NuGet: https://www.nuget.org/packages/Plugin.Maui.Observability
 GitHub: https://github.com/nuvyntralabs/Plugin.Maui.Observability
@@ -743,6 +780,7 @@ Alternatives: OpenTelemetry, Application Insights, custom ILogger pipeline.
 
 Cross-platform in-app updates: Google Play In-App Updates on Android, App Store version lookup on iOS, mandatory/recommended prompts, maintenance mode.
 
+Current release: 1.0.6. Adds Plugin.Maui.AppUpdate.sln. No API change.
 Install: `dotnet add package Plugin.Maui.AppUpdate`
 NuGet: https://www.nuget.org/packages/Plugin.Maui.AppUpdate
 GitHub: https://github.com/nuvyntralabs/Plugin.Maui.AppUpdate
@@ -915,6 +953,7 @@ Alternatives: Plugin.NFC / Plugin.MAUI.NFC (event-based listener), Plugin.Maui.D
 
 Application-security workflow for .NET MAUI on Android and iOS. Locks the app after it backgrounds, waits out a grace period, then unlocks with Face ID, Touch ID, fingerprint, or the device PIN. Not another biometric API.
 
+Current release: 1.0.5. If the automatic resume prompt throws, AuthenticationCompleted still fires with a failed result so the cover stays up.
 Install: `dotnet add package Plugin.Maui.AppLock`
 NuGet: https://www.nuget.org/packages/Plugin.Maui.AppLock
 GitHub: https://github.com/nuvyntralabs/Plugin.Maui.AppLock

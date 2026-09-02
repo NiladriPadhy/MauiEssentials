@@ -58,8 +58,9 @@ AGENTS.md     coding-agent guide
 ## Repository inspection order for agents
 
 1. Hub [README.md](../README.md) or [llms.txt](../llms.txt)
-2. Matching plugin README
-3. Plugin `llms.txt` / `AGENTS.md`
-4. `src/` public types
-5. `samples/` registration and platform files
-6. `tests/` for expected error behavior
+2. [Hardened releases](hardened-releases.md) when upgrading DeepLinks, PushRouter, SmartUpload, FeatureFlags, or the other September 2026 1.x ships
+3. Matching plugin README
+4. Plugin `llms.txt` / `AGENTS.md`
+5. `src/` public types
+6. `samples/` registration and platform files
+7. `tests/` for expected error behavior

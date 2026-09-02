@@ -255,26 +255,32 @@ A few hub folders do not match their NuGet package ids:
 
 ## Plugin defaults that changed
 
-Host apps that already depend on these plugins should set the new options explicitly when upgrading.
+Fourteen plugins shipped hardened NuGet releases on 3 September 2026 (351 tests). Host apps that already depend on these plugins should set the new options explicitly when upgrading. Full upgrade map: [Hardened releases](docs/hardened-releases.md).
 
-| Plugin | Default now | Opt-out / related option |
-| --- | --- | --- |
-| DeepLinks | Empty `Hosts` / `CustomSchemes` reject incoming links | `PermissiveMode = true` |
-| DeepLinks | `http://` links are rejected | `AllowInsecureHttp = true` |
-| PushRouter | Only registered `Map` keys or `DefaultRoute` navigate | `AllowUnmappedPayloadRoutes = true` |
-| SmartUpload | Upload endpoints must be `https` | `RequireHttps = false` |
-| FeatureFlags | Remote URI must be `https` | `RequireHttps = false`; optional `SignatureKey` |
-| ApiResilience | Offline queue file is AES-256-GCM | `EncryptQueue = false`; `PersistRequestBodies = false` redacts bodies |
-| SecureSession | `LoginAsync(TokenBundle)` still works (host-trusted) | `AcceptUnvalidatedTokens = false` requires `IAuthGateway` |
-| FileVault | Background lock always clears the in-memory key | `GetStatisticsAsync`, `RootDirectory`, `OnProtectionFailed` |
-| DeviceSession | IDs stay in `Preferences` | `UseSecureStorage = true` |
-| Observability | Hub clone uses sibling `ProjectReference`s | Set `UseMonorepoRefs=false` to force NuGet packages |
+| Plugin | Version | Default now | Opt-out / related option |
+| --- | --- | --- | --- |
+| DeepLinks | 1.0.6 | Empty `Hosts` / `CustomSchemes` reject incoming links | `PermissiveMode = true` |
+| DeepLinks | 1.0.6 | `http://` links are rejected | `AllowInsecureHttp = true` |
+| PushRouter | 1.0.6 | Only registered `Map` keys or `DefaultRoute` navigate | `AllowUnmappedPayloadRoutes = true` |
+| SmartUpload | 1.0.6 | Upload endpoints must be `https` | `RequireHttps = false` |
+| FeatureFlags | 1.0.7 | Remote URI must be `https` | `RequireHttps = false`; optional `SignatureKey` |
+| ApiResilience | 1.0.8 | Offline queue file is AES-256-GCM | `EncryptQueue = false`; `PersistRequestBodies = false` redacts bodies |
+| SecureSession | 1.0.6 | `LoginAsync(TokenBundle)` still works (host-trusted) | `AcceptUnvalidatedTokens = false` requires `IAuthGateway` |
+| FileVault | 1.0.8 | Background lock always clears the in-memory key | `GetStatisticsAsync`, `RootDirectory`, `OnProtectionFailed` |
+| DeviceSession | 1.0.6 | IDs stay in `Preferences` | `UseSecureStorage = true` |
+| Observability | 1.0.7 | Hub clone uses sibling `ProjectReference`s | Set `UseMonorepoRefs=false` to force NuGet packages |
+| AppLock | 1.0.5 | Auto-prompt failures raise `AuthenticationCompleted` | Cover stays locked |
+| BackgroundTasks | 1.0.6 | Android logs exceptions; cancel is not retried | — |
+| OfflineSync | 1.0.9 | Auto-sync isolates failures; `JobFinished` is null-safe | Subscribe to `SyncCompleted` |
+| NetworkMonitor | 1.0.7 | Authors + MIT license metadata | No API change |
+| AppUpdate | 1.0.6 | Root `.sln` added | No API change |
 
 See each plugin README for the full option list.
 
 ## Documentation
 
 - [Getting started](docs/getting-started.md)
+- [Hardened releases (3 September 2026)](docs/hardened-releases.md)
 - [Architecture](docs/architecture.md)
 - [Package directory](docs/packages/README.md)
 - [llms.txt](llms.txt) — short LLM index

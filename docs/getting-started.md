@@ -73,8 +73,21 @@ These plugins are designed to compose:
 
 Do not add Observability or the full catalog for a single feature.
 
+## 7. Upgrade hardened 1.x plugins
+
+Fourteen plugins shipped fail-closed and correctness fixes on 3 September 2026. DeepLinks, PushRouter, SmartUpload, and FeatureFlags changed defaults. See [Hardened releases](hardened-releases.md) before bumping:
+
+```bash
+dotnet add package Plugin.Maui.DeepLinks --version 1.0.6
+dotnet add package Plugin.Maui.PushRouter --version 1.0.6
+dotnet add package Plugin.Maui.SmartUpload --version 1.0.6
+dotnet add package Plugin.Maui.FeatureFlags --version 1.0.7
+dotnet add package Plugin.Maui.ApiResilience --version 1.0.8
+```
+
 ## Next
 
+- [Hardened releases](hardened-releases.md)
 - [Architecture](architecture.md)
 - [Package directory](packages/README.md)
 - [AGENTS.md](../AGENTS.md)

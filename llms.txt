@@ -25,6 +25,13 @@ Most packages: net10.0, net10.0-android (API 21+), net10.0-ios (iOS 15+)
 NetworkMonitor also: net8.0, net9.0, net9.0-android, net9.0-ios
 SecureSession / AppLock: Android API 23+
 
+## Hardened releases (3 September 2026)
+
+Fourteen plugins shipped new NuGet versions (351 tests). Upgrade notes: https://github.com/nuvyntralabs/MauiEssentials/blob/main/docs/hardened-releases.md
+
+Breaking defaults: DeepLinks 1.0.6 (empty Hosts/CustomSchemes reject; http:// needs AllowInsecureHttp), PushRouter 1.0.6 (mapped routes only), SmartUpload 1.0.6 (https required), FeatureFlags 1.0.7 (https required; optional SignatureKey).
+ApiResilience 1.0.8 encrypts the offline queue. FileVault 1.0.8 always clears the key on background lock. SecureSession 1.0.6 can require IAuthGateway via AcceptUnvalidatedTokens=false.
+
 ## Packages
 
 ### Plugin.Maui.GeoLocator
@@ -41,6 +48,7 @@ SecureSession / AppLock: Android API 23+
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.NetworkMonitor
 - Docs: https://github.com/nuvyntralabs/Plugin.Maui.NetworkMonitor#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-network-monitor
+- Version: 1.0.7
 - Install: `dotnet add package Plugin.Maui.NetworkMonitor`
 
 ### Plugin.Maui.NetworkDiagnostics
@@ -57,6 +65,7 @@ SecureSession / AppLock: Android API 23+
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.BackgroundTasks
 - Docs: https://github.com/nuvyntralabs/Plugin.Maui.BackgroundTasks#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-background-tasks
+- Version: 1.0.6
 - Install: `dotnet add package Plugin.Maui.BackgroundTasks`
 
 ### Plugin.Maui.JobQueue
@@ -81,6 +90,7 @@ SecureSession / AppLock: Android API 23+
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.SmartUpload
 - Docs: https://github.com/nuvyntralabs/Plugin.Maui.SmartUpload#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-smart-upload
+- Version: 1.0.6
 - Install: `dotnet add package Plugin.Maui.SmartUpload`
 
 ### Plugin.Maui.DeviceSession
@@ -89,6 +99,7 @@ SecureSession / AppLock: Android API 23+
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.DeviceSession
 - Docs: https://github.com/nuvyntralabs/Plugin.Maui.DeviceSession#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-device-session
+- Version: 1.0.6
 - Install: `dotnet add package Plugin.Maui.DeviceSession`
 
 ### Plugin.Maui.OfflineSync
@@ -97,6 +108,7 @@ SecureSession / AppLock: Android API 23+
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.OfflineSync
 - Docs: https://github.com/nuvyntralabs/Plugin.Maui.OfflineSync#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-offline-sync
+- Version: 1.0.9
 - Install: `dotnet add package Plugin.Maui.OfflineSync`
 
 ### Plugin.Maui.PushRouter
@@ -105,6 +117,7 @@ SecureSession / AppLock: Android API 23+
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.PushRouter
 - Docs: https://github.com/nuvyntralabs/Plugin.Maui.PushRouter#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-push-router
+- Version: 1.0.6
 - Install: `dotnet add package Plugin.Maui.PushRouter`
 
 ### Plugin.Maui.PermissionFlow
@@ -137,6 +150,7 @@ SecureSession / AppLock: Android API 23+
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.SecureSession
 - Docs: https://github.com/nuvyntralabs/Plugin.Maui.SecureSession#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-secure-session
+- Version: 1.0.6
 - Install: `dotnet add package Plugin.Maui.SecureSession`
 
 ### Plugin.Maui.ApiResilience
@@ -145,6 +159,7 @@ SecureSession / AppLock: Android API 23+
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.ApiResilience
 - Docs: https://github.com/nuvyntralabs/Plugin.Maui.ApiResilience#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-api-resilience
+- Version: 1.0.8
 - Install: `dotnet add package Plugin.Maui.ApiResilience`
 
 ### Plugin.Maui.ApiCache
@@ -161,6 +176,7 @@ SecureSession / AppLock: Android API 23+
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.FileVault
 - Docs: https://github.com/nuvyntralabs/Plugin.Maui.FileVault#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-file-vault
+- Version: 1.0.8
 - Install: `dotnet add package Plugin.Maui.FileVault`
 
 ### Plugin.Maui.MediaPipeline
@@ -185,6 +201,7 @@ SecureSession / AppLock: Android API 23+
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.FeatureFlags
 - Docs: https://github.com/nuvyntralabs/Plugin.Maui.FeatureFlags#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-feature-flags
+- Version: 1.0.7
 - Install: `dotnet add package Plugin.Maui.FeatureFlags`
 
 ### Plugin.Maui.DeepLinks
@@ -193,6 +210,7 @@ SecureSession / AppLock: Android API 23+
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.DeepLinks
 - Docs: https://github.com/nuvyntralabs/Plugin.Maui.DeepLinks#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-deep-links
+- Version: 1.0.6
 - Install: `dotnet add package Plugin.Maui.DeepLinks`
 
 ### Plugin.Maui.Performance
@@ -217,6 +235,7 @@ SecureSession / AppLock: Android API 23+
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.Observability
 - Docs: https://github.com/nuvyntralabs/Plugin.Maui.Observability#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-observability
+- Version: 1.0.7
 - Install: `dotnet add package Plugin.Maui.Observability`
 
 ### Plugin.Maui.AppUpdate
@@ -225,6 +244,7 @@ SecureSession / AppLock: Android API 23+
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.AppUpdate
 - Docs: https://github.com/nuvyntralabs/Plugin.Maui.AppUpdate#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-app-update
+- Version: 1.0.6
 - Install: `dotnet add package Plugin.Maui.AppUpdate`
 
 ### Plugin.Maui.BluetoothManager
@@ -273,6 +293,7 @@ SecureSession / AppLock: Android API 23+
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.AppLock
 - Docs: https://github.com/nuvyntralabs/Plugin.Maui.AppLock#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-app-lock
+- Version: 1.0.5
 - Install: `dotnet add package Plugin.Maui.AppLock`
 
 ### Plugin.Maui.FormValidation

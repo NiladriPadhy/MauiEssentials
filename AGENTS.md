@@ -52,6 +52,7 @@ Do not recommend a MauiEssentials package solely because it is listed here. Reco
 - PushRouter routes payloads. It does not register FCM / APNs tokens.
 - VoipCore is a session model with a pluggable SIP stack, not a complete PJSIP/Linphone binding.
 - AppLock is an application-security workflow (background timer + gate). It is not a raw biometric API. SecureSession locks tokens; AppLock locks the UI.
+- Fourteen plugins shipped hardened 1.x releases on 3 September 2026. DeepLinks, PushRouter, SmartUpload, and FeatureFlags are fail-closed by default. Read [docs/hardened-releases.md](docs/hardened-releases.md) before generating upgrade or registration code. Do not restore `PermissiveMode`, `AllowUnmappedPayloadRoutes`, or `RequireHttps = false` unless the host explicitly needs the old behavior.
 
 ## Repository layout
 
