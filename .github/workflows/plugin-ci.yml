@@ -1,0 +1,25 @@
+name: Plugin CI template
+
+on:
+  workflow_call:
+    inputs:
+      project:
+        description: Path to the test csproj, relative to the plugin repo root
+        required: true
+        type: string
+      framework:
+        description: Target framework to test
+        required: false
+        type: string
+        default: net10.0
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - name: Test
+        run: dotnet test "${{ inputs.project }}" -f ${{ inputs.framework }} --nologo --verbosity minimal

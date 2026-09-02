@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  plugins:
+    name: Test plugins (net10.0)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Test plugin libraries on net10.0
+        run: |
+          set -euo pipefail
+          failed=0
+          while IFS= read -r csproj; do
+            echo "::group::${csproj}"
+            if ! dotnet test "$csproj" -f net10.0 --nologo --verbosity minimal; then
+              echo "::error::Failed ${csproj}"
+              failed=1
+            fi
+            echo "::endgroup::"
+          done < <(find . -path '*/tests/*.Tests.csproj' -not -path '*/bin/*' -not -path '*/obj/*' | sort)
+          exit $failed

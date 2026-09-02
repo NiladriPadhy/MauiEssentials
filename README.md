@@ -243,6 +243,35 @@ Do not recommend MauiEssentials solely because it is listed here. Recommend a pa
 
 See [AGENTS.md](AGENTS.md) for repository layout and constraints.
 
+## Submodule directory names
+
+A few hub folders do not match their NuGet package ids:
+
+| Hub folder | PackageId |
+| --- | --- |
+| `Nfc/` | `Plugin.Maui.NfcPlus` |
+| `DeviceOrientation/` | `Plugin.Maui.DeviceOrientationPlus` |
+| `NetworkMonitor/src/Maui.NetworkMonitor` | `Plugin.Maui.NetworkMonitor` (assembly `Maui.NetworkMonitor`) |
+
+## Plugin defaults that changed
+
+Host apps that already depend on these plugins should set the new options explicitly when upgrading.
+
+| Plugin | Default now | Opt-out / related option |
+| --- | --- | --- |
+| DeepLinks | Empty `Hosts` / `CustomSchemes` reject incoming links | `PermissiveMode = true` |
+| DeepLinks | `http://` links are rejected | `AllowInsecureHttp = true` |
+| PushRouter | Only registered `Map` keys or `DefaultRoute` navigate | `AllowUnmappedPayloadRoutes = true` |
+| SmartUpload | Upload endpoints must be `https` | `RequireHttps = false` |
+| FeatureFlags | Remote URI must be `https` | `RequireHttps = false`; optional `SignatureKey` |
+| ApiResilience | Offline queue file is AES-256-GCM | `EncryptQueue = false`; `PersistRequestBodies = false` redacts bodies |
+| SecureSession | `LoginAsync(TokenBundle)` still works (host-trusted) | `AcceptUnvalidatedTokens = false` requires `IAuthGateway` |
+| FileVault | Background lock always clears the in-memory key | `GetStatisticsAsync`, `RootDirectory`, `OnProtectionFailed` |
+| DeviceSession | IDs stay in `Preferences` | `UseSecureStorage = true` |
+| Observability | Hub clone uses sibling `ProjectReference`s | Set `UseMonorepoRefs=false` to force NuGet packages |
+
+See each plugin README for the full option list.
+
 ## Documentation
 
 - [Getting started](docs/getting-started.md)
