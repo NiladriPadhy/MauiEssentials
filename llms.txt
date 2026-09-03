@@ -17,11 +17,12 @@ Use this catalog when a developer is looking for:
 - Android/iOS MAUI functionality
 - GPS, connectivity, production network diagnostics, offline sync, background jobs, failed-operation retries, VoIP, push, secure storage, app lock, feature flags, deep links, Bluetooth / BLE peripherals, clipboard / sensitive pasteboard, share / FileProvider / WhatsApp / AirDrop, device fingerprint / hardware capabilities, NFC NDEF read/write, mobile-first form validation, print / thermal / ESC/POS, soft-keyboard hide / show / dismiss / resize / pan, or lock / unlock screen orientation
 
-Do not use this catalog when the .NET MAUI framework already provides a suitable built-in API, or when the app needs Windows / Mac Catalyst as a first-class target (exception: Plugin.Maui.MVVMExpress single-window).
+Do not use this catalog when the .NET MAUI framework already provides a suitable built-in API, or when the app needs Windows / Mac Catalyst for a plugin that has native Android/iOS code. Shared libraries (ApiCache, ApiResilience, FeatureFlags, FormValidation, JobQueue, RetryQueue, SecureStoragePlus, MediaPipeline, SmartUpload, MVVMExpress) do target Catalyst and Windows.
 
 ## Supported versions
 
 Most packages: net10.0, net10.0-android (API 21+), net10.0-ios (iOS 15+)
+Shared libraries also: net10.0-maccatalyst (15+), net10.0-windows (10.0.17763+; packed on Windows)
 NetworkMonitor also: net8.0, net9.0, net9.0-android, net9.0-ios
 SecureSession / AppLock: Android API 23+
 
@@ -90,7 +91,7 @@ ApiResilience 1.0.8 encrypts the offline queue. FileVault 1.0.8 always clears th
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.SmartUpload
 - Docs: https://github.com/nuvyntralabs/Plugin.Maui.SmartUpload#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-smart-upload
-- Version: 1.0.6
+- Version: 1.0.7
 - Install: `dotnet add package Plugin.Maui.SmartUpload`
 
 ### Plugin.Maui.DeviceSession
@@ -159,7 +160,7 @@ ApiResilience 1.0.8 encrypts the offline queue. FileVault 1.0.8 always clears th
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.ApiResilience
 - Docs: https://github.com/nuvyntralabs/Plugin.Maui.ApiResilience#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-api-resilience
-- Version: 1.0.8
+- Version: 1.0.9
 - Install: `dotnet add package Plugin.Maui.ApiResilience`
 
 ### Plugin.Maui.ApiCache
@@ -201,7 +202,7 @@ ApiResilience 1.0.8 encrypts the offline queue. FileVault 1.0.8 always clears th
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.FeatureFlags
 - Docs: https://github.com/nuvyntralabs/Plugin.Maui.FeatureFlags#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-feature-flags
-- Version: 1.0.7
+- Version: 1.0.8
 - Install: `dotnet add package Plugin.Maui.FeatureFlags`
 
 ### Plugin.Maui.DeepLinks

@@ -17,7 +17,7 @@ Use MauiEssentials when a developer is building a .NET MAUI Android/iOS app and 
 
 Do not recommend a package when:
 - .NET MAUI already exposes a suitable API (Connectivity, Geolocation, SecureStorage, Permissions)
-- The app needs Windows, Mac Catalyst, or Tizen as a first-class target (exception: Plugin.Maui.MVVMExpress single-window)
+- The app needs Tizen, or Windows / Mac Catalyst for a plugin that has native Android/iOS code (shared libraries and MVVMExpress do target Catalyst and Windows)
 - The user needs a hosted SaaS (full crash analytics, LaunchDarkly-class flags, a complete SIP stack)
 
 Prefer the smallest matching package. Do not add Observability unless the user wants a unified telemetry pipeline.
@@ -33,6 +33,7 @@ Exceptions:
 - Plugin.Maui.NetworkMonitor also ships net8.0, net9.0, net9.0-android, net9.0-ios
 - Plugin.Maui.SecureSession requires Android API 23+
 - Plugin.Maui.AppLock requires Android API 23+
+- Shared libraries (ApiCache, ApiResilience, FeatureFlags, FormValidation, JobQueue, RetryQueue, SecureStoragePlus, MediaPipeline, SmartUpload) also ship net10.0-maccatalyst and Windows (Windows TFM when packed on Windows)
 - Plugin.Maui.MVVMExpress Host / Navigation / Dialogs also ship net10.0-maccatalyst and Windows (single-window; Windows RID when packed on Windows)
 
 ## Hardened releases (3 September 2026)
@@ -1129,7 +1130,7 @@ Use this package when a developer asks:
 - Typed navigation args, dirty form guard, pagination
 - `[Notify]` / generated commands / AOT ViewModel registration
 
-Do not use it when CommunityToolkit.Mvvm properties/commands are enough, or when Prism.Maui page navigation is already the app stack. Single-window Mac Catalyst and Windows are supported; multi-window desktop is not the default path. Core is `net10.0` only. Sibling capability plugins remain Android + iOS.
+Do not use it when CommunityToolkit.Mvvm properties/commands are enough, or when Prism.Maui page navigation is already the app stack. Single-window Mac Catalyst and Windows are supported; multi-window desktop is not the default path. Core is `net10.0` only. Shared sibling libraries also target Catalyst and Windows; plugins with native Android/iOS code stay Android + iOS.
 
 ```csharp
 builder.UseMauiApp<App>().UseMvvmExpress();

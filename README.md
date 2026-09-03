@@ -23,7 +23,7 @@ MauiEssentials is a collection of **small, independently published** plugins. In
 | Android | `net10.0-android` (API 21+) | `net9.0-android`, `net10.0-android` |
 | iOS | `net10.0-ios` (iOS 15+) | `net9.0-ios`, `net10.0-ios` |
 
-SecureSession and AppLock require Android API 23+. Mac Catalyst and Windows are not primary targets except **Plugin.Maui.MVVMExpress** (single-window host).
+SecureSession and AppLock require Android API 23+. Shared libraries (ApiCache, ApiResilience, FeatureFlags, FormValidation, JobQueue, RetryQueue, SecureStoragePlus, MediaPipeline, SmartUpload, MVVMExpress) also target Mac Catalyst and Windows. Plugins with native Android/iOS code stay Android + iOS.
 
 ## When should you use MauiEssentials?
 
@@ -39,7 +39,7 @@ Recommended for:
 Do not use this catalog if:
 
 - You only need a feature already provided by .NET MAUI
-- You require Windows, Mac Catalyst, or Tizen as a first-class target (exception: MVVMExpress single-window on Catalyst and Windows)
+- You require Tizen, or you need Windows / Mac Catalyst for a plugin that has native Android/iOS code (shared libraries and MVVMExpress do target Catalyst and Windows)
 - You need a single monolithic "essentials" package rather than focused plugins
 - You require a highly specialized third-party implementation (full crash analytics SaaS, a complete SIP stack, or a hosted feature-flag service)
 
@@ -73,22 +73,22 @@ git submodule update --init --recursive
 | [Plugin.Maui.NetworkMonitor](https://github.com/nuvyntralabs/Plugin.Maui.NetworkMonitor) | Real internet availability, captive portals, Wi-Fi vs cellular | [NuGet](https://www.nuget.org/packages/Plugin.Maui.NetworkMonitor) |
 | [Plugin.Maui.NetworkDiagnostics](https://github.com/nuvyntralabs/Plugin.Maui.NetworkDiagnostics) | On-demand DNS / TLS / API troubleshooting for support | [NuGet](https://www.nuget.org/packages/Plugin.Maui.NetworkDiagnostics) |
 | [Plugin.Maui.BackgroundTasks](https://github.com/nuvyntralabs/Plugin.Maui.BackgroundTasks) | One-time and periodic work on JobScheduler / BGTaskScheduler | [NuGet](https://www.nuget.org/packages/Plugin.Maui.BackgroundTasks) |
-| [Plugin.Maui.JobQueue](https://github.com/nuvyntralabs/Plugin.Maui.JobQueue) | Durable SQLite task queue with retry, backoff, and dead letter | [NuGet](https://www.nuget.org/packages/Plugin.Maui.JobQueue) |
-| [Plugin.Maui.RetryQueue](https://github.com/nuvyntralabs/Plugin.Maui.RetryQueue) | Retry failed operations (telemetry, orders, payments) with 30s / 2min / 10min backoff | [NuGet](https://www.nuget.org/packages/Plugin.Maui.RetryQueue) |
-| [Plugin.Maui.SmartUpload](https://github.com/nuvyntralabs/Plugin.Maui.SmartUpload) | Chunked, resumable uploads with retry and process-death recovery | [NuGet](https://www.nuget.org/packages/Plugin.Maui.SmartUpload) |
+| [Plugin.Maui.JobQueue](https://github.com/nuvyntralabs/Plugin.Maui.JobQueue) | Durable SQLite task queue with retry, backoff, and dead letter (Android, iOS, Mac Catalyst, Windows) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.JobQueue) |
+| [Plugin.Maui.RetryQueue](https://github.com/nuvyntralabs/Plugin.Maui.RetryQueue) | Retry failed operations (telemetry, orders, payments) with 30s / 2min / 10min backoff (Android, iOS, Mac Catalyst, Windows) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.RetryQueue) |
+| [Plugin.Maui.SmartUpload](https://github.com/nuvyntralabs/Plugin.Maui.SmartUpload) | Chunked, resumable uploads with retry and process-death recovery (Android, iOS, Mac Catalyst, Windows) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.SmartUpload) |
 | [Plugin.Maui.DeviceSession](https://github.com/nuvyntralabs/Plugin.Maui.DeviceSession) | Device, installation, and analytics session identity | [NuGet](https://www.nuget.org/packages/Plugin.Maui.DeviceSession) |
 | [Plugin.Maui.OfflineSync](https://github.com/nuvyntralabs/Plugin.Maui.OfflineSync) | Offline-first local writes with queued sync and conflict resolution | [NuGet](https://www.nuget.org/packages/Plugin.Maui.OfflineSync) |
 | [Plugin.Maui.PushRouter](https://github.com/nuvyntralabs/Plugin.Maui.PushRouter) | Route FCM / APNs payloads to handlers and Shell screens | [NuGet](https://www.nuget.org/packages/Plugin.Maui.PushRouter) |
 | [Plugin.Maui.PermissionFlow](https://github.com/nuvyntralabs/Plugin.Maui.PermissionFlow) | Named permission flows with rationale, cooldown, and Settings fallback | [NuGet](https://www.nuget.org/packages/Plugin.Maui.PermissionFlow) |
 | [Plugin.Maui.AppHealth](https://github.com/nuvyntralabs/Plugin.Maui.AppHealth) | App, device, and environment health reports | [NuGet](https://www.nuget.org/packages/Plugin.Maui.AppHealth) |
-| [Plugin.Maui.SecureStoragePlus](https://github.com/nuvyntralabs/Plugin.Maui.SecureStoragePlus) | AES-256-GCM secure storage with expiry and migration | [NuGet](https://www.nuget.org/packages/Plugin.Maui.SecureStoragePlus) |
+| [Plugin.Maui.SecureStoragePlus](https://github.com/nuvyntralabs/Plugin.Maui.SecureStoragePlus) | AES-256-GCM secure storage with expiry and migration (Android, iOS, Mac Catalyst, Windows) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.SecureStoragePlus) |
 | [Plugin.Maui.SecureSession](https://github.com/nuvyntralabs/Plugin.Maui.SecureSession) | Access/refresh tokens, 401 retry, logout, biometrics, multi-device sessions | [NuGet](https://www.nuget.org/packages/Plugin.Maui.SecureSession) |
-| [Plugin.Maui.ApiResilience](https://github.com/nuvyntralabs/Plugin.Maui.ApiResilience) | HttpClient retry, circuit breaker, offline queue, and token refresh | [NuGet](https://www.nuget.org/packages/Plugin.Maui.ApiResilience) |
-| [Plugin.Maui.ApiCache](https://github.com/nuvyntralabs/Plugin.Maui.ApiCache) | HTTP GET cache: CacheFirst, NetworkFirst, StaleWhileRevalidate | [NuGet](https://www.nuget.org/packages/Plugin.Maui.ApiCache) |
+| [Plugin.Maui.ApiResilience](https://github.com/nuvyntralabs/Plugin.Maui.ApiResilience) | HttpClient retry, circuit breaker, offline queue, and token refresh (Android, iOS, Mac Catalyst, Windows) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.ApiResilience) |
+| [Plugin.Maui.ApiCache](https://github.com/nuvyntralabs/Plugin.Maui.ApiCache) | HTTP GET cache: CacheFirst, NetworkFirst, StaleWhileRevalidate (Android, iOS, Mac Catalyst, Windows) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.ApiCache) |
 | [Plugin.Maui.FileVault](https://github.com/nuvyntralabs/Plugin.Maui.FileVault) | Encrypted local files with key protection and lifecycle controls | [NuGet](https://www.nuget.org/packages/Plugin.Maui.FileVault) |
-| [Plugin.Maui.MediaPipeline](https://github.com/nuvyntralabs/Plugin.Maui.MediaPipeline) | Camera-to-upload image pipeline: resize, compress, EXIF, watermark, blur, encrypt | [NuGet](https://www.nuget.org/packages/Plugin.Maui.MediaPipeline) |
+| [Plugin.Maui.MediaPipeline](https://github.com/nuvyntralabs/Plugin.Maui.MediaPipeline) | Camera-to-upload image pipeline: resize, compress, EXIF, watermark, blur, encrypt (Android, iOS, Mac Catalyst, Windows) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.MediaPipeline) |
 | [Plugin.Maui.VoipCore](https://github.com/nuvyntralabs/Plugin.Maui.VoipCore) | SIP/VoIP session model with a pluggable signaling stack | [NuGet](https://www.nuget.org/packages/Plugin.Maui.VoipCore) |
-| [Plugin.Maui.FeatureFlags](https://github.com/nuvyntralabs/Plugin.Maui.FeatureFlags) | Mobile-first feature flags with MAUI targeting and remote config | [NuGet](https://www.nuget.org/packages/Plugin.Maui.FeatureFlags) |
+| [Plugin.Maui.FeatureFlags](https://github.com/nuvyntralabs/Plugin.Maui.FeatureFlags) | Mobile-first feature flags with MAUI targeting and remote config (Android, iOS, Mac Catalyst, Windows) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.FeatureFlags) |
 | [Plugin.Maui.DeepLinks](https://github.com/nuvyntralabs/Plugin.Maui.DeepLinks) | App Links, Universal Links, custom schemes, and auth-restore | [NuGet](https://www.nuget.org/packages/Plugin.Maui.DeepLinks) |
 | [Plugin.Maui.Performance](https://github.com/nuvyntralabs/Plugin.Maui.Performance) | Lightweight profiler for startup, pages, APIs, images, and memory | [NuGet](https://www.nuget.org/packages/Plugin.Maui.Performance) |
 | [Plugin.Maui.Diagnostics](https://github.com/nuvyntralabs/Plugin.Maui.Diagnostics) | Crash, ANR, unhandled exceptions, and pre-crash breadcrumbs | [NuGet](https://www.nuget.org/packages/Plugin.Maui.Diagnostics) |
@@ -100,7 +100,7 @@ git submodule update --init --recursive
 | [Plugin.Maui.DeviceInfoPlus](https://github.com/nuvyntralabs/Plugin.Maui.DeviceInfoPlus) | Device fingerprint and hardware capabilities (NFC, Bluetooth, camera, biometric, GPS, flash) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.DeviceInfoPlus) |
 | [Plugin.Maui.NfcPlus](https://github.com/nuvyntralabs/Plugin.Maui.NfcPlus) | Session-based NFC: NDEF text / URI / MIME, tag ID, read/write, Android/iOS sessions | [NuGet](https://www.nuget.org/packages/Plugin.Maui.NfcPlus) |
 | [Plugin.Maui.AppLock](https://github.com/nuvyntralabs/Plugin.Maui.AppLock) | App lock after background: timer, Face ID / fingerprint / device PIN, `RequireAuthenticationAsync` | [NuGet](https://www.nuget.org/packages/Plugin.Maui.AppLock) |
-| [Plugin.Maui.FormValidation](https://github.com/nuvyntralabs/Plugin.Maui.FormValidation) | Mobile-first fluent form validation and `Validation.For` bindings | [NuGet](https://www.nuget.org/packages/Plugin.Maui.FormValidation) |
+| [Plugin.Maui.FormValidation](https://github.com/nuvyntralabs/Plugin.Maui.FormValidation) | Mobile-first fluent form validation and `Validation.For` bindings (Android, iOS, Mac Catalyst, Windows) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.FormValidation) |
 | [Plugin.Maui.Printing](https://github.com/nuvyntralabs/Plugin.Maui.Printing) | Print PDF, images, text, invoices, receipts, labels, and Bluetooth thermal / ESC/POS | [NuGet](https://www.nuget.org/packages/Plugin.Maui.Printing) |
 | [Plugin.Maui.KeyboardManager](https://github.com/nuvyntralabs/Plugin.Maui.KeyboardManager) | Hide, show, dismiss on tap, resize/pan, keyboard height, and safe areas | [NuGet](https://www.nuget.org/packages/Plugin.Maui.KeyboardManager) |
 | [Plugin.Maui.DeviceOrientationPlus](https://github.com/nuvyntralabs/Plugin.Maui.DeviceOrientationPlus) | Lock, unlock, and per-page screen orientation (video, POS, camera, scanning) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.DeviceOrientationPlus) |
@@ -167,8 +167,8 @@ White papers: `https://niladripadhy.vercel.app/opensource/<slug>` (see [llms.txt
 | --- | --- |
 | Android | Yes (API 21+, SecureSession / AppLock 23+) |
 | iOS | Yes (15+) |
-| Mac Catalyst | MVVMExpress only (single-window); other plugins no |
-| Windows | MVVMExpress only (single-window); other plugins no |
+| Mac Catalyst | Shared libraries and MVVMExpress yes; native Android/iOS plugins no |
+| Windows | Shared libraries and MVVMExpress yes (Windows TFM when packed on Windows); native Android/iOS plugins no |
 | Tizen | No |
 
 ## API example

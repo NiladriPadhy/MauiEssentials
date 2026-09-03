@@ -18,7 +18,8 @@ jobs:
     outputs:
       plugins: ${{ steps.list.outputs.plugins }}
       has_plugins: ${{ steps.list.outputs.has_plugins }}
-      has_mvvmexpress: ${{ steps.list.outputs.has_mvvmexpress }}
+      has_windows_plugins: ${{ steps.list.outputs.has_windows_plugins }}
+      windows_plugins: ${{ steps.list.outputs.windows_plugins }}
     steps:
       - uses: actions/checkout@v4
 
@@ -27,19 +28,21 @@ jobs:
         run: |
           set -euo pipefail
           plugins="$(python3 .github/scripts/discover-plugins.py --mode all)"
+          windows_plugins="$(python3 .github/scripts/discover-plugins.py --mode all --require-tfm-prefix net10.0-windows)"
           echo "plugins=$plugins" >> "$GITHUB_OUTPUT"
+          echo "windows_plugins=$windows_plugins" >> "$GITHUB_OUTPUT"
           if [ "$plugins" = "[]" ]; then
             echo "has_plugins=false" >> "$GITHUB_OUTPUT"
-            echo "has_mvvmexpress=false" >> "$GITHUB_OUTPUT"
           else
             echo "has_plugins=true" >> "$GITHUB_OUTPUT"
-            if echo "$plugins" | grep -q '"MVVMExpress"'; then
-              echo "has_mvvmexpress=true" >> "$GITHUB_OUTPUT"
-            else
-              echo "has_mvvmexpress=false" >> "$GITHUB_OUTPUT"
-            fi
+          fi
+          if [ "$windows_plugins" = "[]" ]; then
+            echo "has_windows_plugins=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_windows_plugins=true" >> "$GITHUB_OUTPUT"
           fi
           echo "Selected plugins: $plugins"
+          echo "Windows plugins: $windows_plugins"
 
   linux:
     name: Linux
@@ -70,7 +73,7 @@ jobs:
     with:
       plugin: ${{ matrix.plugin }}
       runner: macos-latest
-      frameworks: net10.0,net10.0-android,net10.0-ios
+      frameworks: net10.0,net10.0-android,net10.0-ios,net10.0-maccatalyst
       pack: true
       test: true
       install_workloads: true
@@ -79,10 +82,14 @@ jobs:
   windows:
     name: Windows
     needs: discover
-    if: needs.discover.outputs.has_mvvmexpress == 'true'
+    if: needs.discover.outputs.has_windows_plugins == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        plugin: ${{ fromJSON(needs.discover.outputs.windows_plugins) }}
     uses: ./.github/workflows/plugin-ci.yml
     with:
-      plugin: MVVMExpress
+      plugin: ${{ matrix.plugin }}
       runner: windows-latest
       frameworks: net10.0,net10.0-windows
       pack: true
