@@ -85,6 +85,16 @@ dotnet add package Plugin.Maui.FeatureFlags --version 1.0.7
 dotnet add package Plugin.Maui.ApiResilience --version 1.0.8
 ```
 
+## Continuous integration
+
+The hub workflow at `.github/workflows/ci.yml` runs only on pushes to `main`. Every job builds the library, runs tests, then `dotnet pack`. Packages are not published to NuGet.org.
+
+- Ubuntu: `net10.0`
+- macOS: `net10.0`, `net10.0-android`, `net10.0-ios` (and Mac Catalyst for MVVMExpress)
+- Windows: `net10.0` and the MVVMExpress Windows TFM
+
+Each plugin repo can reuse the same job via `.github/plugin-repo-ci.yml`.
+
 ## Next
 
 - [Hardened releases](hardened-releases.md)

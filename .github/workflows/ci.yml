@@ -3,31 +3,110 @@ name: CI
 on:
   push:
     branches: [main]
-  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
-  plugins:
-    name: Test plugins (net10.0)
+  discover:
+    name: Discover plugins
     runs-on: ubuntu-latest
+    outputs:
+      plugins: ${{ steps.list.outputs.plugins }}
+      has_plugins: ${{ steps.list.outputs.has_plugins }}
+      has_mvvmexpress: ${{ steps.list.outputs.has_mvvmexpress }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
-      - uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: "10.0.x"
-
-      - name: Test plugin libraries on net10.0
+      - name: List plugins
+        id: list
         run: |
           set -euo pipefail
-          failed=0
-          while IFS= read -r csproj; do
-            echo "::group::${csproj}"
-            if ! dotnet test "$csproj" -f net10.0 --nologo --verbosity minimal; then
-              echo "::error::Failed ${csproj}"
-              failed=1
+          plugins="$(python3 .github/scripts/discover-plugins.py --mode all)"
+          echo "plugins=$plugins" >> "$GITHUB_OUTPUT"
+          if [ "$plugins" = "[]" ]; then
+            echo "has_plugins=false" >> "$GITHUB_OUTPUT"
+            echo "has_mvvmexpress=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_plugins=true" >> "$GITHUB_OUTPUT"
+            if echo "$plugins" | grep -q '"MVVMExpress"'; then
+              echo "has_mvvmexpress=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "has_mvvmexpress=false" >> "$GITHUB_OUTPUT"
             fi
-            echo "::endgroup::"
-          done < <(find . -path '*/tests/*.Tests.csproj' -not -path '*/bin/*' -not -path '*/obj/*' | sort)
-          exit $failed
+          fi
+          echo "Selected plugins: $plugins"
+
+  linux:
+    name: Linux
+    needs: discover
+    if: needs.discover.outputs.has_plugins == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        plugin: ${{ fromJSON(needs.discover.outputs.plugins) }}
+    uses: ./.github/workflows/plugin-ci.yml
+    with:
+      plugin: ${{ matrix.plugin }}
+      runner: ubuntu-latest
+      frameworks: net10.0
+      pack: true
+      test: true
+
+  macos:
+    name: macOS
+    needs: discover
+    if: needs.discover.outputs.has_plugins == 'true'
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        plugin: ${{ fromJSON(needs.discover.outputs.plugins) }}
+    uses: ./.github/workflows/plugin-ci.yml
+    with:
+      plugin: ${{ matrix.plugin }}
+      runner: macos-latest
+      frameworks: net10.0,net10.0-android,net10.0-ios
+      pack: true
+      test: true
+      install_workloads: true
+      workloads: maui-android maui-ios maui-maccatalyst
+
+  windows:
+    name: Windows
+    needs: discover
+    if: needs.discover.outputs.has_mvvmexpress == 'true'
+    uses: ./.github/workflows/plugin-ci.yml
+    with:
+      plugin: MVVMExpress
+      runner: windows-latest
+      frameworks: net10.0,net10.0-windows
+      pack: true
+      test: true
+      install_workloads: true
+      workloads: maui-windows
+
+  ci-ok:
+    name: CI ok
+    needs: [discover, linux, macos, windows]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check job results
+        run: |
+          set -euo pipefail
+          echo "discover=${{ needs.discover.result }}"
+          echo "linux=${{ needs.linux.result }}"
+          echo "macos=${{ needs.macos.result }}"
+          echo "windows=${{ needs.windows.result }}"
+          [ "${{ needs.discover.result }}" = "success" ]
+          for result in "${{ needs.linux.result }}" "${{ needs.macos.result }}" "${{ needs.windows.result }}"; do
+            case "$result" in
+              success|skipped) ;;
+              *) exit 1 ;;
+            esac
+          done

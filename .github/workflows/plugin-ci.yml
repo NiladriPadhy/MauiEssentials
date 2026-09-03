@@ -1,25 +1,103 @@
-name: Plugin CI template
+name: Plugin CI
 
 on:
   workflow_call:
     inputs:
-      project:
-        description: Path to the test csproj, relative to the plugin repo root
-        required: true
+      plugin:
+        description: Hub submodule folder. Leave empty when this workflow is called from a plugin repository.
+        required: false
         type: string
-      framework:
-        description: Target framework to test
+        default: ""
+      runner:
+        description: GitHub-hosted runner label
+        required: false
+        type: string
+        default: ubuntu-latest
+      frameworks:
+        description: Comma-separated TFMs to build (prefix match, e.g. net10.0-windows)
         required: false
         type: string
         default: net10.0
+      pack:
+        description: Pack packable src projects after a successful build
+        required: false
+        type: boolean
+        default: true
+      test:
+        description: Run tests that target the requested frameworks
+        required: false
+        type: boolean
+        default: true
+      install_workloads:
+        description: Install .NET MAUI workloads before the build
+        required: false
+        type: boolean
+        default: false
+      workloads:
+        description: Workloads to install when install_workloads is true
+        required: false
+        type: string
+        default: maui-android maui-ios
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  plugin:
+    name: ${{ inputs.plugin || github.event.repository.name }} (${{ inputs.frameworks }})
+    runs-on: ${{ inputs.runner }}
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
+      - name: Checkout caller
+        uses: actions/checkout@v4
+
+      - name: Checkout plugin submodule
+        if: inputs.plugin != ''
+        run: |
+          set -euo pipefail
+          git submodule update --init --depth 1 "${{ inputs.plugin }}"
+          if [ "${{ inputs.plugin }}" = "Observability" ]; then
+            git submodule update --init --depth 1 \
+              AppHealth NetworkMonitor ApiResilience BackgroundTasks \
+              OfflineSync SmartUpload DeviceSession
+          fi
+
+      - name: Fetch hub CI scripts
+        if: hashFiles('.github/scripts/run-plugin-ci.py') == ''
+        uses: actions/checkout@v4
+        with:
+          repository: nuvyntralabs/MauiEssentials
+          path: .ci-tools
+          sparse-checkout: |
+            .github/scripts
+          sparse-checkout-cone-mode: true
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "10.0.x"
-      - name: Test
-        run: dotnet test "${{ inputs.project }}" -f ${{ inputs.framework }} --nologo --verbosity minimal
+
+      - name: Install MAUI workloads
+        if: inputs.install_workloads
+        run: dotnet workload install ${{ inputs.workloads }} --skip-sign-check
+
+      - name: Build, test, pack
+        env:
+          CI: "true"
+          PYTHONUNBUFFERED: "1"
+        run: |
+          set -euo pipefail
+          script=".github/scripts/run-plugin-ci.py"
+          if [ ! -f "$script" ]; then
+            script=".ci-tools/.github/scripts/run-plugin-ci.py"
+          fi
+          plugin_root="."
+          if [ -n "${{ inputs.plugin }}" ]; then
+            plugin_root="${{ inputs.plugin }}"
+          fi
+          python3 "$script" \
+            --plugin-root "$plugin_root" \
+            --frameworks "${{ inputs.frameworks }}" \
+            --configuration Release \
+            --pack \
+            --test
