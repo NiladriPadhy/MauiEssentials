@@ -5,36 +5,11 @@ from __future__ import annotations
 
 import argparse
 import platform
+import re
 import subprocess
 import sys
-import tempfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
-
-LINUX_NET10_PROPS = """<Project>
-  <PropertyGroup>
-    <TargetFrameworks Condition="'$(TargetFrameworks)' != '' and $(TargetFrameworks.Contains('net10.0'))">net10.0</TargetFrameworks>
-  </PropertyGroup>
-</Project>
-"""
-
-
-_linux_msbuild_args: list[str] | None = None
-
-
-def linux_msbuild_args() -> list[str]:
-    """On Linux, drop ios/android TFMs so restore does not require those workloads."""
-    global _linux_msbuild_args
-    if _linux_msbuild_args is not None:
-        return _linux_msbuild_args
-    if platform.system() != "Linux":
-        _linux_msbuild_args = []
-        return _linux_msbuild_args
-    path = Path(tempfile.gettempdir()) / "mauiessentials-linux-net10.props"
-    path.write_text(LINUX_NET10_PROPS, encoding="utf-8")
-    print(f"Linux: collapsing multi-TFM projects to net10.0 ({path})", flush=True)
-    _linux_msbuild_args = [f"-p:CustomAfterMicrosoftCommonProps={path}"]
-    return _linux_msbuild_args
 
 
 def local_name(tag: str) -> str:
@@ -117,13 +92,37 @@ def run(command: list[str], cwd: Path) -> None:
         raise SystemExit(completed.returncode)
 
 
-def extra_msbuild() -> list[str]:
-    return linux_msbuild_args()
+def collapse_linux_tfms(csproj: Path) -> None:
+    """Rewrite TargetFrameworks to net10.0 on Linux so restore does not pull iOS packs.
+
+    MSBuild evaluates every TFM in the csproj before -f applies (NETSDK1178).
+    Editing the file on the runner is the reliable isolation.
+    """
+    if platform.system() != "Linux":
+        return
+    text = csproj.read_text(encoding="utf-8")
+    if "<TargetFrameworks" not in text or "net10.0" not in text:
+        return
+    collapsed, count = re.subn(
+        r"\s*<TargetFrameworks\b[^>]*>.*?</TargetFrameworks>",
+        "",
+        text,
+        flags=re.DOTALL,
+    )
+    if count == 0:
+        return
+    collapsed = re.sub(
+        r"(<PropertyGroup>)",
+        r"\1\n    <TargetFrameworks>net10.0</TargetFrameworks>",
+        collapsed,
+        count=1,
+    )
+    csproj.write_text(collapsed, encoding="utf-8")
+    print(f"Linux: rewrote {csproj.name} TargetFrameworks to net10.0", flush=True)
 
 
 def build_project(csproj: Path, tfm: str | None, configuration: str) -> None:
     command = ["dotnet", "build", str(csproj), "-c", configuration, "--nologo", "--verbosity", "minimal"]
-    command.extend(extra_msbuild())
     if tfm:
         command.extend(["-f", tfm])
     run(command, csproj.parent)
@@ -131,7 +130,6 @@ def build_project(csproj: Path, tfm: str | None, configuration: str) -> None:
 
 def test_project(csproj: Path, tfm: str | None, configuration: str) -> None:
     command = ["dotnet", "test", str(csproj), "-c", configuration, "--nologo", "--verbosity", "minimal"]
-    command.extend(extra_msbuild())
     if tfm:
         command.extend(["-f", tfm])
     run(command, csproj.parent)
@@ -139,7 +137,6 @@ def test_project(csproj: Path, tfm: str | None, configuration: str) -> None:
 
 def pack_project(csproj: Path, tfms: list[str] | None, configuration: str) -> None:
     command = ["dotnet", "pack", str(csproj), "-c", configuration, "--nologo", "--verbosity", "minimal", "--no-build"]
-    command.extend(extra_msbuild())
     if not tfms:
         run(command, csproj.parent)
         return
@@ -169,6 +166,9 @@ def main() -> int:
     if not src_projects:
         print(f"::error::No src/*.csproj under {plugin_root}")
         return 1
+
+    for csproj in src_projects + test_projects:
+        collapse_linux_tfms(csproj)
 
     print(f"Plugin: {plugin_root.name}", flush=True)
     print(f"Frameworks: {', '.join(requested)}", flush=True)
