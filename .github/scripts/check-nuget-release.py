@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail if NUGET_KEY is unusable or the csproj version is already on NuGet.org."""
+"""Validate NUGET_KEY and decide whether csproj versions should publish to NuGet.org."""
 
 from __future__ import annotations
 
@@ -23,7 +23,14 @@ PUBLISH = NUGET_ORG + "/api/v2/package"
 
 
 def load_ci():
-    path = Path(__file__).with_name("run-plugin-ci.py")
+    candidates = [
+        Path(__file__).with_name("run-plugin-ci.py"),
+        Path(".ci-tools/.github/scripts/run-plugin-ci.py"),
+        Path(".github/scripts/run-plugin-ci.py"),
+    ]
+    path = next((item for item in candidates if item.is_file()), None)
+    if path is None:
+        raise SystemExit("::error::Could not load run-plugin-ci.py")
     spec = importlib.util.spec_from_file_location("run_plugin_ci", path)
     if spec is None or spec.loader is None:
         raise SystemExit(f"::error::Could not load {path}")
@@ -95,6 +102,63 @@ def normalize_version(version: str) -> str:
     if sep:
         normalized += "-" + pre.split("+", 1)[0].lower()
     return normalized
+
+
+def parse_nuget_version(version: str) -> tuple[tuple[int, ...], tuple[tuple[int, int, str], ...]]:
+    """Return a comparable (release, prerelease) pair. A release sorts above a prerelease."""
+    text = version.strip()
+    if not text:
+        raise ValueError("empty version")
+    core, _, pre = text.partition("-")
+    core = core.split("+", 1)[0]
+    pre = pre.split("+", 1)[0]
+    numbers: list[int] = []
+    for part in core.split("."):
+        if not part.isdigit():
+            raise ValueError(f"unsupported version: {version}")
+        numbers.append(int(part))
+    while len(numbers) < 3:
+        numbers.append(0)
+    prerelease: list[tuple[int, int, str]] = []
+    if pre:
+        for part in pre.split("."):
+            if part.isdigit():
+                prerelease.append((0, int(part), ""))
+            else:
+                prerelease.append((1, 0, part.lower()))
+    return tuple(numbers), tuple(prerelease)
+
+
+def compare_nuget_versions(left: str, right: str) -> int:
+    """Return <0 if left < right, 0 if equal, >0 if left > right."""
+    left_release, left_pre = parse_nuget_version(left)
+    right_release, right_pre = parse_nuget_version(right)
+    if left_release != right_release:
+        return (left_release > right_release) - (left_release < right_release)
+    if not left_pre and not right_pre:
+        return 0
+    if not left_pre:
+        return 1
+    if not right_pre:
+        return -1
+    return (left_pre > right_pre) - (left_pre < right_pre)
+
+
+def max_nuget_version(versions: set[str]) -> str | None:
+    latest: str | None = None
+    for version in versions:
+        if latest is None or compare_nuget_versions(version, latest) > 0:
+            latest = version
+    return latest
+
+
+def write_output(name: str, value: str) -> None:
+    print(f"{name}={value}")
+    path = os.environ.get("GITHUB_OUTPUT")
+    if not path:
+        return
+    with open(path, "a", encoding="utf-8") as handle:
+        handle.write(f"{name}={value}\n")
 
 
 def http(method: str, url: str, api_key: str | None = None, data: bytes | None = None) -> tuple[int, str]:
@@ -173,29 +237,26 @@ def published_versions(package_id: str) -> set[str]:
     return {normalize_version(str(item)) for item in versions}
 
 
-def version_on_nuget(package_id: str, version: str, api_key: str) -> bool:
-    encoded_id = urllib.parse.quote(package_id)
-    encoded_version = urllib.parse.quote(version)
-    url = CREATE_KEY_VERSION.format(id=encoded_id, version=encoded_version)
-    status, body = http("POST", url, api_key=api_key)
-    snippet = " ".join(body.split())[:300]
-    print(f"Deployed version check for {package_id} {version}: HTTP {status}")
-    if status in {401, 403}:
-        detail = snippet or "nuget.org rejected the key"
-        fail(f"NUGET_KEY is expired, invalid, or not allowed to publish {package_id}. {detail}")
-    listed = published_versions(package_id)
-    present = normalize_version(version) in listed
-    if present:
-        print(f"{package_id} {version} is already on NuGet.org")
-    else:
-        print(f"{package_id} {version} is not on NuGet.org")
-    return present
+def self_test() -> None:
+    assert compare_nuget_versions("1.0.4", "1.0.3") > 0
+    assert compare_nuget_versions("1.0.10", "1.0.9") > 0
+    assert compare_nuget_versions("1.0.4", "1.0.4") == 0
+    assert compare_nuget_versions("1.0.4-preview", "1.0.4") < 0
+    assert compare_nuget_versions("1.0.4-preview", "1.0.3") > 0
+    assert compare_nuget_versions("1.0.4", "1.0.5") < 0
+    assert max_nuget_version(set()) is None
+    assert max_nuget_version({"1.0.3", "1.0.10", "1.0.9"}) == "1.0.10"
+    print("self-test passed")
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--plugin-root", default=".")
+    parser.add_argument("--self-test", action="store_true")
     args = parser.parse_args()
+    if args.self_test:
+        self_test()
+        return 0
 
     plugin_root = Path(args.plugin_root).resolve()
     if not plugin_root.is_dir():
@@ -218,12 +279,23 @@ def main() -> int:
 
     already = []
     for package_id, version in packages:
-        if version_on_nuget(package_id, version, api_key):
+        listed = published_versions(package_id)
+        deployed = max_nuget_version(listed)
+        present = normalize_version(version) in listed
+        if deployed is None:
+            print(f"{package_id} has no versions on NuGet.org; csproj {version} will publish")
+            continue
+        print(f"{package_id}: NuGet.org {deployed}; csproj {version}")
+        if present or compare_nuget_versions(version, deployed) == 0:
             already.append(f"{package_id} {version}")
     if already:
-        fail("csproj release version matches a version already deployed to NuGet.org: " + ", ".join(already))
+        fail(
+            "csproj version matches a version already deployed to NuGet.org. "
+            "Bump Version / PackageVersion before build: " + ", ".join(already)
+        )
 
-    print("No csproj release version is already on NuGet.org")
+    write_output("should_publish", "true")
+    print("NUGET_KEY is valid and the csproj version is not on NuGet.org")
     return 0
 
 

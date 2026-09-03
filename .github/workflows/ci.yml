@@ -1,10 +1,13 @@
+# Hub CI is manual only. Do not add push or pull_request triggers.
+# A manual run dispatches each plugin repo's CI, which owns
+# NUGET_KEY / version checks, tests, pack, and nuget.org publish.
 name: CI
 
 on:
   workflow_dispatch:
     inputs:
       plugin:
-        description: Plugin folder to build (empty = all)
+        description: Plugin folder to trigger (empty = all submodules)
         required: false
         type: string
         default: ""
@@ -17,112 +20,24 @@ permissions:
   contents: read
 
 jobs:
-  discover:
-    name: Discover plugins
+  dispatch:
+    name: Trigger submodule pipelines
     runs-on: ubuntu-latest
-    outputs:
-      plugins: ${{ steps.list.outputs.plugins }}
-      has_plugins: ${{ steps.list.outputs.has_plugins }}
-      has_windows_plugins: ${{ steps.list.outputs.has_windows_plugins }}
-      windows_plugins: ${{ steps.list.outputs.windows_plugins }}
+    timeout-minutes: 90
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout hub
+        uses: actions/checkout@v4
 
-      - name: List plugins
-        id: list
+      - name: Dispatch plugin CI workflows
+        env:
+          HUB_DISPATCH_TOKEN: ${{ secrets.HUB_DISPATCH_TOKEN }}
         run: |
           set -euo pipefail
           only_args=()
           if [ -n "${{ inputs.plugin }}" ]; then
             only_args=(--only "${{ inputs.plugin }}")
           fi
-          plugins="$(python3 .github/scripts/discover-plugins.py --mode all "${only_args[@]}")"
-          windows_plugins="$(python3 .github/scripts/discover-plugins.py --mode all --require-tfm-prefix net10.0-windows "${only_args[@]}")"
-          echo "plugins=$plugins" >> "$GITHUB_OUTPUT"
-          echo "windows_plugins=$windows_plugins" >> "$GITHUB_OUTPUT"
-          if [ "$plugins" = "[]" ]; then
-            echo "has_plugins=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_plugins=true" >> "$GITHUB_OUTPUT"
-          fi
-          if [ "$windows_plugins" = "[]" ]; then
-            echo "has_windows_plugins=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_windows_plugins=true" >> "$GITHUB_OUTPUT"
-          fi
-          echo "Selected plugins: $plugins"
-          echo "Windows plugins: $windows_plugins"
-
-  linux:
-    name: Linux
-    needs: discover
-    if: needs.discover.outputs.has_plugins == 'true'
-    strategy:
-      fail-fast: false
-      matrix:
-        plugin: ${{ fromJSON(needs.discover.outputs.plugins) }}
-    uses: ./.github/workflows/plugin-ci.yml
-    with:
-      plugin: ${{ matrix.plugin }}
-      runner: ubuntu-latest
-      frameworks: net10.0
-      pack: true
-      test: true
-
-  macos:
-    name: macOS
-    needs: discover
-    if: needs.discover.outputs.has_plugins == 'true'
-    strategy:
-      fail-fast: false
-      max-parallel: 8
-      matrix:
-        plugin: ${{ fromJSON(needs.discover.outputs.plugins) }}
-    uses: ./.github/workflows/plugin-ci.yml
-    with:
-      plugin: ${{ matrix.plugin }}
-      runner: macos-latest
-      frameworks: net10.0,net10.0-android,net10.0-ios,net10.0-maccatalyst
-      pack: true
-      test: true
-      install_workloads: true
-      workloads: maui-android maui-ios maui-maccatalyst
-
-  windows:
-    name: Windows
-    needs: discover
-    if: needs.discover.outputs.has_windows_plugins == 'true'
-    strategy:
-      fail-fast: false
-      matrix:
-        plugin: ${{ fromJSON(needs.discover.outputs.windows_plugins) }}
-    uses: ./.github/workflows/plugin-ci.yml
-    with:
-      plugin: ${{ matrix.plugin }}
-      runner: windows-latest
-      frameworks: net10.0,net10.0-windows
-      pack: true
-      test: true
-      install_workloads: true
-      workloads: maui-windows
-
-  ci-ok:
-    name: CI ok
-    needs: [discover, linux, macos, windows]
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check job results
-        run: |
-          set -euo pipefail
-          echo "discover=${{ needs.discover.result }}"
-          echo "linux=${{ needs.linux.result }}"
-          echo "macos=${{ needs.macos.result }}"
-          echo "windows=${{ needs.windows.result }}"
-          [ "${{ needs.discover.result }}" = "success" ]
-          for result in "${{ needs.linux.result }}" "${{ needs.macos.result }}" "${{ needs.windows.result }}"; do
-            case "$result" in
-              success|skipped) ;;
-              *) exit 1 ;;
-            esac
-          done
+          python3 .github/scripts/dispatch-plugin-workflows.py \
+            --ref main \
+            --wait \
+            "${only_args[@]}"

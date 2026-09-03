@@ -249,29 +249,11 @@ def main() -> int:
     print(f"Source projects: {len(src_projects)}", flush=True)
     print(f"Test projects: {len(test_projects)}", flush=True)
 
-    built_any = False
-    for csproj in src_projects:
-        actual = declared_tfms(csproj)
-        matches = matching_tfms(requested, actual)
-        if matches:
-            for tfm in matches:
-                build_project(csproj, tfm, args.configuration)
-                built_any = True
-        elif args.build_unmatched or any(item == "net10.0" for item in requested):
-            build_project(csproj, None, args.configuration)
-            built_any = True
-        else:
-            print(f"::notice::Skipping {csproj.name}; TFMs {sorted(actual)} do not match {requested}")
-
-    if not built_any:
-        print(f"::error::No projects built for {plugin_root.name} ({', '.join(requested)})")
-        return 1
-
-    tested_any = False
     if args.test:
         if not test_projects:
             print(f"::error::No tests/*.csproj under {plugin_root}")
             return 1
+        tested_any = False
         for csproj in test_projects:
             actual = declared_tfms(csproj)
             matches = matching_tfms(requested, actual)
@@ -286,6 +268,24 @@ def main() -> int:
                 print(f"::notice::Skipping tests {csproj.name}; TFMs {sorted(actual)} do not match {requested}")
         if not tested_any:
             print(f"::error::No tests ran for {plugin_root.name} ({', '.join(requested)})")
+            return 1
+
+    if args.pack:
+        built_any = False
+        for csproj in src_projects:
+            actual = declared_tfms(csproj)
+            matches = matching_tfms(requested, actual)
+            if matches:
+                for tfm in matches:
+                    build_project(csproj, tfm, args.configuration)
+                    built_any = True
+            elif args.build_unmatched or any(item == "net10.0" for item in requested):
+                build_project(csproj, None, args.configuration)
+                built_any = True
+            else:
+                print(f"::notice::Skipping {csproj.name}; TFMs {sorted(actual)} do not match {requested}")
+        if not built_any:
+            print(f"::error::No projects built for {plugin_root.name} ({', '.join(requested)})")
             return 1
 
     packed_any = False

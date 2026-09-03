@@ -38,10 +38,15 @@ on:
         required: false
         type: string
         default: maui-android maui-ios
+      job_name:
+        description: Optional job display name
+        required: false
+        type: string
+        default: ""
 
 jobs:
   plugin:
-    name: ${{ inputs.plugin || github.event.repository.name }} (${{ inputs.frameworks }})
+    name: ${{ inputs.job_name != '' && inputs.job_name || format('{0} ({1})', inputs.plugin || github.event.repository.name, inputs.frameworks) }}
     runs-on: ${{ inputs.runner }}
     timeout-minutes: 45
     defaults:
@@ -104,12 +109,22 @@ jobs:
           if [ -n "${{ inputs.plugin }}" ]; then
             plugin_root="${{ inputs.plugin }}"
           fi
+          extra=()
+          if [ "${{ inputs.test }}" = "true" ]; then
+            extra+=(--test)
+          else
+            extra+=(--no-test)
+          fi
+          if [ "${{ inputs.pack }}" = "true" ]; then
+            extra+=(--pack)
+          else
+            extra+=(--no-pack)
+          fi
           python3 "$script" \
             --plugin-root "$plugin_root" \
             --frameworks "${{ inputs.frameworks }}" \
             --configuration Release \
-            --pack \
-            --test \
+            "${extra[@]}" \
             --stage-dir artifacts/nuget
 
       - name: Upload NuGet packages

@@ -87,9 +87,19 @@ dotnet add package Plugin.Maui.ApiResilience --version 1.0.8
 
 ## Continuous integration
 
-The hub workflow at `.github/workflows/ci.yml` runs only when started manually (`workflow_dispatch`). It does not run on push to `main`, so adding or bumping a submodule does not rebuild every plugin. Every job builds the library, runs tests, then `dotnet pack` with portable PDBs so each plugin produces a `.nupkg` and a `.snupkg`. The hub catalog does not publish to NuGet.org.
+The hub workflow at `.github/workflows/ci.yml` is **manual only** (`workflow_dispatch`). It does not run on push to the hub repo. A manual run dispatches each plugin submodule’s own `CI` workflow and waits for the results. The hub does not build or publish packages itself.
 
-Publish from the plugin repository that owns the package (for example `Plugin.Maui.MVVMExpress`, which ships several `Plugin.Maui.MVVMExpress.*` packages). That repo’s `.github/workflows/ci.yml` contains the publish job. The first job validates `NUGET_KEY` (fails if the key is missing, expired, or rejected) and fails the pipeline if any packable csproj `Version` / `PackageVersion` is already on NuGet.org. Build jobs start only after that check passes. Run **CI** with **publish** checked, or push a `v*.*.*` tag. That run pushes every macOS `.nupkg` and matching `.snupkg` from that repo (`--skip-duplicate`). Store the API key as the `NUGET_KEY` Actions secret on the `nuvyntralabs` organization or on that plugin repo — never in YAML. Copy `.github/plugin-repo-ci.yml` when adding a new plugin repo.
+Store a GitHub token that can dispatch workflows on `nuvyntralabs/Plugin.Maui.*` as the `HUB_DISPATCH_TOKEN` Actions secret on the hub (or the `nuvyntralabs` organization). The optional **plugin** input limits the dispatch to one submodule folder.
+
+Publish from the plugin repository that owns the package (for example `Plugin.Maui.MVVMExpress`, which ships several `Plugin.Maui.MVVMExpress.*` packages). Each dispatched submodule pipeline runs in this order:
+
+1. Validate `NUGET_KEY`. An empty, expired, or rejected key fails the pipeline and does not start tests or pack.
+2. Compare each packable csproj `Version` / `PackageVersion` with NuGet.org. If that version is already deployed, the pipeline fails and does not start tests or pack. Bump the csproj version to continue.
+3. Run unit tests. Any failing test fails the pipeline and does not start pack.
+4. Build and pack `.nupkg` and `.snupkg` files.
+5. Push the macOS `.nupkg` and matching `.snupkg` to NuGet.org (`--skip-duplicate`).
+
+Store the API key as the `NUGET_KEY` Actions secret on the `nuvyntralabs` organization or on that plugin repo — never in YAML. Copy `.github/plugin-repo-ci.yml` when adding a new plugin repo.
 
 - Ubuntu: `net10.0`
 - macOS: `net10.0`, `net10.0-android`, `net10.0-ios` (and Mac Catalyst when the plugin declares it)

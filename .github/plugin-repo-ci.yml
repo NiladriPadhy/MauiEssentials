@@ -1,6 +1,9 @@
 # Copy to a plugin repository as .github/workflows/ci.yml
+# together with .github/workflows/plugin-ci.yml and .github/scripts/.
 # so Plugin.Maui.* repos build and publish without cloning the hub.
 # Publish is per package repo (one repo may ship several nupkgs, e.g. MVVMExpress).
+# Order: validate NUGET_KEY, fail if csproj version is already on NuGet.org,
+# run unit tests, pack nupkg/snupkg, push to NuGet.org.
 # Linux installs maui-android (the `maui` meta-workload is not supported there).
 name: CI
 
@@ -11,7 +14,7 @@ on:
   workflow_dispatch:
     inputs:
       publish:
-        description: Push macOS .nupkg and .snupkg to NuGet.org
+        description: Unused. CI publishes after key, version, test, and pack checks succeed
         required: false
         type: boolean
         default: false
@@ -43,6 +46,7 @@ jobs:
           path: .ci-tools
 
       - name: Check NUGET_KEY and published version
+        id: check
         env:
           NUGET_KEY: ${{ secrets.NUGET_KEY }}
         run: |
@@ -58,43 +62,53 @@ jobs:
           fi
           python3 "$script" --plugin-root .
 
-  linux:
+  test:
+    name: Unit tests
     needs: [version-check]
-    uses: nuvyntralabs/MauiEssentials/.github/workflows/plugin-ci.yml@main
+    uses: ./.github/workflows/plugin-ci.yml
+    with:
+      runner: ubuntu-latest
+      frameworks: net10.0
+      pack: false
+      test: true
+      job_name: Unit tests
+
+  linux:
+    needs: [test]
+    uses: ./.github/workflows/plugin-ci.yml
     with:
       runner: ubuntu-latest
       frameworks: net10.0
       pack: true
-      test: true
+      test: false
 
   macos:
-    needs: [version-check]
-    uses: nuvyntralabs/MauiEssentials/.github/workflows/plugin-ci.yml@main
+    needs: [test]
+    uses: ./.github/workflows/plugin-ci.yml
     with:
       runner: macos-latest
       frameworks: net10.0,net10.0-android,net10.0-ios,net10.0-maccatalyst
       pack: true
-      test: true
+      test: false
       install_workloads: true
       workloads: maui-android maui-ios maui-maccatalyst
 
   # Shared libraries and MVVMExpress also pack net10.0-windows on this runner.
   # Native Android/iOS plugins still succeed: unmatched Windows TFMs are skipped.
   windows:
-    needs: [version-check]
-    uses: nuvyntralabs/MauiEssentials/.github/workflows/plugin-ci.yml@main
+    needs: [test]
+    uses: ./.github/workflows/plugin-ci.yml
     with:
       runner: windows-latest
       frameworks: net10.0,net10.0-windows
       pack: true
-      test: true
+      test: false
       install_workloads: true
       workloads: maui-windows
 
   publish:
     name: NuGet.org
     needs: [linux, macos, windows]
-    if: ${{ (github.event_name == 'workflow_dispatch' && inputs.publish) || (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')) }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     defaults:
