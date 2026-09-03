@@ -92,6 +92,33 @@ def run(command: list[str], cwd: Path) -> None:
         raise SystemExit(completed.returncode)
 
 
+def project_references(csproj: Path) -> list[Path]:
+    refs: list[Path] = []
+    try:
+        tree = ET.parse(csproj)
+    except ET.ParseError:
+        return refs
+    for element in tree.iter():
+        if local_name(element.tag) != "ProjectReference":
+            continue
+        include = element.attrib.get("Include") or element.attrib.get("include")
+        if include:
+            refs.append((csproj.parent / include).resolve())
+    return refs
+
+
+def collapse_linux_graph(projects: list[Path]) -> None:
+    seen: set[Path] = set()
+    queue = list(projects)
+    while queue:
+        csproj = queue.pop()
+        if csproj in seen or not csproj.is_file():
+            continue
+        seen.add(csproj)
+        collapse_linux_tfms(csproj)
+        queue.extend(project_references(csproj))
+
+
 def collapse_linux_tfms(csproj: Path) -> None:
     """Rewrite TargetFrameworks to net10.0 on Linux so restore does not pull iOS packs.
 
@@ -140,9 +167,10 @@ def pack_project(csproj: Path, tfms: list[str] | None, configuration: str) -> No
     if not tfms:
         run(command, csproj.parent)
         return
-    # Semicolon-separated TargetFrameworks is parsed as two properties (MSB1006).
+    # Isolate one TFM. `-p:TargetFramework=` still packs every TFM listed in the
+    # csproj (NU5026 for unbuilt android/ios/net8). Do not join with ';' (MSB1006).
     for tfm in tfms:
-        run(command + [f"-p:TargetFramework={tfm}"], csproj.parent)
+        run(command + [f"-p:TargetFrameworks={tfm}"], csproj.parent)
 
 
 def main() -> int:
@@ -167,8 +195,7 @@ def main() -> int:
         print(f"::error::No src/*.csproj under {plugin_root}")
         return 1
 
-    for csproj in src_projects + test_projects:
-        collapse_linux_tfms(csproj)
+    collapse_linux_graph(src_projects + test_projects)
 
     print(f"Plugin: {plugin_root.name}", flush=True)
     print(f"Frameworks: {', '.join(requested)}", flush=True)
