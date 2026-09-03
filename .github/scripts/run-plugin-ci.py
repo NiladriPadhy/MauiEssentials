@@ -162,7 +162,19 @@ def pin_matching_tfms(projects: list[Path], requested: list[str]) -> None:
 
 
 def build_project(csproj: Path, tfm: str | None, configuration: str) -> None:
-    command = ["dotnet", "build", str(csproj), "-c", configuration, "--nologo", "--verbosity", "minimal"]
+    command = [
+        "dotnet",
+        "build",
+        str(csproj),
+        "-c",
+        configuration,
+        "--nologo",
+        "--verbosity",
+        "minimal",
+        # snupkg requires portable PDBs, not Windows or embedded symbols.
+        "-p:DebugType=portable",
+        "-p:DebugSymbols=true",
+    ]
     if tfm:
         command.extend(["-f", tfm])
     run(command, csproj.parent)
@@ -177,9 +189,29 @@ def test_project(csproj: Path, tfm: str | None, configuration: str) -> None:
 
 def pack_project(csproj: Path, configuration: str) -> None:
     run(
-        ["dotnet", "pack", str(csproj), "-c", configuration, "--nologo", "--verbosity", "minimal", "--no-build"],
+        [
+            "dotnet",
+            "pack",
+            str(csproj),
+            "-c",
+            configuration,
+            "--nologo",
+            "--verbosity",
+            "minimal",
+            "--no-build",
+            "-p:IncludeSymbols=true",
+            "-p:SymbolPackageFormat=snupkg",
+        ],
         csproj.parent,
     )
+
+
+def packaged_outputs(plugin_root: Path, pattern: str) -> list[Path]:
+    return [
+        path
+        for path in sorted(plugin_root.rglob(pattern))
+        if "bin" in path.parts or "artifacts" in path.parts
+    ]
 
 
 def main() -> int:
@@ -266,11 +298,17 @@ def main() -> int:
         if not packed_any:
             print(f"::error::No packages generated for {plugin_root.name}")
             return 1
-        packages = sorted(plugin_root.rglob("*.nupkg"))
-        packages = [path for path in packages if "bin" in path.parts or "artifacts" in path.parts]
+        packages = packaged_outputs(plugin_root, "*.nupkg")
+        symbols = packaged_outputs(plugin_root, "*.snupkg")
         print("Generated packages:", flush=True)
         for path in packages:
             print(f"  {path}", flush=True)
+        print("Generated symbol packages:", flush=True)
+        for path in symbols:
+            print(f"  {path}", flush=True)
+        if not symbols:
+            print(f"::error::No symbol packages (.snupkg) generated for {plugin_root.name}")
+            return 1
 
     return 0
 
