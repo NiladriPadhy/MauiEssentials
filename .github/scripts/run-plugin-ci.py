@@ -9,8 +9,6 @@ import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-MVVMEXPRESS_MAC_EXTRA = "net10.0-maccatalyst"
-
 
 def local_name(tag: str) -> str:
     return tag.split("}")[-1]
@@ -92,17 +90,24 @@ def run(command: list[str], cwd: Path) -> None:
         raise SystemExit(completed.returncode)
 
 
+def isolate_tfm_args(tfm: str) -> list[str]:
+    # `-f` still restores every TFM in the csproj. On Linux that pulls iOS
+    # workload packs (NETSDK1178). Override TargetFrameworks to one value.
+    # Do not pass a semicolon-separated list (MSB1006).
+    return [f"-p:TargetFrameworks={tfm}"]
+
+
 def build_project(csproj: Path, tfm: str | None, configuration: str) -> None:
     command = ["dotnet", "build", str(csproj), "-c", configuration, "--nologo", "--verbosity", "minimal"]
     if tfm:
-        command.extend(["-f", tfm])
+        command.extend(isolate_tfm_args(tfm))
     run(command, csproj.parent)
 
 
 def test_project(csproj: Path, tfm: str | None, configuration: str) -> None:
     command = ["dotnet", "test", str(csproj), "-c", configuration, "--nologo", "--verbosity", "minimal"]
     if tfm:
-        command.extend(["-f", tfm])
+        command.extend(isolate_tfm_args(tfm))
     run(command, csproj.parent)
 
 
@@ -111,18 +116,8 @@ def pack_project(csproj: Path, tfms: list[str] | None, configuration: str) -> No
     if not tfms:
         run(command, csproj.parent)
         return
-    # `dotnet pack -p:TargetFrameworks=a;b` is parsed as two properties (MSB1006).
-    # Pack each TFM with the singular TargetFramework switch instead.
     for tfm in tfms:
-        run(command + [f"-p:TargetFramework={tfm}"], csproj.parent)
-
-
-def resolve_frameworks(plugin_root: Path, frameworks: list[str]) -> list[str]:
-    resolved = list(frameworks)
-    if plugin_root.name == "MVVMExpress" and any(item.startswith("net10.0-ios") for item in frameworks):
-        if MVVMEXPRESS_MAC_EXTRA not in resolved:
-            resolved.append(MVVMEXPRESS_MAC_EXTRA)
-    return resolved
+        run(command + isolate_tfm_args(tfm), csproj.parent)
 
 
 def main() -> int:
@@ -141,7 +136,6 @@ def main() -> int:
         return 1
 
     requested = [item.strip() for item in args.frameworks.split(",") if item.strip()]
-    requested = resolve_frameworks(plugin_root, requested)
     src_projects = find_csprojs(plugin_root, "src")
     test_projects = find_csprojs(plugin_root, "tests")
     if not src_projects:
