@@ -1,5 +1,6 @@
 # Copy to a plugin repository as .github/workflows/ci.yml
 # so Plugin.Maui.* repos build without cloning the hub.
+# Linux installs maui-android (the `maui` meta-workload is not supported there).
 name: CI
 
 on:

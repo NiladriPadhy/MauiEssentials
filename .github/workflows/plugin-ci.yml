@@ -80,13 +80,17 @@ jobs:
       - name: Install MAUI workloads
         run: |
           set -euo pipefail
-          # maui-tizen in NETSDK1147 is a missing-workload placeholder, not a Tizen target.
-          # Linux images need at least `maui` before UseMaui projects restore.
-          extra=""
-          if [ "${{ inputs.install_workloads }}" = "true" ]; then
-            extra="${{ inputs.workloads }}"
-          fi
-          dotnet workload install maui ${extra} --skip-sign-check
+          # `maui` is not supported on Linux. NETSDK1147 "maui-tizen" means any MAUI
+          # workload is missing; maui-android is enough to restore UseMaui libraries.
+          case "${RUNNER_OS}" in
+            Linux) dotnet workload install maui-android --skip-sign-check ;;
+            macOS) dotnet workload install maui-android maui-ios maui-maccatalyst --skip-sign-check ;;
+            Windows) dotnet workload install maui-android maui-windows --skip-sign-check ;;
+            *)
+              echo "::error::Unsupported RUNNER_OS=${RUNNER_OS}"
+              exit 1
+              ;;
+          esac
 
       - name: Build, test, pack
         env:

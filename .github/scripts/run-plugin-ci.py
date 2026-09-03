@@ -108,9 +108,13 @@ def test_project(csproj: Path, tfm: str | None, configuration: str) -> None:
 
 def pack_project(csproj: Path, tfms: list[str] | None, configuration: str) -> None:
     command = ["dotnet", "pack", str(csproj), "-c", configuration, "--nologo", "--verbosity", "minimal", "--no-build"]
-    if tfms:
-        command.append(f"-p:TargetFrameworks={';'.join(tfms)}")
-    run(command, csproj.parent)
+    if not tfms:
+        run(command, csproj.parent)
+        return
+    # `dotnet pack -p:TargetFrameworks=a;b` is parsed as two properties (MSB1006).
+    # Pack each TFM with the singular TargetFramework switch instead.
+    for tfm in tfms:
+        run(command + [f"-p:TargetFramework={tfm}"], csproj.parent)
 
 
 def resolve_frameworks(plugin_root: Path, frameworks: list[str]) -> list[str]:
