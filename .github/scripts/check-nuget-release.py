@@ -220,7 +220,6 @@ def main() -> int:
     for package_id, version in packages:
         if version_on_nuget(package_id, version, api_key):
             already.append(f"{package_id} {version}")
-            print(f"::error::{package_id} {version} is already on NuGet.org")
     if already:
         fail("csproj release version matches a version already deployed to NuGet.org: " + ", ".join(already))
 
