@@ -106,10 +106,10 @@ def test_project(csproj: Path, tfm: str | None, configuration: str) -> None:
     run(command, csproj.parent)
 
 
-def pack_project(csproj: Path, tfm: str | None, configuration: str) -> None:
+def pack_project(csproj: Path, tfms: list[str] | None, configuration: str) -> None:
     command = ["dotnet", "pack", str(csproj), "-c", configuration, "--nologo", "--verbosity", "minimal", "--no-build"]
-    if tfm:
-        command.extend(["-f", tfm])
+    if tfms:
+        command.append(f"-p:TargetFrameworks={';'.join(tfms)}")
     run(command, csproj.parent)
 
 
@@ -196,9 +196,8 @@ def main() -> int:
             actual = declared_tfms(csproj)
             matches = matching_tfms(requested, actual)
             if matches:
-                for tfm in matches:
-                    pack_project(csproj, tfm, args.configuration)
-                    packed_any = True
+                pack_project(csproj, matches, args.configuration)
+                packed_any = True
             elif any(item == "net10.0" for item in requested):
                 pack_project(csproj, None, args.configuration)
                 packed_any = True

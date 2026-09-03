@@ -78,8 +78,15 @@ jobs:
           dotnet-version: "10.0.x"
 
       - name: Install MAUI workloads
-        if: inputs.install_workloads
-        run: dotnet workload install ${{ inputs.workloads }} --skip-sign-check
+        run: |
+          set -euo pipefail
+          # maui-tizen in NETSDK1147 is a missing-workload placeholder, not a Tizen target.
+          # Linux images need at least `maui` before UseMaui projects restore.
+          extra=""
+          if [ "${{ inputs.install_workloads }}" = "true" ]; then
+            extra="${{ inputs.workloads }}"
+          fi
+          dotnet workload install maui ${extra} --skip-sign-check
 
       - name: Build, test, pack
         env:
