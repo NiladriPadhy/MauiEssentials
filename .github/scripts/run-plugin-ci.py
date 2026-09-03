@@ -4,10 +4,37 @@
 from __future__ import annotations
 
 import argparse
+import platform
 import subprocess
 import sys
+import tempfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
+
+LINUX_NET10_PROPS = """<Project>
+  <PropertyGroup>
+    <TargetFrameworks Condition="'$(TargetFrameworks)' != '' and $(TargetFrameworks.Contains('net10.0'))">net10.0</TargetFrameworks>
+  </PropertyGroup>
+</Project>
+"""
+
+
+_linux_msbuild_args: list[str] | None = None
+
+
+def linux_msbuild_args() -> list[str]:
+    """On Linux, drop ios/android TFMs so restore does not require those workloads."""
+    global _linux_msbuild_args
+    if _linux_msbuild_args is not None:
+        return _linux_msbuild_args
+    if platform.system() != "Linux":
+        _linux_msbuild_args = []
+        return _linux_msbuild_args
+    path = Path(tempfile.gettempdir()) / "mauiessentials-linux-net10.props"
+    path.write_text(LINUX_NET10_PROPS, encoding="utf-8")
+    print(f"Linux: collapsing multi-TFM projects to net10.0 ({path})", flush=True)
+    _linux_msbuild_args = [f"-p:CustomAfterMicrosoftCommonProps={path}"]
+    return _linux_msbuild_args
 
 
 def local_name(tag: str) -> str:
@@ -90,34 +117,35 @@ def run(command: list[str], cwd: Path) -> None:
         raise SystemExit(completed.returncode)
 
 
-def isolate_tfm_args(tfm: str) -> list[str]:
-    # `-f` still restores every TFM in the csproj. On Linux that pulls iOS
-    # workload packs (NETSDK1178). Override TargetFrameworks to one value.
-    # Do not pass a semicolon-separated list (MSB1006).
-    return [f"-p:TargetFrameworks={tfm}"]
+def extra_msbuild() -> list[str]:
+    return linux_msbuild_args()
 
 
 def build_project(csproj: Path, tfm: str | None, configuration: str) -> None:
     command = ["dotnet", "build", str(csproj), "-c", configuration, "--nologo", "--verbosity", "minimal"]
+    command.extend(extra_msbuild())
     if tfm:
-        command.extend(isolate_tfm_args(tfm))
+        command.extend(["-f", tfm])
     run(command, csproj.parent)
 
 
 def test_project(csproj: Path, tfm: str | None, configuration: str) -> None:
     command = ["dotnet", "test", str(csproj), "-c", configuration, "--nologo", "--verbosity", "minimal"]
+    command.extend(extra_msbuild())
     if tfm:
-        command.extend(isolate_tfm_args(tfm))
+        command.extend(["-f", tfm])
     run(command, csproj.parent)
 
 
 def pack_project(csproj: Path, tfms: list[str] | None, configuration: str) -> None:
     command = ["dotnet", "pack", str(csproj), "-c", configuration, "--nologo", "--verbosity", "minimal", "--no-build"]
+    command.extend(extra_msbuild())
     if not tfms:
         run(command, csproj.parent)
         return
+    # Semicolon-separated TargetFrameworks is parsed as two properties (MSB1006).
     for tfm in tfms:
-        run(command + isolate_tfm_args(tfm), csproj.parent)
+        run(command + [f"-p:TargetFramework={tfm}"], csproj.parent)
 
 
 def main() -> int:
