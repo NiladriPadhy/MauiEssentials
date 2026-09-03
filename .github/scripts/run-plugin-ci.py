@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import shutil
 import subprocess
 import sys
 import xml.etree.ElementTree as ET
@@ -222,6 +223,11 @@ def main() -> int:
     parser.add_argument("--pack", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--test", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--build-unmatched", action=argparse.BooleanOptionalAction, default=False)
+    parser.add_argument(
+        "--stage-dir",
+        default="",
+        help="Copy packed .nupkg and .snupkg files into this directory.",
+    )
     args = parser.parse_args()
 
     plugin_root = Path(args.plugin_root).resolve()
@@ -309,6 +315,17 @@ def main() -> int:
         if not symbols:
             print(f"::error::No symbol packages (.snupkg) generated for {plugin_root.name}")
             return 1
+        stage_dir = args.stage_dir.strip()
+        if stage_dir:
+            stage = Path(stage_dir)
+            if not stage.is_absolute():
+                stage = Path.cwd() / stage
+            stage.mkdir(parents=True, exist_ok=True)
+            print(f"Staging packages to {stage}", flush=True)
+            for path in packages + symbols:
+                dest = stage / path.name
+                shutil.copy2(path, dest)
+                print(f"  {dest}", flush=True)
 
     return 0
 

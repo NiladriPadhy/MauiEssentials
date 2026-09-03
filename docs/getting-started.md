@@ -87,7 +87,9 @@ dotnet add package Plugin.Maui.ApiResilience --version 1.0.8
 
 ## Continuous integration
 
-The hub workflow at `.github/workflows/ci.yml` runs only when started manually (`workflow_dispatch`). It does not run on push to `main`, so adding or bumping a submodule does not rebuild every plugin. Every job builds the library, runs tests, then `dotnet pack` with portable PDBs so each plugin produces a `.nupkg` and a `.snupkg`. Packages are not published to NuGet.org.
+The hub workflow at `.github/workflows/ci.yml` runs only when started manually (`workflow_dispatch`). It does not run on push to `main`, so adding or bumping a submodule does not rebuild every plugin. Every job builds the library, runs tests, then `dotnet pack` with portable PDBs so each plugin produces a `.nupkg` and a `.snupkg`.
+
+To publish those packages, run **CI** with **publish** checked. The macOS `.nupkg` and matching `.snupkg` are pushed to NuGet.org (`--skip-duplicate`). Store the API key as the `NUGET_KEY` Actions secret on this repository or the `nuvyntralabs` organization — never in YAML. Optionally set **plugin** to a hub folder (for example `GeoLocator`) to build and publish one package.
 
 - Ubuntu: `net10.0`
 - macOS: `net10.0`, `net10.0-android`, `net10.0-ios` (and Mac Catalyst when the plugin declares it)

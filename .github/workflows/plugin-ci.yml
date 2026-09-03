@@ -111,4 +111,14 @@ jobs:
             --frameworks "${{ inputs.frameworks }}" \
             --configuration Release \
             --pack \
-            --test
+            --test \
+            --stage-dir artifacts/nuget
+
+      - name: Upload NuGet packages
+        if: inputs.pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-${{ inputs.plugin || github.event.repository.name }}-${{ runner.os }}
+          path: artifacts/nuget/*
+          if-no-files-found: error
+          retention-days: 14

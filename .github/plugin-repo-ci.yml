@@ -6,6 +6,14 @@ name: CI
 on:
   push:
     branches: [main]
+    tags: ["v*.*.*"]
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Push macOS .nupkg and .snupkg to NuGet.org
+        required: false
+        type: boolean
+        default: false
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -44,3 +52,11 @@ jobs:
       test: true
       install_workloads: true
       workloads: maui-windows
+
+  publish:
+    name: NuGet.org
+    needs: [linux, macos, windows]
+    if: ${{ (github.event_name == 'workflow_dispatch' && inputs.publish) || (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')) }}
+    uses: nuvyntralabs/MauiEssentials/.github/workflows/publish-nuget.yml@main
+    secrets:
+      NUGET_KEY: ${{ secrets.NUGET_KEY }}

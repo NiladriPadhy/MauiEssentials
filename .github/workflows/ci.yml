@@ -2,6 +2,17 @@ name: CI
 
 on:
   workflow_dispatch:
+    inputs:
+      plugin:
+        description: Plugin folder to build (empty = all)
+        required: false
+        type: string
+        default: ""
+      publish:
+        description: Push macOS .nupkg and .snupkg to NuGet.org
+        required: false
+        type: boolean
+        default: false
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -26,8 +37,12 @@ jobs:
         id: list
         run: |
           set -euo pipefail
-          plugins="$(python3 .github/scripts/discover-plugins.py --mode all)"
-          windows_plugins="$(python3 .github/scripts/discover-plugins.py --mode all --require-tfm-prefix net10.0-windows)"
+          only_args=()
+          if [ -n "${{ inputs.plugin }}" ]; then
+            only_args=(--only "${{ inputs.plugin }}")
+          fi
+          plugins="$(python3 .github/scripts/discover-plugins.py --mode all "${only_args[@]}")"
+          windows_plugins="$(python3 .github/scripts/discover-plugins.py --mode all --require-tfm-prefix net10.0-windows "${only_args[@]}")"
           echo "plugins=$plugins" >> "$GITHUB_OUTPUT"
           echo "windows_plugins=$windows_plugins" >> "$GITHUB_OUTPUT"
           if [ "$plugins" = "[]" ]; then
@@ -96,9 +111,19 @@ jobs:
       install_workloads: true
       workloads: maui-windows
 
+  publish:
+    name: NuGet.org
+    needs: [linux, macos, windows]
+    if: ${{ always() && !cancelled() && inputs.publish && needs.macos.result == 'success' && (needs.linux.result == 'success' || needs.linux.result == 'skipped') && (needs.windows.result == 'success' || needs.windows.result == 'skipped') }}
+    uses: ./.github/workflows/publish-nuget.yml
+    with:
+      plugin: ${{ inputs.plugin }}
+    secrets:
+      NUGET_KEY: ${{ secrets.NUGET_KEY }}
+
   ci-ok:
     name: CI ok
-    needs: [discover, linux, macos, windows]
+    needs: [discover, linux, macos, windows, publish]
     if: always()
     runs-on: ubuntu-latest
     steps:
@@ -109,8 +134,9 @@ jobs:
           echo "linux=${{ needs.linux.result }}"
           echo "macos=${{ needs.macos.result }}"
           echo "windows=${{ needs.windows.result }}"
+          echo "publish=${{ needs.publish.result }}"
           [ "${{ needs.discover.result }}" = "success" ]
-          for result in "${{ needs.linux.result }}" "${{ needs.macos.result }}" "${{ needs.windows.result }}"; do
+          for result in "${{ needs.linux.result }}" "${{ needs.macos.result }}" "${{ needs.windows.result }}" "${{ needs.publish.result }}"; do
             case "$result" in
               success|skipped) ;;
               *) exit 1 ;;
