@@ -87,7 +87,7 @@ dotnet add package Plugin.Maui.ApiResilience --version 1.0.8
 
 ## Continuous integration
 
-The hub workflow at `.github/workflows/ci.yml` runs only on pushes to `main`. Every job builds the library, runs tests, then `dotnet pack`. Packages are not published to NuGet.org.
+The hub workflow at `.github/workflows/ci.yml` runs only when started manually (`workflow_dispatch`). It does not run on push to `main`, so adding or bumping a submodule does not rebuild every plugin. Every job builds the library, runs tests, then `dotnet pack`. Packages are not published to NuGet.org.
 
 - Ubuntu: `net10.0`
 - macOS: `net10.0`, `net10.0-android`, `net10.0-ios` (and Mac Catalyst when the plugin declares it)
