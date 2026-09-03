@@ -1,5 +1,6 @@
 # Copy to a plugin repository as .github/workflows/ci.yml
-# so Plugin.Maui.* repos build without cloning the hub.
+# so Plugin.Maui.* repos build and publish without cloning the hub.
+# Publish is per package repo (one repo may ship several nupkgs, e.g. MVVMExpress).
 # Linux installs maui-android (the `maui` meta-workload is not supported there).
 name: CI
 
@@ -57,6 +58,67 @@ jobs:
     name: NuGet.org
     needs: [linux, macos, windows]
     if: ${{ (github.event_name == 'workflow_dispatch' && inputs.publish) || (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')) }}
-    uses: nuvyntralabs/MauiEssentials/.github/workflows/publish-nuget.yml@main
-    secrets:
-      NUGET_KEY: ${{ secrets.NUGET_KEY }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Download macOS packages
+        uses: actions/download-artifact@v4
+        with:
+          pattern: nuget-*-macOS
+          path: packages
+          merge-multiple: true
+
+      - name: Push nupkg and snupkg
+        env:
+          NUGET_KEY: ${{ secrets.NUGET_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "${NUGET_KEY}" ]; then
+            echo "::error::NUGET_KEY secret is empty. Add it under Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+          if [ ! -d packages ]; then
+            echo "::error::No macOS NuGet artifacts were downloaded."
+            exit 1
+          fi
+          mapfile -t nupkgs < <(find packages -type f -name '*.nupkg' ! -name '*.snupkg' | sort)
+          mapfile -t snupkgs < <(find packages -type f -name '*.snupkg' | sort)
+          if [ ${#nupkgs[@]} -eq 0 ]; then
+            echo "::error::No .nupkg files found in macOS artifacts."
+            find packages -type f | sort
+            exit 1
+          fi
+          if [ ${#snupkgs[@]} -eq 0 ]; then
+            echo "::error::No .snupkg files found in macOS artifacts."
+            find packages -type f | sort
+            exit 1
+          fi
+          echo "Packages to push:"
+          find packages -type f \( -name '*.nupkg' -o -name '*.snupkg' \) | sort | sed 's/^/  /'
+          for pkg in "${nupkgs[@]}"; do
+            dir="$(dirname "$pkg")"
+            base="$(basename "$pkg" .nupkg)"
+            symbol="${dir}/${base}.snupkg"
+            if [ ! -f "$symbol" ]; then
+              echo "::error::Missing symbol package for ${pkg}: ${symbol}"
+              exit 1
+            fi
+            echo "Pushing ${pkg}"
+            dotnet nuget push "$pkg" \
+              --api-key "$NUGET_KEY" \
+              --source https://api.nuget.org/v3/index.json \
+              --skip-duplicate
+            echo "Pushing ${symbol}"
+            dotnet nuget push "$symbol" \
+              --api-key "$NUGET_KEY" \
+              --source https://api.nuget.org/v3/index.json \
+              --skip-duplicate
+          done
