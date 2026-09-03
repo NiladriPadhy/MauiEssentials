@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import platform
 import re
 import subprocess
 import sys
@@ -103,34 +102,41 @@ def project_references(csproj: Path) -> list[Path]:
             continue
         include = element.attrib.get("Include") or element.attrib.get("include")
         if include:
-            refs.append((csproj.parent / include).resolve())
+            # csproj paths use Windows separators; Path on Linux treats '\' as literal.
+            refs.append((csproj.parent / include.replace("\\", "/")).resolve())
     return refs
 
 
-def collapse_linux_graph(projects: list[Path]) -> None:
+def collect_graph(projects: list[Path]) -> list[Path]:
     seen: set[Path] = set()
     queue = list(projects)
+    ordered: list[Path] = []
     while queue:
         csproj = queue.pop()
         if csproj in seen or not csproj.is_file():
             continue
         seen.add(csproj)
-        collapse_linux_tfms(csproj)
+        ordered.append(csproj)
         queue.extend(project_references(csproj))
+    return ordered
 
 
-def collapse_linux_tfms(csproj: Path) -> None:
-    """Rewrite TargetFrameworks to net10.0 on Linux so restore does not pull iOS packs.
+def rewrite_target_frameworks(csproj: Path, tfms: list[str]) -> None:
+    """Pin TargetFrameworks to the TFMs this runner will actually build.
 
-    MSBuild evaluates every TFM in the csproj before -f applies (NETSDK1178).
-    Editing the file on the runner is the reliable isolation.
+    MSBuild evaluates every TFM in the csproj (NETSDK1178 on Linux).
+    `dotnet pack -p:TargetFramework=` still writes every original TFM into the
+    nuspec (NU5048 / NU5026). A single unconditional list avoids both.
     """
-    if platform.system() != "Linux":
+    if not tfms:
         return
     text = csproj.read_text(encoding="utf-8")
-    if "<TargetFrameworks" not in text or "net10.0" not in text:
+    if "<TargetFrameworks" not in text:
         return
-    collapsed, count = re.subn(
+    joined = ";".join(tfms)
+    if text.count("<TargetFrameworks") == 1 and f"<TargetFrameworks>{joined}</TargetFrameworks>" in text:
+        return
+    updated, count = re.subn(
         r"\s*<TargetFrameworks\b[^>]*>.*?</TargetFrameworks>",
         "",
         text,
@@ -138,14 +144,21 @@ def collapse_linux_tfms(csproj: Path) -> None:
     )
     if count == 0:
         return
-    collapsed = re.sub(
+    updated = re.sub(
         r"(<PropertyGroup>)",
-        r"\1\n    <TargetFrameworks>net10.0</TargetFrameworks>",
-        collapsed,
+        rf"\1\n    <TargetFrameworks>{joined}</TargetFrameworks>",
+        updated,
         count=1,
     )
-    csproj.write_text(collapsed, encoding="utf-8")
-    print(f"Linux: rewrote {csproj.name} TargetFrameworks to net10.0", flush=True)
+    csproj.write_text(updated, encoding="utf-8")
+    print(f"Pinned {csproj} TargetFrameworks to {joined}", flush=True)
+
+
+def pin_matching_tfms(projects: list[Path], requested: list[str]) -> None:
+    for csproj in collect_graph(projects):
+        matches = matching_tfms(requested, declared_tfms(csproj))
+        if matches:
+            rewrite_target_frameworks(csproj, matches)
 
 
 def build_project(csproj: Path, tfm: str | None, configuration: str) -> None:
@@ -162,15 +175,11 @@ def test_project(csproj: Path, tfm: str | None, configuration: str) -> None:
     run(command, csproj.parent)
 
 
-def pack_project(csproj: Path, tfms: list[str] | None, configuration: str) -> None:
-    command = ["dotnet", "pack", str(csproj), "-c", configuration, "--nologo", "--verbosity", "minimal", "--no-build"]
-    if not tfms:
-        run(command, csproj.parent)
-        return
-    # Isolate one TFM. `-p:TargetFramework=` still packs every TFM listed in the
-    # csproj (NU5026 for unbuilt android/ios/net8). Do not join with ';' (MSB1006).
-    for tfm in tfms:
-        run(command + [f"-p:TargetFrameworks={tfm}"], csproj.parent)
+def pack_project(csproj: Path, configuration: str) -> None:
+    run(
+        ["dotnet", "pack", str(csproj), "-c", configuration, "--nologo", "--verbosity", "minimal", "--no-build"],
+        csproj.parent,
+    )
 
 
 def main() -> int:
@@ -195,7 +204,7 @@ def main() -> int:
         print(f"::error::No src/*.csproj under {plugin_root}")
         return 1
 
-    collapse_linux_graph(src_projects + test_projects)
+    pin_matching_tfms(src_projects + test_projects, requested)
 
     print(f"Plugin: {plugin_root.name}", flush=True)
     print(f"Frameworks: {', '.join(requested)}", flush=True)
@@ -249,10 +258,10 @@ def main() -> int:
             actual = declared_tfms(csproj)
             matches = matching_tfms(requested, actual)
             if matches:
-                pack_project(csproj, matches, args.configuration)
+                pack_project(csproj, args.configuration)
                 packed_any = True
             elif any(item == "net10.0" for item in requested):
-                pack_project(csproj, None, args.configuration)
+                pack_project(csproj, args.configuration)
                 packed_any = True
         if not packed_any:
             print(f"::error::No packages generated for {plugin_root.name}")
