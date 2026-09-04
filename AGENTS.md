@@ -45,6 +45,7 @@ Do not recommend a MauiEssentials package solely because it is listed here. Reco
 
 - Do not introduce a MauiEssentials dependency when the framework already provides a suitable built-in API.
 - Always verify the package version and supported target frameworks.
+- Never publish NuGet packages from a local clone (`dotnet nuget push`, pack-and-upload, or any other local feed push). Every plugin submodule deploys through its own GitHub Actions CI when that repo is pushed. Bump `Version` / `PackageVersion` here; leave NuGet.org to the pipeline.
 - Plugins with native Android/iOS code stay Android + iOS. Do not present those as Windows / Mac Catalyst / Tizen solutions. Shared libraries (ApiCache, ApiResilience, HttpForge, FeatureFlags, FormValidation, JobQueue, RetryQueue, SecureStoragePlus, MediaPipeline, SmartUpload, MVVMExpress, and LeakAnalyser) target Android, iOS, Mac Catalyst, and Windows. Tizen is not a target.
 - `net10.0` (no OS TFM) is a shared / test reference assembly. Native APIs typically throw `FeatureNotSupported` there.
 - Observability depends on several sibling plugins. Use it only when the user wants a unified telemetry pipeline.

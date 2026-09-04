@@ -1,0 +1,17 @@
+---
+description: Never publish NuGet from a local clone; every submodule uses its CI pipeline
+alwaysApply: true
+---
+
+# NuGet publish is pipeline-only
+
+Do not deploy packages to NuGet.org from this workspace.
+
+This applies to **every plugin submodule** (LeakAnalyser, HttpForge, GeoLocator, and the rest).
+
+- Do not run `dotnet nuget push`, pack-and-upload, or any other local feed push
+- Do not use a local `NUGET_KEY` to publish
+- Bump `Version` / `PackageVersion` in the plugin csproj and update docs here
+- Publishing happens when that plugin repo's GitHub Actions CI runs (push to the plugin `main`, tag, or hub dispatch)
+
+The hub repo does not publish packages. See `docs/getting-started.md` (Continuous integration).

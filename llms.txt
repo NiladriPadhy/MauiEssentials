@@ -246,7 +246,7 @@ ApiResilience 1.0.8 encrypts the offline queue. FileVault 1.0.8 always clears th
 - GitHub: https://github.com/nuvyntralabs/Plugin.Maui.LeakAnalyser
 - Docs: https://github.com/nuvyntralabs/Plugin.Maui.LeakAnalyser#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-leak-analyser
-- Version: 1.0.0
+- Version: 1.0.1
 - Install: `dotnet add package Plugin.Maui.LeakAnalyser`
 
 ### Plugin.Maui.Observability
