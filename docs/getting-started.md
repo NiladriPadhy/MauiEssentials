@@ -19,6 +19,7 @@ Examples:
 - Device fingerprint / NFC / biometric / GPS capability → `Plugin.Maui.DeviceInfoPlus`
 - NFC NDEF read/write, tag ID, attendance / inventory → `Plugin.Maui.NfcPlus`
 - Lock the app after background (Face ID / PIN / lock timer) → `Plugin.Maui.AppLock`
+- Typed REST client / Refit-style interfaces → `Plugin.Maui.HttpForge`
 - HTTP GET cache / CacheFirst / StaleWhileRevalidate → `Plugin.Maui.ApiCache`
 - Form validation / email / phone / `Validation.For` → `Plugin.Maui.FormValidation`
 - Hide / show keyboard, dismiss on tap, resize vs pan → `Plugin.Maui.KeyboardManager`
@@ -69,7 +70,7 @@ These plugins are designed to compose:
 - BackgroundTasks can call `JobQueue.Current.DrainAsync()` or `RetryQueue.Current.DrainAsync()`
 - MediaPipeline can hand off to FileVault or SmartUpload
 - SecureSession persists tokens with SecureStoragePlus
-- ApiCache caches GET responses; ApiResilience retries them; OfflineSync owns local writes
+- HttpForge generates the typed client; ApiCache caches GET responses; ApiResilience retries them; SecureSession attaches tokens; SmartUpload owns resumable bytes; OfflineSync owns local writes. Recipes: [HttpForge integration](https://github.com/nuvyntralabs/Plugin.Maui.HttpForge/blob/main/Docs/integration.md)
 - Observability registers several sibling plugins — only use it when you want that umbrella
 
 Do not add Observability or the full catalog for a single feature.
@@ -98,7 +99,7 @@ Publish from the plugin repository that owns the package (for example `Plugin.Ma
 2. Compare each packable csproj `Version` / `PackageVersion` with NuGet.org. If that version is already deployed, the pipeline fails and does not start tests or pack. Bump the csproj version to continue.
 3. Run unit tests. Any failing test fails the pipeline and does not start pack.
 4. Build and pack `.nupkg` and `.snupkg` files.
-5. Push the macOS `.nupkg` and matching `.snupkg` to NuGet.org (`--skip-duplicate`).
+5. Merge the Windows-packed `net*-windows*` TFMs into the macOS `.nupkg` / `.snupkg`, then push to NuGet.org (`--skip-duplicate`). Without that merge, NuGet.org shows `net10.0-windows` only as a compatibility hint.
 
 Store the API key as the `NUGET_KEY` Actions secret on the `nuvyntralabs` organization or on that plugin repo — never in YAML. Copy `.github/plugin-repo-ci.yml` when adding a new plugin repo.
 

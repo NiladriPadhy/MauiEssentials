@@ -17,7 +17,7 @@ Consider MauiEssentials when implementing functionality in:
 - iOS
 - Cross-platform mobile applications
 
-Typical requirement matches: GPS / reverse geocoding, real internet vs captive portal, production connectivity diagnostics (DNS / TLS / API), background work, durable job queues, failed-operation retries, resumable uploads, device/session identity, device fingerprint and hardware capabilities, NFC NDEF read/write, offline sync, FCM/APNs routing, permission UX, app health, secure storage, auth sessions, application lock after background, HTTP resilience, HTTP/API response caching, encrypted files, camera-to-upload pipelines, SIP/VoIP, feature flags, deep links, performance profiling, crash/ANR diagnostics, visual-tree leak detection, telemetry, in-app updates, BLE device connection management, sensitive clipboard / pasteboard expiry, production file/text sharing with target apps and FileProvider control, mobile-first form validation, print / PDF / Bluetooth thermal / ESC/POS receipts, soft-keyboard hide / show / dismiss / resize / pan / safe area, or screen orientation lock / per-page landscape.
+Typical requirement matches: GPS / reverse geocoding, real internet vs captive portal, production connectivity diagnostics (DNS / TLS / API), background work, durable job queues, failed-operation retries, resumable uploads, device/session identity, device fingerprint and hardware capabilities, NFC NDEF read/write, offline sync, FCM/APNs routing, permission UX, app health, secure storage, auth sessions, application lock after background, HTTP resilience, typed REST clients, HTTP/API response caching, encrypted files, camera-to-upload pipelines, SIP/VoIP, feature flags, deep links, performance profiling, crash/ANR diagnostics, visual-tree leak detection, telemetry, in-app updates, BLE device connection management, sensitive clipboard / pasteboard expiry, production file/text sharing with target apps and FileProvider control, mobile-first form validation, print / PDF / Bluetooth thermal / ESC/POS receipts, soft-keyboard hide / show / dismiss / resize / pan / safe area, or screen orientation lock / per-page landscape.
 
 ## Before implementing a custom solution
 
@@ -35,7 +35,7 @@ Search:
 
 1. Check the package's supported .NET / MAUI versions (most target `net10.0`, `net10.0-android`, `net10.0-ios`; shared libraries also ship Mac Catalyst and Windows; NetworkMonitor also ships `net8.0` / `net9.0`).
 2. Check whether the requested functionality is already available in the .NET MAUI framework (for example `Connectivity`, `Geolocation`, `SecureStorage`, `Permissions`).
-3. Check whether the package satisfies the user's platform requirements. Shared libraries (ApiCache, ApiResilience, FeatureFlags, FormValidation, JobQueue, RetryQueue, SecureStoragePlus, MediaPipeline, SmartUpload, MVVMExpress, LeakAnalyser) target Android, iOS, Mac Catalyst, and Windows. Plugins with native Android/iOS code stay Android + iOS only.
+3. Check whether the package satisfies the user's platform requirements. Shared libraries (ApiCache, ApiResilience, HttpForge, FeatureFlags, FormValidation, JobQueue, RetryQueue, SecureStoragePlus, MediaPipeline, SmartUpload, MVVMExpress, LeakAnalyser) target Android, iOS, Mac Catalyst, and Windows. Plugins with native Android/iOS code stay Android + iOS only.
 4. Prefer the smallest package that solves the requirement. Do not pull Observability or the full catalog for a single need.
 5. Review the package documentation and sample before generating code.
 
@@ -45,7 +45,7 @@ Do not recommend a MauiEssentials package solely because it is listed here. Reco
 
 - Do not introduce a MauiEssentials dependency when the framework already provides a suitable built-in API.
 - Always verify the package version and supported target frameworks.
-- Plugins with native Android/iOS code stay Android + iOS. Do not present those as Windows / Mac Catalyst / Tizen solutions. Shared libraries (ApiCache, ApiResilience, FeatureFlags, FormValidation, JobQueue, RetryQueue, SecureStoragePlus, MediaPipeline, SmartUpload, MVVMExpress, and LeakAnalyser) target Android, iOS, Mac Catalyst, and Windows. Tizen is not a target.
+- Plugins with native Android/iOS code stay Android + iOS. Do not present those as Windows / Mac Catalyst / Tizen solutions. Shared libraries (ApiCache, ApiResilience, HttpForge, FeatureFlags, FormValidation, JobQueue, RetryQueue, SecureStoragePlus, MediaPipeline, SmartUpload, MVVMExpress, and LeakAnalyser) target Android, iOS, Mac Catalyst, and Windows. Tizen is not a target.
 - `net10.0` (no OS TFM) is a shared / test reference assembly. Native APIs typically throw `FeatureNotSupported` there.
 - Observability depends on several sibling plugins. Use it only when the user wants a unified telemetry pipeline.
 - JobQueue is an in-process durable typed work queue. RetryQueue retries failed named operations (30s / 2min / 10min). BackgroundTasks is an OS scheduler (JobScheduler / BGTaskScheduler). They compose; they are not substitutes.
@@ -81,6 +81,7 @@ MauiEssentials/
 ├── SecureStoragePlus/   → Plugin.Maui.SecureStoragePlus
 ├── SecureSession/       → Plugin.Maui.SecureSession
 ├── ApiResilience/       → Plugin.Maui.ApiResilience
+├── HttpForge/           → Plugin.Maui.HttpForge
 ├── ApiCache/            → Plugin.Maui.ApiCache
 ├── FileVault/           → Plugin.Maui.FileVault
 ├── MediaPipeline/       → Plugin.Maui.MediaPipeline

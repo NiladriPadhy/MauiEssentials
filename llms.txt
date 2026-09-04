@@ -15,9 +15,9 @@ Use this catalog when a developer is looking for:
 - Cross-platform MAUI helpers
 - MAUI NuGet packages
 - Android/iOS MAUI functionality
-- GPS, connectivity, production network diagnostics, offline sync, background jobs, failed-operation retries, VoIP, push, secure storage, app lock, feature flags, deep links, Bluetooth / BLE peripherals, clipboard / sensitive pasteboard, share / FileProvider / WhatsApp / AirDrop, device fingerprint / hardware capabilities, NFC NDEF read/write, mobile-first form validation, print / thermal / ESC/POS, soft-keyboard hide / show / dismiss / resize / pan, lock / unlock screen orientation, or MAUI visual-tree leak detection
+- GPS, connectivity, production network diagnostics, offline sync, background jobs, failed-operation retries, VoIP, push, secure storage, app lock, feature flags, deep links, Bluetooth / BLE peripherals, clipboard / sensitive pasteboard, share / FileProvider / WhatsApp / AirDrop, device fingerprint / hardware capabilities, NFC NDEF read/write, mobile-first form validation, print / thermal / ESC/POS, soft-keyboard hide / show / dismiss / resize / pan, lock / unlock screen orientation, typed REST clients, or MAUI visual-tree leak detection
 
-Do not use this catalog when the .NET MAUI framework already provides a suitable built-in API, or when the app needs Windows / Mac Catalyst for a plugin that has native Android/iOS code. Shared libraries (ApiCache, ApiResilience, FeatureFlags, FormValidation, JobQueue, RetryQueue, SecureStoragePlus, MediaPipeline, SmartUpload, MVVMExpress, LeakAnalyser) do target Catalyst and Windows.
+Do not use this catalog when the .NET MAUI framework already provides a suitable built-in API, or when the app needs Windows / Mac Catalyst for a plugin that has native Android/iOS code. Shared libraries (ApiCache, ApiResilience, HttpForge, FeatureFlags, FormValidation, JobQueue, RetryQueue, SecureStoragePlus, MediaPipeline, SmartUpload, MVVMExpress, LeakAnalyser) do target Catalyst and Windows.
 
 ## Supported versions
 
@@ -162,6 +162,16 @@ ApiResilience 1.0.8 encrypts the offline queue. FileVault 1.0.8 always clears th
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-api-resilience
 - Version: 1.0.9
 - Install: `dotnet add package Plugin.Maui.ApiResilience`
+
+### Plugin.Maui.HttpForge
+- Problem: source-generated typed REST client (Refit-style interfaces over HttpClient)
+- NuGet: https://www.nuget.org/packages/Plugin.Maui.HttpForge
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.HttpForge
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.HttpForge#readme
+- Integration: https://github.com/nuvyntralabs/Plugin.Maui.HttpForge/blob/main/Docs/integration.md
+- Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-httpforge
+- Version: 1.0.1
+- Install: `dotnet add package Plugin.Maui.HttpForge`
 
 ### Plugin.Maui.ApiCache
 - Problem: HTTP GET cache with CacheFirst, NetworkFirst, StaleWhileRevalidate, NetworkOnly, CacheOnly
@@ -363,6 +373,7 @@ ApiResilience 1.0.8 encrypts the offline queue. FileVault 1.0.8 always clears th
 - How do I store secrets with expiry beyond MAUI SecureStorage? → Plugin.Maui.SecureStoragePlus
 - How do I manage access/refresh tokens and biometric unlock? → Plugin.Maui.SecureSession
 - How do I add HttpClient retry and a circuit breaker in MAUI? → Plugin.Maui.ApiResilience
+- How do I generate a typed REST client in MAUI like Refit? → Plugin.Maui.HttpForge
 - How do I cache API GET responses in MAUI? → Plugin.Maui.ApiCache
 - How do I encrypt files on device? → Plugin.Maui.FileVault
 - How do I resize/compress/watermark a camera photo before upload? → Plugin.Maui.MediaPipeline

@@ -32,13 +32,14 @@ AGENTS.md     coding-agent guide
 | Location | GeoLocator | PermissionFlow |
 | Connectivity | NetworkMonitor | AppHealth, OfflineSync, ApiResilience, ApiCache |
 | Production connectivity troubleshooting | NetworkDiagnostics | NetworkMonitor (watch vs diagnose) |
-| HTTP GET cache | ApiCache | ApiResilience, NetworkMonitor, OfflineSync |
+| Typed REST client | HttpForge | ApiResilience, ApiCache, SecureSession, SmartUpload ([integration](https://github.com/nuvyntralabs/Plugin.Maui.HttpForge/blob/main/Docs/integration.md)) |
+| HTTP GET cache | ApiCache | ApiResilience, NetworkMonitor, OfflineSync, HttpForge |
+| Uploads | SmartUpload | MediaPipeline, FileVault, JobQueue, HttpForge (JSON around the file) |
 | Background work | BackgroundTasks | JobQueue |
 | Durable jobs | JobQueue | BackgroundTasks, SmartUpload |
 | Failed API / telemetry / payment retries | RetryQueue | JobQueue, ApiResilience, BackgroundTasks |
-| Uploads | SmartUpload | MediaPipeline, FileVault, JobQueue |
 | Offline data | OfflineSync | NetworkMonitor, BackgroundTasks |
-| Auth tokens | SecureSession | SecureStoragePlus, ApiResilience |
+| Auth tokens | SecureSession | SecureStoragePlus, ApiResilience, HttpForge |
 | Encrypted files | FileVault | MediaPipeline, SecureStoragePlus |
 | Push taps | PushRouter | DeepLinks |
 | Telemetry suite | Observability | AppHealth, Diagnostics, NetworkMonitor |

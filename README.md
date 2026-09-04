@@ -23,7 +23,7 @@ MauiEssentials is a collection of **small, independently published** plugins. In
 | Android | `net10.0-android` (API 21+) | `net9.0-android`, `net10.0-android` |
 | iOS | `net10.0-ios` (iOS 15+) | `net9.0-ios`, `net10.0-ios` |
 
-SecureSession and AppLock require Android API 23+. Shared libraries (ApiCache, ApiResilience, FeatureFlags, FormValidation, JobQueue, RetryQueue, SecureStoragePlus, MediaPipeline, SmartUpload, MVVMExpress, LeakAnalyser) also target Mac Catalyst and Windows. Plugins with native Android/iOS code stay Android + iOS.
+SecureSession and AppLock require Android API 23+. Shared libraries (ApiCache, ApiResilience, HttpForge, FeatureFlags, FormValidation, JobQueue, RetryQueue, SecureStoragePlus, MediaPipeline, SmartUpload, MVVMExpress, LeakAnalyser) also target Mac Catalyst and Windows. Plugins with native Android/iOS code stay Android + iOS.
 
 ## When should you use MauiEssentials?
 
@@ -84,6 +84,7 @@ git submodule update --init --recursive
 | [Plugin.Maui.SecureStoragePlus](https://github.com/nuvyntralabs/Plugin.Maui.SecureStoragePlus) | AES-256-GCM secure storage with expiry and migration (Android, iOS, Mac Catalyst, Windows) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.SecureStoragePlus) |
 | [Plugin.Maui.SecureSession](https://github.com/nuvyntralabs/Plugin.Maui.SecureSession) | Access/refresh tokens, 401 retry, logout, biometrics, multi-device sessions | [NuGet](https://www.nuget.org/packages/Plugin.Maui.SecureSession) |
 | [Plugin.Maui.ApiResilience](https://github.com/nuvyntralabs/Plugin.Maui.ApiResilience) | HttpClient retry, circuit breaker, offline queue, and token refresh (Android, iOS, Mac Catalyst, Windows) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.ApiResilience) |
+| [Plugin.Maui.HttpForge](https://github.com/nuvyntralabs/Plugin.Maui.HttpForge) | Source-generated REST client (Refit-style interfaces over HttpClient) (Android, iOS, Mac Catalyst, Windows) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.HttpForge) |
 | [Plugin.Maui.ApiCache](https://github.com/nuvyntralabs/Plugin.Maui.ApiCache) | HTTP GET cache: CacheFirst, NetworkFirst, StaleWhileRevalidate (Android, iOS, Mac Catalyst, Windows) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.ApiCache) |
 | [Plugin.Maui.FileVault](https://github.com/nuvyntralabs/Plugin.Maui.FileVault) | Encrypted local files with key protection and lifecycle controls | [NuGet](https://www.nuget.org/packages/Plugin.Maui.FileVault) |
 | [Plugin.Maui.MediaPipeline](https://github.com/nuvyntralabs/Plugin.Maui.MediaPipeline) | Camera-to-upload image pipeline: resize, compress, EXIF, watermark, blur, encrypt (Android, iOS, Mac Catalyst, Windows) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.MediaPipeline) |
@@ -131,6 +132,7 @@ White papers: `https://niladripadhy.vercel.app/opensource/<slug>` (see [llms.txt
 | AES-256 secure storage, expiry | Plugin.Maui.SecureStoragePlus |
 | Tokens, 401 retry, biometrics | Plugin.Maui.SecureSession |
 | HttpClient retry, circuit breaker | Plugin.Maui.ApiResilience |
+| Typed REST client / Refit-style interfaces | Plugin.Maui.HttpForge |
 | HTTP GET cache, CacheFirst / SWR | Plugin.Maui.ApiCache |
 | Encrypted local files | Plugin.Maui.FileVault |
 | Camera-to-upload image pipeline | Plugin.Maui.MediaPipeline |
@@ -222,6 +224,7 @@ Each plugin README has Problem → Installation → Configuration → Code → E
 | NFC NDEF read/write + tag ID | NfcPlus | — | — |
 | App lock after background | AppLock | — | — |
 | HTTP retry / circuit breaker | ApiResilience | — | — (use Polly) |
+| Typed REST client / generated HttpClient | HttpForge | — | — (use Refit) |
 | HTTP GET response cache | ApiCache | — | — (use Akavache / MonkeyCache) |
 | Lock / unlock screen orientation | DeviceOrientationPlus | `DeviceDisplay` (read-only) | — |
 | MVVM application shell | MVVMExpress | — | CommunityToolkit.Mvvm (properties/commands) |

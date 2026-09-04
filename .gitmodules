@@ -112,3 +112,6 @@
 [submodule "LeakAnalyser"]
 	path = LeakAnalyser
 	url = https://github.com/nuvyntralabs/Plugin.Maui.LeakAnalyser.git
+[submodule "HttpForge"]
+	path = HttpForge
+	url = https://github.com/nuvyntralabs/Plugin.Maui.HttpForge.git

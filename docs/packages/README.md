@@ -19,6 +19,7 @@ Requirement → package matching for MauiEssentials.
 | AES-256 secure storage, expiry | Plugin.Maui.SecureStoragePlus | https://www.nuget.org/packages/Plugin.Maui.SecureStoragePlus | https://github.com/nuvyntralabs/Plugin.Maui.SecureStoragePlus |
 | Tokens, 401 retry, biometrics | Plugin.Maui.SecureSession | https://www.nuget.org/packages/Plugin.Maui.SecureSession | https://github.com/nuvyntralabs/Plugin.Maui.SecureSession |
 | HttpClient retry, circuit breaker | Plugin.Maui.ApiResilience | https://www.nuget.org/packages/Plugin.Maui.ApiResilience | https://github.com/nuvyntralabs/Plugin.Maui.ApiResilience |
+| Typed REST client / Refit-style interfaces | Plugin.Maui.HttpForge | https://www.nuget.org/packages/Plugin.Maui.HttpForge | https://github.com/nuvyntralabs/Plugin.Maui.HttpForge |
 | HTTP GET cache, CacheFirst / SWR | Plugin.Maui.ApiCache | https://www.nuget.org/packages/Plugin.Maui.ApiCache | https://github.com/nuvyntralabs/Plugin.Maui.ApiCache |
 | Encrypted local files | Plugin.Maui.FileVault | https://www.nuget.org/packages/Plugin.Maui.FileVault | https://github.com/nuvyntralabs/Plugin.Maui.FileVault |
 | Camera-to-upload image pipeline | Plugin.Maui.MediaPipeline | https://www.nuget.org/packages/Plugin.Maui.MediaPipeline | https://github.com/nuvyntralabs/Plugin.Maui.MediaPipeline |
