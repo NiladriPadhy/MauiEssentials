@@ -111,6 +111,8 @@ git submodule update --init --recursive
 
 `Plugin.Maui.MVVMExpress` is stable (`1.0.0`). Docs: [MVVMExpress](https://nuvyntralabs.github.io/packages/plugin-maui-mvvmexpress/).
 
+`Plugin.Maui.LeakAnalyser` is stable (`1.0.0`). Docs: [LeakAnalyser](https://nuvyntralabs.github.io/packages/plugin-maui-leak-analyser/).
+
 White papers: `https://niladripadhy.vercel.app/opensource/<slug>` (see [llms.txt](llms.txt) for slugs).
 
 ## Find a package by requirement
