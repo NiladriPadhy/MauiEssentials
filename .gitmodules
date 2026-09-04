@@ -109,3 +109,6 @@
 [submodule "MVVMExpress"]
 	path = MVVMExpress
 	url = https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress.git
+[submodule "LeakAnalyser"]
+	path = LeakAnalyser
+	url = https://github.com/NiladriPadhy/Plugin.Maui.LeakAnalyser.git

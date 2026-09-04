@@ -33,7 +33,7 @@ Exceptions:
 - Plugin.Maui.NetworkMonitor also ships net8.0, net9.0, net9.0-android, net9.0-ios
 - Plugin.Maui.SecureSession requires Android API 23+
 - Plugin.Maui.AppLock requires Android API 23+
-- Shared libraries (ApiCache, ApiResilience, FeatureFlags, FormValidation, JobQueue, RetryQueue, SecureStoragePlus, MediaPipeline, SmartUpload) also ship net10.0-maccatalyst and Windows (Windows TFM when packed on Windows)
+- Shared libraries (ApiCache, ApiResilience, FeatureFlags, FormValidation, JobQueue, RetryQueue, SecureStoragePlus, MediaPipeline, SmartUpload, LeakAnalyser) also ship net10.0-maccatalyst and Windows (Windows TFM when packed on Windows)
 - Plugin.Maui.MVVMExpress Host / Navigation / Dialogs also ship net10.0-maccatalyst and Windows (single-window; Windows RID when packed on Windows)
 
 ## Hardened releases (3 September 2026)
@@ -750,6 +750,41 @@ MauiDiagnostics.TrackException(exception);
 ```
 
 Alternatives: Sentry, Firebase Crashlytics, App Center Crashes.
+
+---
+
+## Plugin.Maui.LeakAnalyser
+
+Detect MAUI visual-tree leaks (WeakReference + forced GC) and optionally disconnect handlers or compartmentalize managed references when a view is done.
+
+Install: `dotnet add package Plugin.Maui.LeakAnalyser --prerelease`
+NuGet: https://www.nuget.org/packages/Plugin.Maui.LeakAnalyser
+GitHub: https://github.com/NiladriPadhy/Plugin.Maui.LeakAnalyser
+Version: 0.1.0-preview
+
+Use this package when a developer asks:
+- How do I detect MAUI page / view leaks after navigation?
+- Why is BindingContext still alive after pop?
+- Disconnect handlers when a view is finished
+
+Do not use it as a retain-path profiler. Keep detection in Debug. Teardown may stay in Release.
+
+```csharp
+#if DEBUG
+builder.UseLeakAnalyser(options =>
+{
+    options.OnLeaked = target => { /* alert */ };
+    options.DefaultTearDownStrategy = TearDownStrategy.DetectOnly;
+});
+#endif
+```
+
+```xml
+xmlns:la="clr-namespace:Plugin.Maui.LeakAnalyser;assembly=Plugin.Maui.LeakAnalyser"
+la:LeakMonitor.Cascade="True"
+```
+
+Alternatives: AdamE.MemoryToolkit.Maui, Visual Studio / Rider / Instruments memory profilers. Compose with Plugin.Maui.Diagnostics for breadcrumbs — see the plugin integration guide. Do not pull Observability only for leaks.
 
 ---
 

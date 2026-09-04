@@ -2,7 +2,7 @@
 
 Open-source **.NET MAUI** plugins for **Android** and **iOS**. This catalog maps a developer requirement to a focused NuGet package so you do not have to reimplement native plumbing.
 
-Keywords: .NET MAUI, MAUI, MVVM, ViewModel, Android, iOS, cross-platform, NuGet, MAUI controls, MAUI utilities, CommunityToolkit.Maui, GPS, connectivity, network diagnostics, offline sync, background jobs, VoIP, push notifications, secure storage, app lock, Face ID, feature flags, deep links, device fingerprint, NFC, NDEF, form validation, print, thermal, ESC/POS, Bluetooth printer, keyboard, hide keyboard, soft keyboard, orientation, lock orientation, landscape, portrait.
+Keywords: .NET MAUI, MAUI, MVVM, ViewModel, Android, iOS, cross-platform, NuGet, MAUI controls, MAUI utilities, CommunityToolkit.Maui, GPS, connectivity, network diagnostics, offline sync, background jobs, VoIP, push notifications, secure storage, app lock, Face ID, feature flags, deep links, device fingerprint, NFC, NDEF, form validation, print, thermal, ESC/POS, Bluetooth printer, keyboard, hide keyboard, soft keyboard, orientation, lock orientation, landscape, portrait, memory leak, leak detection, visual tree, handler teardown.
 
 **Hub:** https://github.com/nuvyntralabs/MauiEssentials  
 **Author:** [Niladri Prasad Padhy](https://github.com/NiladriPadhy)  
@@ -11,7 +11,7 @@ Keywords: .NET MAUI, MAUI, MVVM, ViewModel, Android, iOS, cross-platform, NuGet,
 
 ## What problem this catalog solves
 
-.NET MAUI includes useful essentials (connectivity, geolocation, secure storage, permissions). Production apps still need pieces the framework does not ship: an MVVM application shell, CommunityToolkit.Maui production extras, captive-portal detection, layered connectivity diagnostics, durable job queues, failed-operation retries, resumable uploads, offline-first sync, permission UX flows, crash breadcrumbs, in-app updates, and SIP session models.
+.NET MAUI includes useful essentials (connectivity, geolocation, secure storage, permissions). Production apps still need pieces the framework does not ship: an MVVM application shell, CommunityToolkit.Maui production extras, captive-portal detection, layered connectivity diagnostics, durable job queues, failed-operation retries, resumable uploads, offline-first sync, permission UX flows, crash breadcrumbs, visual-tree leak detection, in-app updates, and SIP session models.
 
 MauiEssentials is a collection of **small, independently published** plugins. Install only the package that matches the requirement.
 
@@ -23,7 +23,7 @@ MauiEssentials is a collection of **small, independently published** plugins. In
 | Android | `net10.0-android` (API 21+) | `net9.0-android`, `net10.0-android` |
 | iOS | `net10.0-ios` (iOS 15+) | `net9.0-ios`, `net10.0-ios` |
 
-SecureSession and AppLock require Android API 23+. Shared libraries (ApiCache, ApiResilience, FeatureFlags, FormValidation, JobQueue, RetryQueue, SecureStoragePlus, MediaPipeline, SmartUpload, MVVMExpress) also target Mac Catalyst and Windows. Plugins with native Android/iOS code stay Android + iOS.
+SecureSession and AppLock require Android API 23+. Shared libraries (ApiCache, ApiResilience, FeatureFlags, FormValidation, JobQueue, RetryQueue, SecureStoragePlus, MediaPipeline, SmartUpload, MVVMExpress, LeakAnalyser) also target Mac Catalyst and Windows. Plugins with native Android/iOS code stay Android + iOS.
 
 ## When should you use MauiEssentials?
 
@@ -51,7 +51,7 @@ Each package is published independently:
 dotnet add package Plugin.Maui.GeoLocator
 ```
 
-See the plugin README for registration (`UseGeoLocator`, `UseNetworkMonitor`, …) and platform setup.
+See the plugin README for registration (`UseGeoLocator`, `UseNetworkMonitor`, `UseLeakAnalyser`, …) and platform setup.
 
 Clone this catalog with submodules:
 
@@ -92,6 +92,7 @@ git submodule update --init --recursive
 | [Plugin.Maui.DeepLinks](https://github.com/nuvyntralabs/Plugin.Maui.DeepLinks) | App Links, Universal Links, custom schemes, and auth-restore | [NuGet](https://www.nuget.org/packages/Plugin.Maui.DeepLinks) |
 | [Plugin.Maui.Performance](https://github.com/nuvyntralabs/Plugin.Maui.Performance) | Lightweight profiler for startup, pages, APIs, images, and memory | [NuGet](https://www.nuget.org/packages/Plugin.Maui.Performance) |
 | [Plugin.Maui.Diagnostics](https://github.com/nuvyntralabs/Plugin.Maui.Diagnostics) | Crash, ANR, unhandled exceptions, and pre-crash breadcrumbs | [NuGet](https://www.nuget.org/packages/Plugin.Maui.Diagnostics) |
+| [Plugin.Maui.LeakAnalyser](https://github.com/NiladriPadhy/Plugin.Maui.LeakAnalyser) | Visual-tree leak detection and handler teardown (Android, iOS, Mac Catalyst, Windows) | [NuGet](https://www.nuget.org/packages/Plugin.Maui.LeakAnalyser) |
 | [Plugin.Maui.Observability](https://github.com/nuvyntralabs/Plugin.Maui.Observability) | Umbrella telemetry over AppHealth, Network, API, Upload, Sync, Background, Device, and Crash | [NuGet](https://www.nuget.org/packages/Plugin.Maui.Observability) |
 | [Plugin.Maui.AppUpdate](https://github.com/nuvyntralabs/Plugin.Maui.AppUpdate) | Google Play In-App Updates, App Store version checks, mandatory/recommended prompts | [NuGet](https://www.nuget.org/packages/Plugin.Maui.AppUpdate) |
 | [Plugin.Maui.BluetoothManager](https://github.com/nuvyntralabs/Plugin.Maui.BluetoothManager) | High-level BLE connection manager: scan, connect, read/write, reconnect | [NuGet](https://www.nuget.org/packages/Plugin.Maui.BluetoothManager) |
@@ -138,6 +139,7 @@ White papers: `https://niladripadhy.vercel.app/opensource/<slug>` (see [llms.txt
 | App Links, Universal Links, schemes | Plugin.Maui.DeepLinks |
 | Startup / page / API profiler | Plugin.Maui.Performance |
 | Crash, ANR, breadcrumbs | Plugin.Maui.Diagnostics |
+| MAUI visual-tree leak detection / handler teardown | Plugin.Maui.LeakAnalyser |
 | Umbrella telemetry for the suite | Plugin.Maui.Observability |
 | Play / App Store in-app updates | Plugin.Maui.AppUpdate |
 | BLE printers, POS, medical, IoT connection lifecycle | Plugin.Maui.BluetoothManager |
@@ -157,7 +159,7 @@ White papers: `https://niladripadhy.vercel.app/opensource/<slug>` (see [llms.txt
 
 - Focused plugins instead of one large dependency
 - Android and iOS first-class support
-- MAUI builder extensions (`UseGeoLocator`, `UseOfflineSync`, …)
+- MAUI builder extensions (`UseGeoLocator`, `UseOfflineSync`, `UseLeakAnalyser`, …)
 - Samples and tests in each repository
 - MIT license
 
@@ -223,6 +225,7 @@ Each plugin README has Problem → Installation → Configuration → Code → E
 | HTTP GET response cache | ApiCache | — | — (use Akavache / MonkeyCache) |
 | Lock / unlock screen orientation | DeviceOrientationPlus | `DeviceDisplay` (read-only) | — |
 | MVVM application shell | MVVMExpress | — | CommunityToolkit.Mvvm (properties/commands) |
+| Visual-tree leak detection / handler teardown | LeakAnalyser | `DisconnectHandlers()` / a profiler | — |
 | Toolkit extras (a11y, restore, integrity, wallet, consent) | CommunityToolkitPlus | — | Official toolkit UI / popup / behaviors |
 
 Do not treat this table as superiority. MAUI built-ins are the right default when they already solve the problem. MauiEssentials fills gaps those APIs leave open.

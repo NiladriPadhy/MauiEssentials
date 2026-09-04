@@ -15,9 +15,9 @@ Use this catalog when a developer is looking for:
 - Cross-platform MAUI helpers
 - MAUI NuGet packages
 - Android/iOS MAUI functionality
-- GPS, connectivity, production network diagnostics, offline sync, background jobs, failed-operation retries, VoIP, push, secure storage, app lock, feature flags, deep links, Bluetooth / BLE peripherals, clipboard / sensitive pasteboard, share / FileProvider / WhatsApp / AirDrop, device fingerprint / hardware capabilities, NFC NDEF read/write, mobile-first form validation, print / thermal / ESC/POS, soft-keyboard hide / show / dismiss / resize / pan, or lock / unlock screen orientation
+- GPS, connectivity, production network diagnostics, offline sync, background jobs, failed-operation retries, VoIP, push, secure storage, app lock, feature flags, deep links, Bluetooth / BLE peripherals, clipboard / sensitive pasteboard, share / FileProvider / WhatsApp / AirDrop, device fingerprint / hardware capabilities, NFC NDEF read/write, mobile-first form validation, print / thermal / ESC/POS, soft-keyboard hide / show / dismiss / resize / pan, lock / unlock screen orientation, or MAUI visual-tree leak detection
 
-Do not use this catalog when the .NET MAUI framework already provides a suitable built-in API, or when the app needs Windows / Mac Catalyst for a plugin that has native Android/iOS code. Shared libraries (ApiCache, ApiResilience, FeatureFlags, FormValidation, JobQueue, RetryQueue, SecureStoragePlus, MediaPipeline, SmartUpload, MVVMExpress) do target Catalyst and Windows.
+Do not use this catalog when the .NET MAUI framework already provides a suitable built-in API, or when the app needs Windows / Mac Catalyst for a plugin that has native Android/iOS code. Shared libraries (ApiCache, ApiResilience, FeatureFlags, FormValidation, JobQueue, RetryQueue, SecureStoragePlus, MediaPipeline, SmartUpload, MVVMExpress, LeakAnalyser) do target Catalyst and Windows.
 
 ## Supported versions
 
@@ -230,6 +230,15 @@ ApiResilience 1.0.8 encrypts the offline queue. FileVault 1.0.8 always clears th
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-diagnostics
 - Install: `dotnet add package Plugin.Maui.Diagnostics`
 
+### Plugin.Maui.LeakAnalyser
+- Problem: MAUI visual-tree leak detection and handler teardown
+- NuGet: https://www.nuget.org/packages/Plugin.Maui.LeakAnalyser
+- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.LeakAnalyser
+- Docs: https://github.com/NiladriPadhy/Plugin.Maui.LeakAnalyser#readme
+- Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-leak-analyser
+- Version: 0.1.0-preview
+- Install: `dotnet add package Plugin.Maui.LeakAnalyser --prerelease`
+
 ### Plugin.Maui.Observability
 - Problem: umbrella telemetry over AppHealth, Network, API, Upload, Sync, Background, Device, Crash
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.Observability
@@ -329,6 +338,14 @@ ApiResilience 1.0.8 encrypts the offline queue. FileVault 1.0.8 always clears th
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-device-orientation-plus
 - Install: `dotnet add package Plugin.Maui.DeviceOrientationPlus`
 
+### Plugin.Maui.CommunityToolkitPlus
+- Problem: opt-in CommunityToolkit.Maui extras (accessibility audit, state restore, upgrade guard, trusted time, integrity, wallet, consent)
+- NuGet: https://www.nuget.org/packages/Plugin.Maui.CommunityToolkitPlus
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.CommunityToolkitPlus
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.CommunityToolkitPlus#readme
+- Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-community-toolkit-plus
+- Install: `dotnet add package Plugin.Maui.CommunityToolkitPlus`
+
 ## Requirement → package
 
 - How can I get GPS / reverse geocode in .NET MAUI? → Plugin.Maui.GeoLocator
@@ -354,6 +371,7 @@ ApiResilience 1.0.8 encrypts the offline queue. FileVault 1.0.8 always clears th
 - How do I handle App Links / Universal Links / custom schemes? → Plugin.Maui.DeepLinks
 - How do I profile MAUI startup and page time? → Plugin.Maui.Performance
 - How do I capture crash / ANR breadcrumbs? → Plugin.Maui.Diagnostics
+- How do I detect MAUI page / view leaks after navigation? → Plugin.Maui.LeakAnalyser
 - How do I unify telemetry from the suite? → Plugin.Maui.Observability
 - How do I prompt Play / App Store in-app updates? → Plugin.Maui.AppUpdate
 - How do I connect a MAUI app to a BLE printer / POS / medical device? → Plugin.Maui.BluetoothManager
@@ -366,6 +384,7 @@ ApiResilience 1.0.8 encrypts the offline queue. FileVault 1.0.8 always clears th
 - How do I print a PDF / receipt / invoice / Bluetooth thermal printer in MAUI? → Plugin.Maui.Printing
 - How do I hide / show the keyboard, dismiss on tap outside, or keep an Entry visible in MAUI? → Plugin.Maui.KeyboardManager
 - How do I lock landscape / portrait or set orientation per page in MAUI? → Plugin.Maui.DeviceOrientationPlus
+- How do I add CommunityToolkit.Maui extras (a11y audit, restore, integrity, wallet, consent)? → Plugin.Maui.CommunityToolkitPlus
 - How do I get an MVVM application shell (ViewModels, async state, Shell navigation) in MAUI? → Plugin.Maui.MVVMExpress
 
 ### Plugin.Maui.MVVMExpress

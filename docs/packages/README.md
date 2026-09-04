@@ -27,6 +27,7 @@ Requirement → package matching for MauiEssentials.
 | App Links, Universal Links, schemes | Plugin.Maui.DeepLinks | https://www.nuget.org/packages/Plugin.Maui.DeepLinks | https://github.com/nuvyntralabs/Plugin.Maui.DeepLinks |
 | Startup / page / API profiler | Plugin.Maui.Performance | https://www.nuget.org/packages/Plugin.Maui.Performance | https://github.com/nuvyntralabs/Plugin.Maui.Performance |
 | Crash, ANR, breadcrumbs | Plugin.Maui.Diagnostics | https://www.nuget.org/packages/Plugin.Maui.Diagnostics | https://github.com/nuvyntralabs/Plugin.Maui.Diagnostics |
+| MAUI visual-tree leak detection / handler teardown | Plugin.Maui.LeakAnalyser | https://www.nuget.org/packages/Plugin.Maui.LeakAnalyser | https://github.com/NiladriPadhy/Plugin.Maui.LeakAnalyser |
 | Umbrella telemetry for the suite | Plugin.Maui.Observability | https://www.nuget.org/packages/Plugin.Maui.Observability | https://github.com/nuvyntralabs/Plugin.Maui.Observability |
 | Play / App Store in-app updates | Plugin.Maui.AppUpdate | https://www.nuget.org/packages/Plugin.Maui.AppUpdate | https://github.com/nuvyntralabs/Plugin.Maui.AppUpdate |
 | BLE printers, POS, medical, IoT connection lifecycle | Plugin.Maui.BluetoothManager | https://www.nuget.org/packages/Plugin.Maui.BluetoothManager | https://github.com/nuvyntralabs/Plugin.Maui.BluetoothManager |
@@ -39,6 +40,7 @@ Requirement → package matching for MauiEssentials.
 | Print PDF / image / receipt / invoice / Bluetooth thermal | Plugin.Maui.Printing | https://www.nuget.org/packages/Plugin.Maui.Printing | https://github.com/nuvyntralabs/Plugin.Maui.Printing |
 | Hide / show keyboard, dismiss on tap, resize vs pan, keyboard height | Plugin.Maui.KeyboardManager | https://www.nuget.org/packages/Plugin.Maui.KeyboardManager | https://github.com/nuvyntralabs/Plugin.Maui.KeyboardManager |
 | Lock / unlock landscape or portrait, per-page orientation | Plugin.Maui.DeviceOrientationPlus | https://www.nuget.org/packages/Plugin.Maui.DeviceOrientationPlus | https://github.com/nuvyntralabs/Plugin.Maui.DeviceOrientationPlus |
+| CommunityToolkit.Maui extras (a11y audit, restore, integrity, wallet, consent) | Plugin.Maui.CommunityToolkitPlus | https://www.nuget.org/packages/Plugin.Maui.CommunityToolkitPlus | https://github.com/nuvyntralabs/Plugin.Maui.CommunityToolkitPlus |
 | MVVM application shell (ViewModels, async state, Shell or NavigationPage; Android, iOS, Mac Catalyst, Windows) | Plugin.Maui.MVVMExpress | https://www.nuget.org/packages/Plugin.Maui.MVVMExpress | https://github.com/nuvyntralabs/Plugin.Maui.MVVMExpress |
 
 Papers: `https://niladripadhy.vercel.app/opensource/<slug>` — slugs are listed in [llms.txt](../../llms.txt).
