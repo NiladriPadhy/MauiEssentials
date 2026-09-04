@@ -759,7 +759,7 @@ Detect MAUI visual-tree leaks (WeakReference + forced GC) and optionally disconn
 
 Install: `dotnet add package Plugin.Maui.LeakAnalyser --prerelease`
 NuGet: https://www.nuget.org/packages/Plugin.Maui.LeakAnalyser
-GitHub: https://github.com/NiladriPadhy/Plugin.Maui.LeakAnalyser
+GitHub: https://github.com/nuvyntralabs/Plugin.Maui.LeakAnalyser
 Version: 0.1.0-preview
 
 Use this package when a developer asks:

@@ -233,8 +233,8 @@ ApiResilience 1.0.8 encrypts the offline queue. FileVault 1.0.8 always clears th
 ### Plugin.Maui.LeakAnalyser
 - Problem: MAUI visual-tree leak detection and handler teardown
 - NuGet: https://www.nuget.org/packages/Plugin.Maui.LeakAnalyser
-- GitHub: https://github.com/NiladriPadhy/Plugin.Maui.LeakAnalyser
-- Docs: https://github.com/NiladriPadhy/Plugin.Maui.LeakAnalyser#readme
+- GitHub: https://github.com/nuvyntralabs/Plugin.Maui.LeakAnalyser
+- Docs: https://github.com/nuvyntralabs/Plugin.Maui.LeakAnalyser#readme
 - Paper: https://niladripadhy.vercel.app/opensource/plugin-maui-leak-analyser
 - Version: 0.1.0-preview
 - Install: `dotnet add package Plugin.Maui.LeakAnalyser --prerelease`

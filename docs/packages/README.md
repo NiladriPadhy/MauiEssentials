@@ -27,7 +27,7 @@ Requirement → package matching for MauiEssentials.
 | App Links, Universal Links, schemes | Plugin.Maui.DeepLinks | https://www.nuget.org/packages/Plugin.Maui.DeepLinks | https://github.com/nuvyntralabs/Plugin.Maui.DeepLinks |
 | Startup / page / API profiler | Plugin.Maui.Performance | https://www.nuget.org/packages/Plugin.Maui.Performance | https://github.com/nuvyntralabs/Plugin.Maui.Performance |
 | Crash, ANR, breadcrumbs | Plugin.Maui.Diagnostics | https://www.nuget.org/packages/Plugin.Maui.Diagnostics | https://github.com/nuvyntralabs/Plugin.Maui.Diagnostics |
-| MAUI visual-tree leak detection / handler teardown | Plugin.Maui.LeakAnalyser | https://www.nuget.org/packages/Plugin.Maui.LeakAnalyser | https://github.com/NiladriPadhy/Plugin.Maui.LeakAnalyser |
+| MAUI visual-tree leak detection / handler teardown | Plugin.Maui.LeakAnalyser | https://www.nuget.org/packages/Plugin.Maui.LeakAnalyser | https://github.com/nuvyntralabs/Plugin.Maui.LeakAnalyser |
 | Umbrella telemetry for the suite | Plugin.Maui.Observability | https://www.nuget.org/packages/Plugin.Maui.Observability | https://github.com/nuvyntralabs/Plugin.Maui.Observability |
 | Play / App Store in-app updates | Plugin.Maui.AppUpdate | https://www.nuget.org/packages/Plugin.Maui.AppUpdate | https://github.com/nuvyntralabs/Plugin.Maui.AppUpdate |
 | BLE printers, POS, medical, IoT connection lifecycle | Plugin.Maui.BluetoothManager | https://www.nuget.org/packages/Plugin.Maui.BluetoothManager | https://github.com/nuvyntralabs/Plugin.Maui.BluetoothManager |
